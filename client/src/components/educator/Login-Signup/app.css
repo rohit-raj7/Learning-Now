@@ -1,0 +1,17 @@
+/* StreamingHero.css */
+.hero-container {
+  font-family: 'Georgia', serif;
+  padding: 40px;
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+
+.animated-box {
+  display: inline-block;
+  padding: 0.3em 0.6em;
+  border: 1px solid #15d693;
+  border-radius: 12px;
+  font-family: 'Courier New', monospace;
+  color: #10b27c;
+  transition: opacity 0.5s ease-in-out;
+}
