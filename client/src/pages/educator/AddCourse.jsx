@@ -1,5 +1,3 @@
- 
-
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { assets } from '../../assets/assets';
 import { toast } from 'react-toastify';
@@ -11,7 +9,8 @@ import Loading from '../../components/educator/Login-Signup/Loading';
 
 const AddCourse = () => {
   const editorRef = useRef(null);
-  const quillRef = useRef(null); 
+  const quillRef = useRef(null);
+  const [loading, setLoading] = useState(false);
 
   const { API_URL } = useContext(AppContext);
 
@@ -94,9 +93,11 @@ const AddCourse = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     if (!image) {
       toast.error('Thumbnail Not Selected');
+      setLoading(false);
       return;
     }
 
@@ -115,6 +116,7 @@ const AddCourse = () => {
     const token = localStorage.getItem('token');
     if (!token) {
       toast.error("Token not found. Please login again.");
+      setLoading(false);
       return;
     }
 
@@ -142,6 +144,8 @@ const AddCourse = () => {
       }
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -304,9 +308,9 @@ const AddCourse = () => {
           )}
         </div>
 
-        <button type='submit' className='bg-blue-500 text-white w-max py-2.5 px-8 rounded my-4'>
-           ADD
-          </button>
+        <button type='submit' className='bg-blue-500 text-white w-max py-2.5 px-8 rounded my-4' disabled={loading}>
+          {loading ? 'Adding...' : 'ADD'}
+        </button>
       </form>
     </div>
   );
