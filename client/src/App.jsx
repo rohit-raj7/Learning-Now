@@ -25,13 +25,15 @@ import AddCourse from './pages/educator/AddCourse'
 import MyCourses from './pages/educator/MyCourses'
 import StudentsEnrolled from './pages/educator/StudentsEnrolled'
 import Educator from './pages/educator/Educator'
-
-// Route handlers
-import UserRoutes from './pages/routes/UserRoutes.jsx'; 
+import Player from './pages/student/Player'
+import MyEnrollments from './pages/student/MyEnrollments'
+import CourseDetails from './pages/student/CourseDetails'
+import CoursesList from './pages/student/CoursesList'
 
 import 'quill/dist/quill.snow.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import Student from './pages/student/Student.jsx';
 
 const App = () => {
   const isEducatorRoute = useMatch('/educator/*'); 
@@ -58,8 +60,12 @@ const App = () => {
         <Route path="/educator/login" element={<LoginEducator />} />
         <Route path="/educator/forgot-password" element={<ForgotPasswordEducator />} />
 
-        {/* Dynamic Student Routes */}
-         <Route path="/user/*" element={<UserRoutes />} />  
+       <Route path='/user' element={<Student/>}/>
+         <Route path="/course/:id" element={<CourseDetails />} />
+        <Route path="/course-list" element={<CoursesList />} />
+        <Route path="/course-list/:input" element={<CoursesList />} />
+        <Route path="/user/my-enrollments" element={<MyEnrollments />} />
+        <Route path="/player/:courseId" element={<Player />} />
 
          <Route path='/educator' element={<Educator />}>
           <Route path='/educator' element={<Dashboard />} />
