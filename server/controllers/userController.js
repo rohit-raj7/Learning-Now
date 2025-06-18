@@ -441,44 +441,90 @@ export const userEnrolledCourses = async (req, res) => {
 };
 
 
-export const updateUserCourseProgress = async (req, res) => {
+// export const updateUserCourseProgress = async (req, res) => {
 
-  try {
+//   try {
 
-    const userId = req.user?._id || req.auth?.userId;
+//     const userId = req.user?._id || req.auth?.userId;
 
-    const { courseId, lectureId } = req.body
+//     const { courseId, lectureId } = req.body
 
-    const progressData = await CourseProgress.findOne({ userId, courseId })
+//     const progressData = await CourseProgress.findOne({ userId, courseId })
 
-    if (progressData) {
+//     if (progressData) {
 
-      if (progressData.lectureCompleted.includes(lectureId)) {
-        return res.json({ success: true, message: 'Lecture Already Completed' })
-      }
+//       if (progressData.lectureCompleted.includes(lectureId)) {
+//         return res.json({ success: true, message: 'Lecture Already Completed' })
+//       }
 
-      progressData.lectureCompleted.push(lectureId)
-      await progressData.save()
+//       progressData.lectureCompleted.push(lectureId)
+//       await progressData.save()
 
-    } else {
+//     } else {
 
-      await CourseProgress.create({
-        userId,
-        courseId,
-        lectureCompleted: [lectureId]
-      })
+//       await CourseProgress.create({
+//         userId,
+//         courseId,
+//         lectureCompleted: [lectureId]
+//       })
 
-    }
+//     }
 
-    res.json({ success: true, message: 'Progress Updated' })
+//     res.json({ success: true, message: 'Progress Updated' })
 
-  } catch (error) {
-    res.json({ success: false, message: error.message })
-  }
+//   } catch (error) {
+//     res.json({ success: false, message: error.message })
+//   }
 
-}
+// }
 
 // get User Course Progress
+
+export const updateUserCourseProgress = async (req, res) => {
+  try {
+    const userId = req.user?._id || req.auth?.userId;
+    const { courseId, lectureId } = req.body;
+
+    // Get course to count total lectures
+    const course = await Course.findById(courseId);
+    if (!course) return res.status(404).json({ success: false, message: "Course not found" });
+
+    const totalLectures = course.courseContent.reduce(
+      (acc, chapter) => acc + chapter.chapterContent.length,
+      0
+    );
+
+    let progressData = await CourseProgress.findOne({ userId, courseId });
+
+    if (progressData) {
+      // Prevent duplicate entries
+      if (!progressData.lectureCompleted.includes(lectureId)) {
+        progressData.lectureCompleted.push(lectureId);
+      }
+
+      // Mark complete if all lectures are done
+      progressData.completed = progressData.lectureCompleted.length >= totalLectures;
+
+      await progressData.save();
+    } else {
+      // First lecture being marked
+      const newProgress = new CourseProgress({
+        userId,
+        courseId,
+        lectureCompleted: [lectureId],
+        completed: totalLectures === 1,
+      });
+      await newProgress.save();
+    }
+
+    return res.status(200).json({ success: true, message: 'Progress Updated' });
+  } catch (error) {
+    console.error("Update course progress error:", error);
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+
 export const getUserCourseProgress = async (req, res) => {
 
   try {
