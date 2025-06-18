@@ -1,4 +1,4 @@
-// src/routes/UserRoutes.jsx
+
 import React from 'react';
 import { Routes, Route, useParams } from 'react-router-dom';
 import MyEnrollments from './../student/MyEnrollments'
