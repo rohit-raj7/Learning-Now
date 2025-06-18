@@ -286,6 +286,34 @@ export const getEducatorCourses = async (req, res) => {
   }
 };
 
+
+ // getEducatorData 
+export const getEducatorData = async (req, res) => {
+  try {
+    const educatorId = req.educator?._id || req.auth?.educatorId;
+
+    if (!educatorId) {
+      return res.status(400).json({ success: false, message: 'Invalid or missing user ID' });
+    }
+
+    const educator = await EducatorUser.findById(educatorId).select('-password');
+
+    if (!educator) {
+      return res.status(404).json({ success: false, message: 'Educator not found' });
+    }
+
+    res.status(200).json({ success: true, educator });
+
+  } catch (error) {
+    console.error('Error fetching user data:', error.message);
+    res.status(500).json({ success: false, message: 'Server error: ' + error.message });
+  }
+};
+  
+
+
+
+
 // Get Educator Dashboard Data (Total Earning, Enrolled Students, No. of Courses)
 export const educatorDashboardData = async (req, res) => {
   try {

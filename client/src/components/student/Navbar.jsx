@@ -1,6 +1,6 @@
- 
 
- import React, { useContext, useRef, useState } from 'react';
+
+import React, { useContext, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { assets } from '../../assets/assets';
 import { AppContext } from '../../context/AppContext';
@@ -13,7 +13,7 @@ const Navbar = () => {
     educatorData,
     user,
     userData,
-    logout ,
+    logout,
     setUserData,
   } = useContext(AppContext);
 
@@ -69,6 +69,7 @@ const Navbar = () => {
   }
 
   return (
+
     <div className="bg-[#112d46] border-b border-gray-500 px-4 py-3 flex justify-between items-center">
       <img
         src={assets.logo}
@@ -78,8 +79,12 @@ const Navbar = () => {
       />
 
       {isUser ? (
-        <div className="flex items-center gap-5 text-gray-500 relative">
-          <p className="text-white">Hi! {profileName}</p>
+        <div className="flex items-center gap-4 text-gray-500 relative">
+
+          <p className="text-white">My Enrollment</p> <span className='text-white'>|</span>
+
+          {/* 👇 Hide greeting on mobile */}
+          <p className="text-white hidden sm:block">Hi! {profileName}</p>
 
           <img
             src={profileImage}
@@ -87,62 +92,92 @@ const Navbar = () => {
             onClick={toggleDropdown}
             className="w-10 h-10 rounded-full border-2 border-cyan-500 cursor-pointer object-cover"
           />
+       {showProfileDropdown && (
+  <div className="absolute top-14 right-0 w-64 sm:w-80 z-50 p-5 bg-gray-900 text-gray-100 rounded-xl shadow-xl border border-gray-800">
 
-          {showProfileDropdown && (
-            <div className="absolute top-14 right-0 bg-white shadow-md rounded-lg w-64 z-50 p-4 text-black">
-              <button
-                onClick={logout}
-                className="w-full text-left px-3 py-2 hover:bg-red-500 hover:text-white rounded text-red-700"
-              >
-                Logout
-              </button>
+    {/* Profile Info */}
+    <div className="flex flex-col items-center text-center mb-5">
+      <img
+        src={userData?.imageUrl || assets.default_user}
+        alt="Profile"
+        className="w-24 h-24 rounded-full object-cover border-4 border-cyan-500 shadow-lg"
+      />
+      <h2 className="mt-3 text-lg font-semibold">
+        {userData?.fullName || userData?.name || 'User'}
+      </h2>
+      <p className="text-sm text-gray-400">{userData?.email || 'No email provided'}</p>
+      <div className="mt-2 text-xs sm:text-sm text-gray-400 space-y-1">
+        <p><strong>Mobile:</strong> {userData?.mobile || 'N/A'}</p>
+        <p><strong>Total Courses:</strong> {userData?.enrolledCourses?.length || 0}</p>
+        <p><strong>Last Updated:</strong> {userData?.updatedAt ? new Date(userData.updatedAt).toLocaleDateString() : 'N/A'}</p>
+      </div>
+    </div>
 
-              <div className="mt-2">
-                <label className="block mb-1 font-medium">Change Profile Image</label>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className="w-full text-sm"
-                />
-              </div>
+    <hr className="border-gray-700 mb-4" />
 
-              <div className="mt-3">
-                <label className="block mb-1 font-medium">Mobile Number</label>
-                <input
-                  type="text"
-                  value={mobileNumber}
-                  onChange={(e) => setMobileNumber(e.target.value)}
-                  className="w-full px-2 py-1 border rounded"
-                />
-                <button
-                  onClick={handleMobileUpdate}
-                  className="bg-blue-600 text-white mt-2 px-3 py-1 rounded"
-                >
-                  Update
-                </button>
-              </div>
-            </div>
-          )}
+    {/* Upload Profile Image */}
+    <div className="mb-4">
+      <label htmlFor="profile-image" className="block text-sm font-medium mb-1">Change Profile Image</label>
+      <input
+        id="profile-image"
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        className="block w-full text-sm bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+      />
+    </div>
+
+    {/* Update Mobile Number */}
+    <div className="mb-5">
+      <label htmlFor="mobile-number" className="block text-sm font-medium mb-1">Mobile Number</label>
+      <input
+        id="mobile-number"
+        type="text"
+        value={mobileNumber}
+        onChange={(e) => setMobileNumber(e.target.value)}
+        className="block w-full px-3 py-2 border border-gray-600 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+      />
+      <button
+        onClick={handleMobileUpdate}
+        className="mt-2 w-full bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-2 px-4 rounded-lg transition"
+      >
+        Update Mobile
+      </button>
+    </div>
+
+    {/* Logout Button */}
+    <button
+      onClick={logout}
+      className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg transition"
+    >
+      Logout
+    </button>
+  </div>
+)}
+
         </div>
       ) : (
-        <div className="flex gap-3">
-          <button
-            onClick={() => navigate('/user/signup')}
-            className="bg-blue-600 text-white px-5 py-2 rounded-full"
-          >
-            Let’s Start Learning
-          </button>
-          <button
-            onClick={() => navigate('/educator/signup')}
-            className="bg-green-600 text-white px-5 py-2 rounded-full"
-          >
-            Become Educator
-          </button>
-        </div>
+       <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 items-center sm:items-start">
+  <button
+    onClick={() => navigate('/user/signup')}
+    className="bg-blue-600 text-white text-sm sm:text-base px-4 py-2 rounded-full w-fit sm:w-auto"
+  >
+    Let’s Start Learning
+  </button>
+  <button
+    onClick={() => navigate('/educator/signup')}
+    className="bg-green-600 text-white text-sm sm:text-base px-4 py-2 rounded-full w-fit sm:w-auto"
+  >
+    Become Educator
+  </button>
+</div>
+
+
+
       )}
     </div>
+
   );
 };
 

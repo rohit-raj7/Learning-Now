@@ -6,7 +6,7 @@ import { verifyToken } from '../middlewares/auth.js';
 import { generateAccessToken } from '../utils/generateTokens.js';
 
 import {
-  addCourse,
+  addCourse,getEducatorData,
   educatorDashboardData,
   getEducatorCourses,
   getEnrolledStudentsData,
@@ -55,6 +55,7 @@ educatorRouter.post('/token/refresh', async (req, res) => {
 });
 
 // ==== Educator Protected Routes ====
+educatorRouter.get('/data', verifyToken, getEducatorData); 
 educatorRouter.get('/update-role', verifyToken, updateRoleToEducator);
 educatorRouter.post('/add-course', verifyToken, upload.single('image'), addCourse);
 educatorRouter.get('/courses', verifyToken, getEducatorCourses);

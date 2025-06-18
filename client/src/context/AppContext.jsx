@@ -73,7 +73,7 @@ export const AppContextProvider = (props) => {
 
   const fetchEducatorData = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/educator/data`, {
+      const response = await fetch(`${API_URL}/api/educator/data`, {    
         headers: { Authorization: localStorage.getItem("token") },
       });
       const result = await response.json();

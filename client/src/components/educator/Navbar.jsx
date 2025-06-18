@@ -31,11 +31,9 @@ const name = userName || educatorName || "User";
 console.log("EducatorData:", educatorData);
 console.log("Educator:", educator);
 
-const profileImgSrc =
-  user?.profileImage ||
-  educatorData?.profileImage ||
-  user?.imageUrl ||
-  educatorData?.imageUrl ||
+const profileImgSrc = educatorData?.imageUrl ||  educator?.imageUrl || 
+  educatorData?.profileImage || user?.profileImage ||
+  user?.imageUrl || 
   assets.default_user;
 
   const handleFileChange = async (e) => {
@@ -70,15 +68,16 @@ const profileImgSrc =
         <img src={assets.logo} alt="Logo" className="w-16 cursor-pointer" />
       </Link>
 
-      <div className="flex items-center gap-5 text-gray-500 relative">
-        <p className="text-white">
-          Hi! {educatorName || userName || name} </p>
-
+      <div className="flex items-center gap-6 text-gray-500 relative">
+       
         {isEducator && (
           <Link to="/educator" className="text-cyan-400 hover:underline hidden sm:inline">
             Dashboard
           </Link>
         )}
+         <p className="text-white">
+          Hi! {educatorName || userName || name} </p>
+
 
         <img
           src={profileImgSrc}
@@ -86,44 +85,69 @@ const profileImgSrc =
           onClick={toggleDropdown}
           className="w-10 h-10 rounded-full border-2 border-cyan-500 cursor-pointer object-cover"
         />
+{showProfileDropdown && (
+  <div className="absolute top-14 right-0 w-80 z-50 p-5 bg-gray-900 text-gray-100 rounded-xl shadow-xl border border-gray-700">
 
-        {showProfileDropdown && (
-          <div className="absolute top-14 right-0 bg-white shadow-md rounded-lg w-64 z-50 p-4 text-black">
-            <button
-              onClick={logout}
-              className="w-full text-left px-3 py-2 hover:bg-red-500 hover:text-white rounded text-red-700"
-            >
-              Logout
-            </button>
+    {/* Profile Summary */}
+    <div className="flex flex-col items-center gap-3 mb-5">
+      <img
+        src={profileImgSrc}
+        alt="Profile"
+        className="w-24 h-24 rounded-full object-cover border-4 border-cyan-500 shadow-lg"
+      />
+      <h2 className="text-xl font-semibold">{educatorName}</h2>
+      <p className="text-gray-300">{educatorData?.email}</p>
+      <div className="  text-gray-300 space-y-1 text-center mt-1">
+        <p><span className="font-semibold text-cyan-400">Role:</span> {educatorData?.role || 'Educator'}</p>
+        <p><span className="font-semibold text-cyan-400">Total Courses:</span> {educatorData?.totalCourses || educatorData?.courses?.length || 0}</p>
+      </div>
+    </div>
 
-            <div className="mt-2">
-              <label className="block mb-1 font-medium">Change Profile Image</label>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-                className="w-full text-sm"
-              />
-            </div>
+    <hr className="border-gray-700 my-4" />
 
-            <div className="mt-3">
-              <label className="block mb-1 font-medium">Mobile Number</label>
-              <input
-                type="text"
-                value={mobileNumber}
-                onChange={(e) => setMobileNumber(e.target.value)}
-                className="w-full px-2 py-1 border rounded"
-              />
-              <button
-                onClick={handleMobileUpdate}
-                className="bg-blue-600 text-white mt-2 px-3 py-1 rounded"
-              >
-                Update
-              </button>
-            </div>
-          </div>
-        )}
+    {/* Upload Profile Image */}
+    <div className="mb-4">
+      <label className="block text-sm font-medium text-gray-200 mb-1">Change Profile Image</label>
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        className="w-full text-sm bg-gray-800 border border-gray-600 rounded-md px-2 py-1 text-gray-100 file:mr-2 file:py-1 file:px-3 file:border-none file:rounded file:bg-cyan-600 file:text-white hover:file:bg-cyan-700 transition"
+      />
+    </div>
+
+    {/* Mobile Number Section */}
+    <div className="mb-4">
+      <label className="block text-sm font-medium text-gray-200 mb-1">Mobile Number</label>
+      <input
+        type="text"
+        value={mobileNumber}
+        onChange={(e) => setMobileNumber(e.target.value)}
+        className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+      />
+       
+      <button
+        onClick={handleMobileUpdate}
+        className="mt-2 w-full bg-cyan-600 hover:bg-cyan-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200"
+      >
+        Update Information
+      </button>
+      
+    </div> 
+
+    {/* Logout Button */}
+    <button
+      onClick={logout}
+      className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
+    >
+      Logout
+    </button>
+  </div>
+)}
+
+
+
       </div>
     </div>
   ) : null;
