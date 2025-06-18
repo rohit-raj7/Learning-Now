@@ -3,42 +3,46 @@ import { assets } from '../../assets/assets'
 import { AppContext } from '../../context/AppContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import Loading from '../../components/student/Loading'; 
+import Loading from '../../components/student/Loading';
 
 
 const Dashboard = () => {
 
-  const { VITE_BACKEND_URL, isEducator, currency,getToken } = useContext(AppContext) 
+  const { isEducator, currency } = useContext(AppContext)
 
   const [dashboardData, setDashboardData] = useState(null)
 
   const fetchDashboardData = async () => {
     try {
+      const API_URL = 'http://localhost:3001/api/educator/dashboard';
 
-      const token = await getToken()
+      const token = localStorage.getItem('token'); // ✅ define it first
+      if (!token) {
+        toast.error("Token not found. Please login again.");
+        return;
+      }
 
-      
-    if (!token) {
-      toast.error("Token not found. Please login again.");
-      return;
-    }
+      const headers = {
+        headers: {
+          'Authorization': token
+        }
+      };
 
-    console.log("Token dashboard:", token); 
-
-      const { data } = await axios.get(VITE_BACKEND_URL + '/api/educator/dashboard',
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
+      const response = await axios.get(API_URL, headers);  
+      const data = response.data;
 
       if (data.success) {
-        setDashboardData(data.dashboardData)
+        setDashboardData(data.dashboardData);
       } else {
-        toast.error(data.message)
+        toast.error(data.message);
       }
 
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.message);
     }
   }
+
+
 
   useEffect(() => {
 
@@ -47,52 +51,6 @@ const Dashboard = () => {
     }
 
   }, [isEducator])
-
-  const studentsData = [
-    {
-      id: 1,
-      name: 'Richard Sanford',
-      profileImage: assets.profile_img,
-      courseTitle: 'Build Text to Image SaaS App in React JS',
-      date: '22 Aug, 2024'
-    },
-    {
-      id: 2,
-      name: 'Enrique Murphy',
-      profileImage: assets.profile_img2,
-      courseTitle: 'Build Text to Image SaaS App in React JS',
-      date: '22 Aug, 2024'
-    },
-    {
-      id: 3,
-      name: 'Alison Powell',
-      profileImage: assets.profile_img3,
-      courseTitle: 'Build Text to Image SaaS App in React JS',
-      date: '22 Aug, 2024'
-    },
-    {
-      id: 4,
-      name: 'Richard Sanford',
-      profileImage: assets.profile_img,
-      courseTitle: 'Build Text to Image SaaS App in React JS',
-      date: '22 Aug, 2024'
-    },
-    {
-      id: 5,
-      name: 'Enrique Murphy',
-      profileImage: assets.profile_img2,
-      courseTitle: 'Build Text to Image SaaS App in React JS',
-      date: '22 Aug, 2024'
-    },
-    {
-      id: 6,
-      name: 'Alison Powell',
-      profileImage: assets.profile_img3,
-      courseTitle: 'Build Text to Image SaaS App in React JS',
-      date: '22 Aug, 2024'
-    }
-  ];
-
 
   return dashboardData ? (
     <div className='min-h-screen flex flex-col bg-gray-800 text-gray-200 items-start justify-between gap-8 md:p-8 md:pb-0 p-4 pt-8 pb-0'>
@@ -142,6 +100,11 @@ const Dashboard = () => {
                         className="w-9 h-9 rounded-full"
                       />
                       <span className="truncate">{item.student.name}</span>
+                      <div className="flex items-center gap-1 text-xs text-gray-400">
+                        <h3 className="text-sm text-gray-200">studentId:</h3>
+                        <span>{item.student.email || item.student._id}</span>
+                      </div>
+
                     </td>
                     <td className="px-4 py-3 truncate">{item.courseTitle}</td>
                   </tr>
@@ -158,7 +121,6 @@ const Dashboard = () => {
 export default Dashboard
 
 
- 
 
 
 
@@ -170,4 +132,4 @@ export default Dashboard
 
 
 
- 
+

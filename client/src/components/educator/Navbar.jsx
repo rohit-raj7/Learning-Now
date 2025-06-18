@@ -28,8 +28,8 @@ const Navbar = ({ bgColor = 'bg-[#112d46]' }) => {
 const userName = user?.fullName || user?.name || user?.email;
 const educatorName = educatorData?.fullName || educatorData?.name || educatorData?.email || educator.name || educator.fullName || educator.email || "Educator";
 const name = userName || educatorName || "User";
-console.log("EducatorData:", educatorData);
-console.log("Educator:", educator);
+// console.log("EducatorData:", educatorData);
+// console.log("Educator:", educator);
 
 const profileImgSrc = educatorData?.imageUrl ||  educator?.imageUrl || 
   educatorData?.profileImage || user?.profileImage ||

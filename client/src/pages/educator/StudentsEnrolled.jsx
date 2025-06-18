@@ -6,18 +6,23 @@ import Loading from '../../components/student/Loading';
 
 const StudentsEnrolled = () => {
 
-  const { VITE_BACKEND_URL, getToken, isEducator } = useContext(AppContext)
+  const { API_URL, isEducator } = useContext(AppContext)
 
   const [enrolledStudents, setEnrolledStudents] = useState(null)
 
   const fetchEnrolledStudents = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast.error("Token not found. Please login again.");
+      return;
+    }
     try {
-      const token = await getToken()
-
-      const { data } = await axios.get(VITE_BACKEND_URL + '/api/educator/enrolled-students',
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-
+       
+      const { data } = await axios.get(`${API_URL}/api/educator/enrolled-students`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (data.success) {
         setEnrolledStudents(data.enrolledStudents.reverse())
       } else {

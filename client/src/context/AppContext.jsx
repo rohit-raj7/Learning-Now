@@ -24,10 +24,37 @@ export const AppContextProvider = (props) => {
   const isLoggedIn = Boolean(userData || educatorData);
 
   useEffect(() => {
-    console.log("User Data:", userData);
-    console.log("Educator Data:", educatorData);
-    console.log("isLoggedIn:", isLoggedIn);
+    // console.log("User Data:", userData);
+    // console.log("Educator Data:", educatorData);
+    // console.log("isLoggedIn:", isLoggedIn);
   }, [userData, educatorData]);
+
+
+  // useEffect(() => {
+
+  //   const token = {
+  //     headers: {
+  //       'Authorization': localStorage.getItem('token')
+  //     }
+  //   }
+  //   const educatorType = localStorage.getItem("educator");
+  //   if (token && educatorType) {
+  //     setEducator(educatorType);
+  //     setIsEducator(true);
+  //   }
+  // }, []);
+
+useEffect(() => {
+  const token = localStorage.getItem("token");
+  
+  const educatorType = localStorage.getItem("educator");
+ 
+  if (token && educatorType) {
+    setEducator(educatorType);
+    setIsEducator(true); // ✅ FIX: Make sure to set this
+  }
+}, []);
+
 
   const logoutUser = () => {
     localStorage.removeItem("token");
@@ -44,7 +71,7 @@ export const AppContextProvider = (props) => {
     localStorage.removeItem("educator");
     setEducatorData(null);
     setEducator("");
-    setIsEducator(false);
+    // setIsEducator(false);
     toast.success("Educator logged out!");
     navigate("/");
     window.location.reload();
@@ -57,6 +84,7 @@ export const AppContextProvider = (props) => {
 
   const fetchUserData = async () => {
     try {
+
       const response = await fetch(`${API_URL}/api/user/data`, {
         headers: { Authorization: localStorage.getItem("token") },
       });
@@ -73,7 +101,7 @@ export const AppContextProvider = (props) => {
 
   const fetchEducatorData = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/educator/data`, {    
+      const response = await fetch(`${API_URL}/api/educator/data`, {
         headers: { Authorization: localStorage.getItem("token") },
       });
       const result = await response.json();
@@ -151,9 +179,9 @@ export const AppContextProvider = (props) => {
     const userType = localStorage.getItem("user");
     const educatorType = localStorage.getItem("educator");
 
-    console.log("Token:", token);
-    console.log("User:", userType);
-    console.log("Educator:", educatorType);
+    // console.log("Token:", token);
+    // console.log("User:", userType);
+    // console.log("Educator:", educatorType);
 
     if (token && userType) setUser(userType);
     if (token && educatorType) setEducator(educatorType);
@@ -217,4 +245,3 @@ export const AppContextProvider = (props) => {
   );
 };
 
- 
