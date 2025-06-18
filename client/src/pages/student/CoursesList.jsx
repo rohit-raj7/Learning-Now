@@ -84,7 +84,7 @@ const CoursesList = () => {
               <CourseCard key={index} course={course} />
             ))
           ) : (
-            <p className="text-center text-gray-400 col-span-full">No courses found.</p>
+            <p className="text-center text-xl text-gray-400 col-span-full">No courses found.</p>
           )}
         </div>
       </div>

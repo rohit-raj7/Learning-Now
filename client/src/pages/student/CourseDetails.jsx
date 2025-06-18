@@ -106,7 +106,7 @@ const CourseDetails = () => {
           <p className='text-sm'>Course by <span className='text-blue-600 underline'>{courseData.educator?.name}</span></p>
 
           {/* Course Structure */}
-          <div className="pt-8">
+          {/* <div className="pt-8">
             <h2 className="text-xl font-semibold">Course Structure</h2>
             <div className="pt-5">
               {courseData.courseContent.map((chapter, index) => (
@@ -129,14 +129,15 @@ const CourseDetails = () => {
                           <div className="flex justify-between w-full text-xs md:text-sm text-gray-200">
                             <p>{lecture.lectureTitle}</p>
                             <div className='flex gap-2'>
-                              {lecture.isPreviewFree && (
+                              {(lecture.isPreviewFree || isAlreadyEnrolled) && (
                                 <p
                                   onClick={() => setPlayerData({ videoId: lecture.lectureUrl.split('/').pop() })}
                                   className='text-blue-500 cursor-pointer'
                                 >
-                                  Preview
+                                  {isAlreadyEnrolled ? 'Watch Lecture' : 'Preview'}
                                 </p>
                               )}
+
                               <p>{humanizeDuration(lecture.lectureDuration * 60000, { units: ['h', 'm'], round: true })}</p>
                             </div>
                           </div>
@@ -147,7 +148,82 @@ const CourseDetails = () => {
                 </div>
               ))}
             </div>
+          </div> */}
+          <div className="pt-12">
+            <h2 className="text-2xl font-bold text-white border-b border-gray-700 pb-2 mb-6">Course Structure</h2>
+
+            <div className="space-y-4">
+              {courseData.courseContent.map((chapter, index) => (
+                <div
+                  key={index}
+                  className="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden shadow-sm transition-all duration-300"
+                >
+                  {/* Chapter Header */}
+                  <div
+                    onClick={() => toggleSection(index)}
+                    className="flex items-center justify-between px-5 py-4 cursor-pointer hover:bg-gray-800 transition-colors"
+                  >
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={assets.down_arrow_icon}
+                        alt="Expand"
+                        className={`w-4 h-4 transition-transform ${openSections[index] ? 'rotate-180' : ''}`}
+                      />
+                      <p className="text-lg font-medium text-gray-100">{chapter.chapterTitle}</p>
+                    </div>
+                    <p className="text-sm text-gray-400">
+                      {chapter.chapterContent.length} lecture{chapter.chapterContent.length > 1 ? 's' : ''} · {calculateChapterTime(chapter)}
+                    </p>
+                  </div>
+
+                  {/* Chapter Lectures */}
+                  <div
+                    className={`transition-all duration-300 ease-in-out ${openSections[index] ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
+                      } overflow-hidden border-t border-gray-700 bg-gray-800`}
+                  >
+                    <ul className="py-4 px-6 space-y-3">
+                      {chapter.chapterContent.map((lecture, i) => (
+                        <li key={i} className="flex items-start gap-3 text-sm text-gray-300">
+                          <img src={assets.play_icon} alt="Play" className="w-4 h-4 mt-1" />
+                          <div className="flex justify-between items-center w-full border-b border-gray-700 pb-2">
+                            <p className="text-gray-200 font-medium">{lecture.lectureTitle}</p>
+                            <div className="flex gap-4 items-center text-xs md:text-sm">
+                              {(lecture.isPreviewFree || isAlreadyEnrolled) ? (
+                                <button
+                                  onClick={() => setPlayerData({ videoId: lecture.lectureUrl.split('/').pop() })}
+                                  className="text-blue-400 hover:text-blue-500 underline transition-colors"
+                                >
+                                  {isAlreadyEnrolled ? 'Watch Lecture' : 'Preview'}
+                                </button>
+                              ) : (
+                                <span
+                                  className="text-red-500 font-bold cursor-pointer"
+                                  onClick={() => toast.info("Please enroll in the course")}
+                                >
+                                  Locked
+                                </span>
+
+                              )}
+                              <span className="text-gray-400">
+                                {humanizeDuration(lecture.lectureDuration * 60000, {
+                                  units: ['h', 'm'],
+                                  round: true,
+                                })}
+                              </span>
+                            </div>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
+
+
+
+
 
           {/* Course Description */}
           <div className="py-20 text-sm">
@@ -226,10 +302,3 @@ const CourseDetails = () => {
 
 export default CourseDetails;
 
-
-
-
-
-
-
- 

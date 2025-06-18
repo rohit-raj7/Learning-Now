@@ -25,6 +25,10 @@ export default {
       boxShadow: {
         'custom-card': '0px 4px 15px 2px rgba(0, 0, 0, 0.1)',
       },
+       maxHeight: {
+      '96': '24rem',
+      '1000px': '1000px', // for accordion overflow
+    }
     },
   },
   plugins: [],
