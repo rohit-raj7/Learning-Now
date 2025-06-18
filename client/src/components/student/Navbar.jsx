@@ -1,4 +1,6 @@
-import React, { useContext, useRef, useState } from 'react';
+ 
+
+ import React, { useContext, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { assets } from '../../assets/assets';
 import { AppContext } from '../../context/AppContext';
@@ -8,9 +10,10 @@ import EducatorNavbar from '../educator/Navbar';
 const Navbar = () => {
   const {
     educator,
+    educatorData,
     user,
     userData,
-    logout,
+    logout ,
     setUserData,
   } = useContext(AppContext);
 
@@ -21,14 +24,21 @@ const Navbar = () => {
   const [mobileNumber, setMobileNumber] = useState(userData?.mobile || '');
   const fileInputRef = useRef(null);
 
-  const isEducator = Boolean(educator);
-  const isUser = Boolean(user || userData);
+  const isEducator = Boolean(educatorData || educator);
+  const isUser = Boolean(userData || user);
+
+  const profileName =
+    userData?.fullName ||
+    userData?.name ||
+    userData?.email ||
+    educatorData?.fullName ||
+    educatorData?.email ||
+    'User';
 
   const profileImage =
-    userData?.imageUrl || user?.imageUrl || assets.default_user;
-    
-  const EducatorProfileImage =
-    userData?.imageUrl || user?.imageUrl || educator?.imageUrl || assets.default_user;
+    userData?.imageUrl ||
+    educatorData?.imageUrl ||
+    assets.default_user;
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
@@ -55,7 +65,7 @@ const Navbar = () => {
   };
 
   if (isEducator) {
-    return <EducatorNavbar educator={educator} logout={logout} />;
+    return <EducatorNavbar educator={educatorData || educator || isEducator} logout={logout} />;
   }
 
   return (
@@ -69,22 +79,10 @@ const Navbar = () => {
 
       {isUser ? (
         <div className="flex items-center gap-5 text-gray-500 relative">
-          <p className="text-white">
-            Hi! {userData?.fullName || educator?.fullName || educator?.name|| user?.name || user?.email || 'User' || educator?.fullName  || educator?.email || 'educator'}
-          </p>
-
-          {/* Dashboard link hidden on small screens */}
-          {educator?._id && (
-            <Link
-              to={`/educator/${educator?._id}`}
-              className="text-cyan-400 hover:underline hidden sm:inline"
-            >
-              Dashboard
-            </Link>
-          )}
+          <p className="text-white">Hi! {profileName}</p>
 
           <img
-            src={EducatorProfileImage}
+            src={profileImage}
             alt="Profile"
             onClick={toggleDropdown}
             className="w-10 h-10 rounded-full border-2 border-cyan-500 cursor-pointer object-cover"
@@ -150,5 +148,3 @@ const Navbar = () => {
 
 export default Navbar;
 
-
- 

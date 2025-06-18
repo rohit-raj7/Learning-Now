@@ -56,6 +56,9 @@ function Login() {
 
         setTimeout(() => {
           navigate('/educator');
+          setTimeout(() => {
+            window.location.reload();
+          }, 100);
         }, 1000);
       } else {
         toast.error(error || message || 'Login failed.');

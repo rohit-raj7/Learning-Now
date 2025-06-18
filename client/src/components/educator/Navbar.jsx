@@ -1,14 +1,42 @@
-import React, { useContext, useRef, useState } from 'react';
+ 
+ import React, { useContext, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
 import { updateEducatorProfileImageAPI } from '../../api/ApiEducator';
 import { assets } from '../../assets/assets.js';
 
-const Navbar = ({ bgColor }) => {
-  const { educator, user, logout, setUser, setEducator } = useContext(AppContext);
+const Navbar = ({ bgColor = 'bg-[#112d46]' }) => {
+  const {
+    educator,
+    user,
+    logout, educatorData,
+  } = useContext(AppContext);
+
+  const isEducator = Boolean(educator);
+  const isUser = Boolean(user);
+
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-  const [mobileNumber, setMobileNumber] = useState(user?.mobile || educator?.mobile || '');
+  const [mobileNumber, setMobileNumber] = useState(
+    user?.mobile || educator?.mobile || ''
+  );
+
   const fileInputRef = useRef(null);
+
+  const toggleDropdown = () => {
+    setShowProfileDropdown((prev) => !prev);
+  };
+const userName = user?.fullName || user?.name || user?.email;
+const educatorName = educatorData?.fullName || educatorData?.name || educatorData?.email || educator.name || educator.fullName || educator.email || "Educator";
+const name = userName || educatorName || "User";
+console.log("EducatorData:", educatorData);
+console.log("Educator:", educator);
+
+const profileImgSrc =
+  user?.profileImage ||
+  educatorData?.profileImage ||
+  user?.imageUrl ||
+  educatorData?.imageUrl ||
+  assets.default_user;
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
@@ -18,9 +46,9 @@ const Navbar = ({ bgColor }) => {
     formData.append('profileImage', file);
 
     try {
-      const updatedUser = await updateEducatorProfileImageAPI(formData);
-      if (updatedUser?.profileImage) {
-        setUser((prevUser) => ({ ...prevUser, profileImage: updatedUser.profileImage }));
+      const updated = await updateEducatorProfileImageAPI(formData);
+      if (updated?.profileImage) {
+        setEducatorData((prev) => ({ ...prev, profileImage: updated.profileImage }));
       }
     } catch (error) {
       console.error('Error updating profile image:', error);
@@ -30,33 +58,27 @@ const Navbar = ({ bgColor }) => {
   const handleMobileUpdate = async () => {
     try {
       console.log('Updated mobile number:', mobileNumber);
-      // Add API call to update mobile number here if needed
+      // Optionally implement API call for updating mobile number
     } catch (error) {
       console.error('Error updating mobile:', error);
     }
   };
 
-  const toggleDropdown = () => {
-    setShowProfileDropdown((prev) => !prev);
-  };
-
-  const profileImgSrc =user?.profileImage || educator?.profileImage || assets.default_user;
-
-  return (educator || user) && (
+  return (isEducator || isUser) ? (
     <div className={`flex items-center justify-between px-4 md:px-8 border-b border-gray-500 py-3 ${bgColor}`}>
       <Link to="/">
-        <img src={assets.logo} alt="Logo" className="w-20 lg:w-25" />
+        <img src={assets.logo} alt="Logo" className="w-16 cursor-pointer" />
       </Link>
 
       <div className="flex items-center gap-5 text-gray-500 relative">
         <p className="text-white">
-          Hi! {user?.fullName || user?.name || user?.email ||educator?.fullName || educator?.name || educator?.email}
-        </p>
+          Hi! {educatorName || userName || name} </p>
 
-        {/* Show dashboard only for educator */}
-        <span className="text-cyan-400 hover:underline hidden sm:inline">
-          Dashboard
-        </span>
+        {isEducator && (
+          <Link to="/educator" className="text-cyan-400 hover:underline hidden sm:inline">
+            Dashboard
+          </Link>
+        )}
 
         <img
           src={profileImgSrc}
@@ -104,10 +126,12 @@ const Navbar = ({ bgColor }) => {
         )}
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default Navbar;
+
+
 
 
  

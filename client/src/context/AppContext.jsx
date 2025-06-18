@@ -1,37 +1,39 @@
-
-
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
 import humanizeDuration from "humanize-duration";
 
 export const AppContext = createContext();
 
 export const AppContextProvider = (props) => {
-  const API_URL = "http://localhost:3001"
-  const currency = '$';
-
+  const API_URL = "http://localhost:3001";
+  const currency = "$";
   const navigate = useNavigate();
 
-
+  const [loading, setLoading] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [isEducator, setIsEducator] = useState(false);
   const [allCourses, setAllCourses] = useState([]);
   const [userData, setUserData] = useState(null);
-  const [user, setUser] = useState('');
-  const [educator, setEducator] = useState('');
-  const [educatorData, setEducatorData] = useState(null); // ✅ added
+  const [educatorData, setEducatorData] = useState(null);
+  const [user, setUser] = useState("");
+  const [educator, setEducator] = useState("");
   const [enrolledCourses, setEnrolledCourses] = useState([]);
 
+  const isLoggedIn = Boolean(userData || educatorData);
 
+  useEffect(() => {
+    console.log("User Data:", userData);
+    console.log("Educator Data:", educatorData);
+    console.log("isLoggedIn:", isLoggedIn);
+  }, [userData, educatorData]);
 
-  // ✅ Logout functions
   const logoutUser = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUserData(null);
+    setUser("");
     toast.success("User logged out!");
     navigate("/");
     window.location.reload();
@@ -40,8 +42,9 @@ export const AppContextProvider = (props) => {
   const logoutEducator = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("educator");
+    setEducatorData(null);
+    setEducator("");
     setIsEducator(false);
-    setEducatorData(null); // ✅ added
     toast.success("Educator logged out!");
     navigate("/");
     window.location.reload();
@@ -52,47 +55,41 @@ export const AppContextProvider = (props) => {
     logoutEducator();
   };
 
-  // fetchUserData 
-
   const fetchUserData = async () => {
     try {
-      const headers = {
-        headers: {
-          'Authorization': localStorage.getItem('token')
-        }
-      }
-      const response = await fetch(API_URL + '/api/user/data', headers);
+      const response = await fetch(`${API_URL}/api/user/data`, {
+        headers: { Authorization: localStorage.getItem("token") },
+      });
       const result = await response.json();
-      console.log("📥 User data fetched:", result);
-      setUser(result)
-    } catch (error) {
-      toast.error(error.message);
-    }
-  }
-
-
-  // ✅ Fetch educator data
-  const fetchEducatorData = async () => {
-    try {
-      const headers = {
-        headers: {
-          'Authorization': localStorage.getItem('token')
-        }
+      if (result.success) {
+        setUserData(result.user);
+      } else {
+        toast.error(result.message);
       }
-      const response = await fetch(API_URL + '/api/educator/data', headers);
-      const result = await response.json();
-      console.log(result)
-      setEducator(result)
     } catch (error) {
       toast.error(error.message);
     }
   };
 
+  const fetchEducatorData = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/educator/data`, {
+        headers: { Authorization: localStorage.getItem("token") },
+      });
+      const result = await response.json();
+      if (result.success) {
+        setEducatorData(result.educator);
+      } else {
+        toast.error(result.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
-  // ✅ Fetch all courses
   const fetchAllCourses = async () => {
     try {
-      const { data } = await axios.get(API_URL + "/api/course/all");
+      const { data } = await axios.get(`${API_URL}/api/course/all`);
       if (data.success) {
         setAllCourses(data.courses);
       } else {
@@ -103,26 +100,22 @@ export const AppContextProvider = (props) => {
     }
   };
 
-
-
-  // ✅ Fetch enrolled courses
   const fetchUserEnrolledCourses = async () => {
-    const headers = {
-      headers: {
-        'Authorization': localStorage.getItem('token')
+    try {
+      const response = await fetch(`${API_URL}/api/user/enrolled-courses`, {
+        headers: { Authorization: localStorage.getItem("token") },
+      });
+      const data = await response.json();
+      if (data.success) {
+        setEnrolledCourses(data.enrolledCourses.reverse());
+      } else {
+        toast.error(data.message);
       }
-    }
-    const response = await fetch(API_URL + '/api/user/enrolled-courses', headers);
-    const data = await response.json();
-
-    if (data.success) {
-      setEnrolledCourses(data.enrolledCourses.reverse());
-    } else {
-      toast.error(data.message);
+    } catch (error) {
+      toast.error(error.message);
     }
   };
 
-  // ✅ Utility functions
   const calculateChapterTime = (chapter) => {
     let time = 0;
     chapter.chapterContent.forEach(
@@ -142,29 +135,28 @@ export const AppContextProvider = (props) => {
   };
 
   const calculateRating = (course) => {
-    if (course.courseRatings.length === 0) {
-      return 0;
-    }
-    let totalRating = 0;
-    course.courseRatings.forEach((rating) => {
-      totalRating += rating.rating;
-    });
-    return Math.floor(totalRating / course.courseRatings.length);
+    if (!course.courseRatings.length) return 0;
+    const total = course.courseRatings.reduce((acc, r) => acc + r.rating, 0);
+    return Math.floor(total / course.courseRatings.length);
   };
 
   const calculateNoOfLectures = (course) => {
-    let totalLectures = 0;
-    course.courseContent.forEach((chapter) => {
-      if (Array.isArray(chapter.chapterContent)) {
-        totalLectures += chapter.chapterContent.length;
-      }
-    });
-    return totalLectures;
+    return course.courseContent.reduce((total, chapter) => {
+      return total + (chapter.chapterContent?.length || 0);
+    }, 0);
   };
 
-  // ✅ Effects
   useEffect(() => {
-    fetchAllCourses();
+    const token = localStorage.getItem("token");
+    const userType = localStorage.getItem("user");
+    const educatorType = localStorage.getItem("educator");
+
+    console.log("Token:", token);
+    console.log("User:", userType);
+    console.log("Educator:", educatorType);
+
+    if (token && userType) setUser(userType);
+    if (token && educatorType) setEducator(educatorType);
   }, []);
 
   useEffect(() => {
@@ -173,9 +165,13 @@ export const AppContextProvider = (props) => {
       fetchUserEnrolledCourses();
     }
     if (educator) {
-      fetchEducatorData(); // ✅ fetch educator data
+      fetchEducatorData();
     }
   }, [user, educator]);
+
+  useEffect(() => {
+    fetchAllCourses();
+  }, []);
 
   const value = {
     showLogin,
@@ -183,10 +179,14 @@ export const AppContextProvider = (props) => {
     API_URL,
     currency,
     navigate,
+    loading,
+    isLoggedIn,
 
-    // User
     logout,
     logoutUser,
+    logoutEducator,
+
+    // User
     user,
     userData,
     setUserData,
@@ -194,9 +194,9 @@ export const AppContextProvider = (props) => {
     fetchUserEnrolledCourses,
 
     // Educator
-    logoutEducator,
     educator,
-    educatorData,        // ✅ added
+    setEducator,
+    educatorData,
     setEducatorData,
     isEducator,
     setIsEducator,
@@ -210,8 +210,6 @@ export const AppContextProvider = (props) => {
     calculateNoOfLectures,
   };
 
-  // console.log("🔍 AppContext exported value:", value);
-
   return (
     <AppContext.Provider value={value}>
       {props.children}
@@ -219,3 +217,4 @@ export const AppContextProvider = (props) => {
   );
 };
 
+ 
