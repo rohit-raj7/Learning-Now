@@ -4,7 +4,7 @@ import { assets } from '../../assets/assets';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import humanizeDuration from 'humanize-duration';
 import YouTube from 'react-youtube';
 import Loading from '../../components/student/Loading';
@@ -103,7 +103,7 @@ const CourseDetails = () => {
             <p>{courseData.enrolledStudents.length} {courseData.enrolledStudents.length > 1 ? 'students' : 'student'}</p>
           </div>
 
-          <p className='text-sm'>Course by <span className='text-blue-600 underline'>{courseData.educator.name}</span></p>
+          <p className='text-sm'>Course by <span className='text-blue-600 underline'>{courseData.educator?.name}</span></p>
 
           {/* Course Structure */}
           <div className="pt-8">
@@ -210,6 +210,14 @@ const CourseDetails = () => {
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        toastClassName={() =>
+          "bg-black text-white px-4 py-3 rounded shadow-lg"
+        }
+      />
 
       <Footer />
     </>
@@ -217,3 +225,11 @@ const CourseDetails = () => {
 };
 
 export default CourseDetails;
+
+
+
+
+
+
+
+ 

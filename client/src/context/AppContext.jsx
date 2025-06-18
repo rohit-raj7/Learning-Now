@@ -144,35 +144,55 @@ useEffect(() => {
     }
   };
 
-  const calculateChapterTime = (chapter) => {
-    let time = 0;
-    chapter.chapterContent.forEach(
-      (lecture) => (time += lecture.lectureDuration)
-    );
-    return humanizeDuration(time * 60 * 1000, { units: ["h", "m"] });
-  };
+   // Function to Calculate Course Chapter Time
+    const calculateChapterTime = (chapter) => {
 
-  const calculateCourseDuration = (course) => {
-    let time = 0;
-    course.courseContent.forEach((chapter) =>
-      chapter.chapterContent.forEach(
-        (lecture) => (time += lecture.lectureDuration)
-      )
-    );
-    return humanizeDuration(time * 60 * 1000, { units: ["h", "m"] });
-  };
+        let time = 0
 
-  const calculateRating = (course) => {
-    if (!course.courseRatings.length) return 0;
-    const total = course.courseRatings.reduce((acc, r) => acc + r.rating, 0);
-    return Math.floor(total / course.courseRatings.length);
-  };
+        chapter.chapterContent.map((lecture) => time += lecture.lectureDuration)
 
-  const calculateNoOfLectures = (course) => {
-    return course.courseContent.reduce((total, chapter) => {
-      return total + (chapter.chapterContent?.length || 0);
-    }, 0);
-  };
+        return humanizeDuration(time * 60 * 1000, { units: ["h", "m"] })
+
+    }
+
+   // Function to Calculate Course Duration
+    const calculateCourseDuration = (course) => {
+
+        let time = 0
+
+        course.courseContent.map(
+            (chapter) => chapter.chapterContent.map(
+                (lecture) => time += lecture.lectureDuration
+            )
+        )
+
+        return humanizeDuration(time * 60 * 1000, { units: ["h", "m"] })
+
+    }
+
+   const calculateRating = (course) => {
+
+        if (course.courseRatings.length === 0) {
+            return 0
+        }
+
+        let totalRating = 0
+        course.courseRatings.forEach(rating => {
+            totalRating += rating.rating
+        })
+        return Math.floor(totalRating / course.courseRatings.length)
+    }
+
+       const calculateNoOfLectures = (course) => {
+        let totalLectures = 0;
+        course.courseContent.forEach(chapter => {
+            if (Array.isArray(chapter.chapterContent)) {
+                totalLectures += chapter.chapterContent.length;
+            }
+        });
+        return totalLectures;
+    }
+
 
   useEffect(() => {
     const token = localStorage.getItem("token");
