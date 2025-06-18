@@ -2,43 +2,51 @@ import React from 'react';
 import { assets, dummyTestimonial } from '../../assets/assets';
 
 const TestimonialsSection = () => {
-
   return (
-    <div className="min-h-screen w-full bg-gray-800">
-      <div className="pb-14 px-8 ml-6 mr-6 md:px-0 text-gray-200">
-        <h2 className="text-3xl font-medium text-gray-200">Testimonials</h2>
-        <p className="md:text-base text-gray-300 mt-3">
-          Hear from our learners as they share their journeys of transformation, success, and how our <br /> platform has made a difference in their lives.
+    <div className="min-h-screen w-full bg-gradient-to-b from-gray-900 to-gray-800 px-6 py-16">
+      <div className="max-w-7xl mx-auto text-gray-200">
+        <h2 className="text-4xl font-bold mb-2 text-center md:text-left">Testimonials</h2>
+        <p className="text-gray-400 text-center md:text-left md:text-lg mt-2">
+          Hear from our learners as they share their journeys of transformation, success, and how our
+          <br className="hidden md:block" /> platform has made a difference in their lives.
         </p>
-        <div className="grid grid-cols-auto gap-8 mt-14">
+
+        <div className="grid gap-10 mt-14 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {dummyTestimonial.map((testimonial, index) => (
             <div
               key={index}
-              className="text-sm text-left border border-gray-100 pb-6 rounded-lg bg-gray-800 text-gray-200 shadow-[0px_4px_15px_0px] shadow-black/5  overflow-hidden"
+              className="rounded-2xl shadow-xl bg-gray-900/60 backdrop-blur-md border border-gray-700 text-white overflow-hidden hover:scale-[1.02] transition-transform duration-300"
             >
-              <div className="flex items-center gap-4 px-5 py-4 bg-lime-600 text-gray-100">
-                <img className="h-12 w-12 rounded-full" src={testimonial.image} alt={testimonial.name} />
+              {/* Header */}
+              <div className="flex items-center gap-4 px-6 py-4 bg-gradient-to-r from-green-500 to-green-600">
+                <img className="h-14 w-14 rounded-full ring-2 ring-white" src={testimonial.image} alt={testimonial.name} />
                 <div>
-                  <h1 className="text-lg font-medium text-gray-200">{testimonial.name}</h1>
-                  <p className="text-gray-200">{testimonial.role}</p>
+                  <h3 className="text-xl font-semibold">{testimonial.name}</h3>
+                  <p className="text-sm text-gray-100">{testimonial.role}</p>
                 </div>
               </div>
-              <div className="p-5 pb-7">
-                <div className="flex gap-0.5">
+
+              {/* Body */}
+              <div className="px-6 py-5">
+                <div className="flex gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (
                     <img
-                      className="h-5"
                       key={i}
                       src={i < Math.floor(testimonial.rating) ? assets.star : assets.star_blank}
                       alt="star"
+                      className="h-5 w-5"
                     />
                   ))}
                 </div>
-                <p className="text-gray-300 mt-5">{testimonial.feedback}</p>
+                <p className="text-gray-300 text-sm leading-relaxed">{testimonial.feedback}</p>
               </div>
-              <a href="#" className="text-blue-500 underline px-5">
-                Read more
-              </a>
+
+              {/* Footer */}
+              <div className="px-6 pb-5">
+                <a href="#" className="text-blue-400 hover:text-blue-300 text-sm underline">
+                  Read more
+                </a>
+              </div>
             </div>
           ))}
         </div>

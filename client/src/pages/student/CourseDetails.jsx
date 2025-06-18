@@ -11,7 +11,7 @@ import Loading from '../../components/student/Loading';
 
 const CourseDetails = () => {
   const { id } = useParams();
-  const API_URL = 'http://localhost:3001';
+  const API_URL = 'https://onlinelearning-rohit.vercel.app';
 
   const [courseData, setCourseData] = useState(null);
   const [playerData, setPlayerData] = useState(null);

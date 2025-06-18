@@ -46,7 +46,7 @@ function Signup() {
     }
 
     try {
-      const result = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/educator/signup`, {
+      const result = await axios.post(`${import.meta.env.API_URL}/api/educator/signup`, {
         name,
         email,
         password,
@@ -76,7 +76,7 @@ const handleOtpVerification = async (e) => {
   setIsVerifyingOtp(true);
 
   try {
-    const result = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/educator/verify-email`, {
+    const result = await axios.post(`${import.meta.env.API_URL}/api/educator/verify-email`, {
       code: otp,
     });
 
@@ -102,7 +102,7 @@ const handleOtpVerification = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/educator/verify-reset-otp`, { email });
+      const res = await axios.post(`${import.meta.env.API_URL}/api/educator/verify-reset-otp`, { email });
       if (res.data.success) {
         setStep('otp');
         toast.success(res.data.message || 'OTP sent to your email.');

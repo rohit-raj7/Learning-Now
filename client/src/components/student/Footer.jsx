@@ -52,7 +52,7 @@ function Footer() {
 
       {/* Bottom Section - Copyright */}
       <div className='border-t border-gray-700 py-4 mt-10 text-left text-gray-500'>
-        © 2024 Rohit Raj. All Rights Reserved.
+        © 2025 Rohit Raj. All Rights Reserved.
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ const Dashboard = () => {
 
   const fetchDashboardData = async () => {
     try {
-      const API_URL = 'http://localhost:3001/api/educator/dashboard';
+      const API_URL = 'https://onlinelearning-rohit.vercel.app/api/educator/dashboard';
 
       const token = localStorage.getItem('token'); // ✅ define it first
       if (!token) {

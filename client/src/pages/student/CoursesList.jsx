@@ -9,7 +9,7 @@ import SearchBar from '../../components/student/SearchBar';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const API_URL = 'http://localhost:3001';  
+const API_URL = 'https://onlinelearning-rohit.vercel.app';  
 
 const CoursesList = () => {
   const { input } = useParams();

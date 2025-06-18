@@ -7,7 +7,8 @@ import humanizeDuration from "humanize-duration";
 export const AppContext = createContext();
 
 export const AppContextProvider = (props) => {
-  const API_URL = "http://localhost:3001";
+  // const API_URL = "http://localhost:3001";
+   const API_URL = "https://onlinelearning-rohit.vercel.app";
   const currency = "$";
   const navigate = useNavigate();
 
