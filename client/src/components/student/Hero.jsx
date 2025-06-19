@@ -69,8 +69,8 @@ function Hero() {
             <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7a0fea01-5e46-4f66-b2e6-02e3ec3aa5b9.png" alt="Learner 3" />
             <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bb794525-918d-4f06-a7ab-9132ab93093c.png" alt="Learner 4" />
             <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a9cd1bed-c479-4bb6-af39-4b5f23650530.png" alt="Learner 5" />
-            <div className="avatar-count">1 Million+</div>
-            <div className="avatar-label">Monthly Active Learners</div>
+            <div className="avatar-count">1 Million+ <span className='avatar-label'>Monthly Active Learners</span></div>
+            {/* <div className="avatar-label">Monthly Active Learners</div> */}
           </div>
         </section>
 

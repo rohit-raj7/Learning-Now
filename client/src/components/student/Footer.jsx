@@ -13,7 +13,7 @@ function Footer() {
         <div className='w-full md:w-1/3 mb-8 md:mb-0'>
           <div className='flex items-center gap-2'>
             <img src={assets.logo} alt="Logo" className="h-8 w-8" />
-            <span className='text-3xl font-medium text-white'>Rohit Raj</span>
+            <span className='text-3xl font-medium text-green-500'>Rohit Raj</span>
           </div>
           <h2 className='font-medium text-gray-300 mt-4'>Thank You for Visiting My Learning Web!</h2>
           <p className='text-gray-400 mt-2'>
@@ -27,20 +27,20 @@ function Footer() {
 
         {/* Middle Section - Company Links */}
         <div className='w-full md:w-1/5 mb-8 md:mb-0'>
-          <h3 className='text-white text-lg font-bold mb-4'>Company</h3>
+          <h3 className='text-green-600 text-lg font-bold mb-4'>Company</h3>
           <ul className='flex flex-col gap-2 text-gray-400'>
-            <li><a href="#Header" className='hover:text-white'>Home</a></li>
-            <li><a href="#About" className='hover:text-white'>About us</a></li>
-            <li><a href="#Experience" className='hover:text-white'>Works</a></li>
-            <li><a href="#Contact" className='hover:text-white'>Contact us</a></li>
-            <li><Link to='/Privacy_Policy' className='hover:text-white'>Privacy Policy</Link></li>
-            <li><a href="https://rohit-raj.netlify.app/" target="_blank" rel="noopener noreferrer" className='hover:text-white'>Portfolio</a></li>
+            <li><a href="#Header" className='hover:text-green-400'>Home</a></li>
+            <li><a href="#About" className='hover:text-green-400'>About us</a></li>
+            <li><a href="#Experience" className='hover:text-green-400'>Works</a></li>
+            <li><a href="#Contact" className='hover:text-green-400'>Contact us</a></li>
+            <li><Link to='/Privacy_Policy' className='hover:text-green-400'>Privacy Policy</Link></li>
+            <li><a href="https://rohit-raj.netlify.app/" target="_blank" rel="noopener noreferrer" className='hover:text-green-400'>Portfolio</a></li>
           </ul>
         </div>
 
         {/* Right Section - Newsletter */}
         <div className='w-full md:w-1/3'>
-          <h3 className='text-white text-lg font-bold mb-4'>Subscribe to our newsletter</h3>
+          <h3 className='text-green-400 text-lg font-bold mb-4'>Subscribe to our news letter</h3>
           <p className='text-gray-400 mb-4 max-w-80'>
             The latest news, articles, and resources, sent to your inbox weekly.
           </p>

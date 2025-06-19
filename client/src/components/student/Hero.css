@@ -399,7 +399,9 @@
       border-radius: 3px;
       border: 1.8px solid var(--green-primary);
     }
-
+ .avatar-label{
+  font-size: 15px;
+ }
   
 /* Mobile styles */
 @media (max-width: 767px) {
@@ -418,8 +420,13 @@
     width: 80%;  
     padding: 1rem;  
   }
- .avatar-line ,.skill-tags{
-    margin-left: 13px;
- }
+ .avatar-line ,.skill-tags { 
+    margin-left: 13px; 
+ } 
+ .avatar-line .avatar-count .avatar-label{
+  font-size:11px;
+  display: flex;
+  flex-direction: column;
 
+ } 
 }

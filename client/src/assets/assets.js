@@ -99,27 +99,28 @@ export const assets = {
    
 export const dummyTestimonial = [
     {
-        name: 'Donald Jackman',
-        role: 'SWE 1 @ Amazon',
+        name: 'Aarav Sharma',
+        role: '2nd Year CSE Student @ NIT Patna',
         image: assets.profile_img_1,
         rating: 5,
-        feedback: 'I\'ve been using Imagify for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.',
+        feedback: 'Using this platform has made learning so much easier and engaging. The video lectures and quizzes are top-notch!',
     },
     {
-        name: 'Richard Nelson',
-        role: 'SWE 2 @ Samsung',
+        name: 'Sneha Verma',
+        role: '3rd Year ECE Student @ VIT Vellore',
         image: assets.profile_img_2,
         rating: 4,
-        feedback: 'I\'ve been using Imagify for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.',
+        feedback: 'The UI is really smooth and the course tracking feature keeps me motivated to finish my enrolled classes.',
     },
     {
-        name: 'James Washington',
-        role: 'SWE 2 @ Google',
+        name: 'Rahul Singh',
+        role: 'Final Year IT Student @ IIIT Hyderabad',
         image: assets.profile_img_3,
         rating: 4.5,
-        feedback: 'I\'ve been using Imagify for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.',
+        feedback: 'This app helped me a lot in understanding tough topics with visual explanations. Highly recommended for students!',
     },
 ];
+
 
 export const dummyCourses = [
     {

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { toast } from 'react-toastify';
 
@@ -12,8 +11,8 @@ function Contact() {
     setResult("Sending...");
 
     const formData = new FormData(event.target);
+    const email = formData.get("Email");
 
-    const email = formData.get("Email"); // Ensure that the input name is 'Email'
     if (!emailPattern.test(email)) {
       toast.error("Please enter a valid email address.");
       setResult("");
@@ -50,18 +49,24 @@ function Contact() {
     <div>
       <form onSubmit={onSubmit}>
         <div className='flex flex-row gap-2'>
-          {/* Add the name attribute here */}
           <input 
             type="email" 
-            name="Email"  // Ensure that the name is 'Email'
-            placeholder='Enter your email' 
-            className='p-2 rounded bg-gray-800 text-gray-300 border-gray-700 focus:outline-none w-full md:w-auto' 
+            name="Email"
+            placeholder="Enter your email"
+            className="p-2 rounded bg-gray-800 text-gray-200 border border-green-500 focus:outline-none w-full md:w-auto custom-placeholder"
           />
-          <button type="submit" className='py-2 px-4 rounded bg-blue-500 text-white'>
+          <button type="submit" className='py-2 px-4 rounded bg-green-500 text-gray-100'>
             {result ? result : "Submit"}
           </button>
         </div>
       </form>
+ 
+      <style jsx>{`
+        .custom-placeholder::placeholder {
+          color: #22c55e;
+          opacity: 1; 
+        }
+      `}</style>
     </div>
   );
 }
