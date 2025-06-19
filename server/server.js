@@ -21,10 +21,30 @@ await connectDB()
 await connectCloudinary()
 
 // Middleware
+// app.use(cors({
+//   origin: process.env.CORS_ORIGIN,
+//   credentials: true,
+// }))
+
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://online-learning-yet.netlify.app',
+  'https://online-learning-yet.vercel.app',
+  'https://online-learing-rohit.netlify.app'
+]
+
 app.use(cors({
-  origin: process.env.CORS_ORIGIN,
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
   credentials: true,
 }))
+
+
 
 app.use(cookieParser())
 app.use(express.json())
