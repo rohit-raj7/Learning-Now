@@ -56,31 +56,31 @@ const Dashboard = () => {
     <div className='min-h-screen flex flex-col bg-gray-800 text-gray-200 items-start justify-between gap-8 md:p-8 md:pb-0 p-4 pt-8 pb-0'>
       <div className='space-y-5'>
         <div className='flex flex-wrap gap-5 items-center'>
-          <div className='flex items-center gap-3 shadow-card border border-blue-500 p-4 w-56 rounded-md'>
+          <div className='flex items-center gap-3 shadow-card border border-green-500 p-4 w-56 rounded-md'>
             <img src={assets.patients_icon} alt="patients_icon" />
             <div>
               <p className='text-2xl font-medium text-gray-300'>{dashboardData.enrolledStudentsData.length}</p>
               <p className='text-base text-gray-200'>Total Enrolments</p>
             </div>
           </div>
-          <div className='flex items-center gap-3 shadow-card border border-blue-500 p-4 w-56 rounded-md'>
+          <div className='flex items-center gap-3 shadow-card border border-green-500 p-4 w-56 rounded-md'>
             <img src={assets.appointments_icon} alt="patients_icon" />
             <div>
               <p className='text-2xl font-medium text-gray-300'>{dashboardData.totalCourses}</p>
               <p className='text-base text-gray-200'>Total Courses</p>
             </div>
           </div>
-          <div className='flex items-center gap-3 shadow-card border border-blue-500 p-4 w-56 rounded-md'>
+          <div className='flex items-center gap-3 shadow-card border border-green-500 p-4 w-56 rounded-md'>
             <img src={assets.earning_icon} alt="patients_icon" />
             <div>
-              <p className='text-2xl font-medium text-gray-300'>{currency}{Math.floor(dashboardData.totalEarnings)}</p>
+              <p className='text-2xl font-medium text-green-500'>{currency}{Math.floor(dashboardData.totalEarnings)}</p>
               <p className='text-base text-gray-200'>Total Earnings</p>
             </div>
           </div>
         </div>
         <div>
           <h2 className="pb-4 text-lg font-medium">Latest Enrolments</h2>
-          <div className="flex flex-col items-center max-w-4xl w-full overflow-hidden rounded-md border text-gray-200 border-gray-100">
+          <div className="flex flex-col items-center max-w-4xl w-full overflow-hidden rounded-md border text-gray-200 border-green-500">
             <table className="table-fixed md:table-auto w-full overflow-hidden">
               <thead className="text-gray-900 border-b border-gray-500/20 text-sm text-left">
                 <tr>

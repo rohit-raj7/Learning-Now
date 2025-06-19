@@ -84,11 +84,11 @@ const Navbar = ({ bgColor = 'bg-[#112d46]' }) => {
       <Link to="/">
         <img src={assets.logo} alt="Logo" className="w-16 cursor-pointer" />
       </Link>
-      <Link to='/'><p className='text-[17px] text-gray-100 hover:text-blue-300'>Home</p></Link>
+      <Link to='/'><p className='bg-green-500 text-white hover:text-black text-sm md:text-base rounded md:px-6 px-4 md:py-2 py-1 mx-1'>Home</p></Link>
 
       <div className="flex items-center gap-6 text-gray-500 relative">
         {isEducator && (
-          <Link to="/educator" className="text-cyan-400 hover:underline hidden sm:inline">
+          <Link to="/educator" className="text-cyan-400 hover:underline hover:text-white hidden sm:inline">
             Dashboard
           </Link>
         )}

@@ -167,14 +167,14 @@ const AddCourse = () => {
             value={courseTitle}
             type='text'
             placeholder='Type here'
-            className='outline-none md:py-2.5 py-2 px-3 rounded bg-gray-800 border border-gray-500'
+            className='outline-none md:py-2.5 py-2 px-3 rounded bg-gray-800 border border-green-500'
             required
           />
         </div>
 
         <div className='flex flex-col gap-2'>
           <p>Course Description</p>
-          <div className='bg-gray-800 border border-gray-400' ref={editorRef}></div>
+          <div className='bg-gray-800 border border-green-400' ref={editorRef}></div>
         </div>
 
         <div className='flex items-center justify-between flex-wrap'>
@@ -185,7 +185,7 @@ const AddCourse = () => {
               value={coursePrice}
               type='number'
               placeholder='0'
-              className='outline-none md:py-2.5 py-2 w-28 px-3 rounded border bg-slate-800 border-gray-200'
+              className='outline-none md:py-2.5 py-2 w-28 px-3 rounded border bg-slate-800 border-green-300'
               required
             />
           </div>
@@ -209,7 +209,7 @@ const AddCourse = () => {
             placeholder='0'
             min={0}
             max={100}
-            className='outline-none bg-slate-800 md:py-2.5 py-2 w-28 px-3 rounded border border-gray-200'
+            className='outline-none bg-slate-800 md:py-2.5 py-2 w-28 px-3 rounded border border-green-300'
             required
           />
         </div>
@@ -217,7 +217,7 @@ const AddCourse = () => {
         {/* Chapters & Lectures */}
         <div>
           {chapters.map((chapter, chapterIndex) => (
-            <div key={chapterIndex} className='bg-gray-800 text-gray-100 border border-gray-200 rounded-lg mb-4'>
+            <div key={chapterIndex} className='bg-gray-800 text-gray-100 border border-green-300 rounded-lg mb-4'>
               <div className='flex justify-between bg-gray-800 items-center p-4 border-b'>
                 <div className='flex items-center bg-gray-800'>
                   <img
@@ -248,14 +248,14 @@ const AddCourse = () => {
                       <img onClick={() => handleLecture('remove', chapter.chapterId, lectureIndex)} src={assets.cross_icon} alt='' className='cursor-pointer' />
                     </div>
                   ))}
-                  <div className='inline-flex bg-blue-600 p-2 rounded cursor-pointer mt-2' onClick={() => handleLecture('add', chapter.chapterId)}>
+                  <div className='inline-flex bg-green-500 p-2 rounded cursor-pointer mt-2' onClick={() => handleLecture('add', chapter.chapterId)}>
                     + Add Lecture
                   </div>
                 </div>
               )}
             </div>
           ))}
-          <div className='flex justify-center items-center bg-blue-500 p-2 rounded-lg cursor-pointer' onClick={() => handleChapter('add')}>
+          <div className='flex justify-center text-black items-center bg-green-500 p-2 rounded-lg cursor-pointer' onClick={() => handleChapter('add')}>
             + Add Chapter
           </div>
 

@@ -43,102 +43,54 @@ const MyCourses = () => {
       <div className="w-full">
         <h2 className="pb-4 text-lg text-gray-100 font-medium">My Courses</h2>
 
-        {/* Table for medium and larger screens */}
-        
-        {/* <div className="hidden md:flex flex-col items-center max-w-4xl w-full overflow-x-auto rounded-md bg-gray-900 border border-gray-200/20">
-  <table className="w-full table-auto">
-    <thead className="text-gray-200 border-b border-gray-200/20 text-sm text-left">
-      <tr>
-        <th className="px-4 py-3 font-semibold">All Courses</th>
-        <th className="px-4 py-3 font-semibold">Earnings</th>
-        <th className="px-4 py-3 font-semibold">Students</th>
-        <th className="px-4 py-3 font-semibold">Published On</th>
-      </tr>
-    </thead>
-    <tbody className="text-sm text-gray-500">
-      {courses.map((course) => (
-        <tr key={course._id} className="border-b border-gray-200/20">
-          <td className="px-4 py-3">
-            <div className="flex items-start space-x-3">
-              <img
-                src={course.courseThumbnail}
-                alt="Course"
-                className="w-16 h-16 object-cover rounded-md border border-gray-700"
-              />
-              <div>
-                <p className="text-white font-medium">{course.courseTitle}</p>
-                <p className="text-[12px] text-gray-300 mt-1">
-                  Course ID: <span className="text-[11px] break-all">{course._id}</span>
-                </p>
-              </div>
-            </div>
-          </td>
 
-          <td className="px-4 py-3 text-green-400">
-            {currency}{" "}
-            {Math.floor(
-              course.enrolledStudents.length *
-                (course.coursePrice - (course.discount * course.coursePrice) / 100)
-            )}
-          </td>
+        <div className="hidden md:flex flex-col items-center max-w-6xl w-full overflow-x-auto rounded-lg bg-gray-900 border border-gray-200/20">
+          <table className="w-full table-auto text-base">
+            <thead className="text-gray-100 border-b border-gray-200/20 text-base text-left">
+              <tr>
+                <th className="px-6 py-4 text-green-500 font-semibold">All Courses</th>
+                <th className="px-6 py-4 font-semibold">Earnings</th>
+                <th className="px-6 py-4 text-green-500 font-semibold">Students</th>
+                <th className="px-6 py-4 text-green-500 font-semibold">Published On</th>
+              </tr>
+            </thead>
+            <tbody className="text-[16px] text-gray-400">
+              {courses.map((course) => (
+                <tr key={course._id} className="border-b border-gray-200/20">
+                  <td className="px-6 py-4">
+                    <div className="flex items-start space-x-5">
+                      <img
+                        src={course.courseThumbnail}
+                        alt="Course"
+                        className="w-20 h-20 object-cover rounded-md border border-gray-700"
+                      />
+                      <div>
+                        <p className="text-white font-semibold text-lg">{course.courseTitle}</p>
+                        <p className="text-sm text-gray-300 mt-2">
+                          Course ID: <span className="text-xs break-all">{course._id}</span>
+                        </p>
+                      </div>
+                    </div>
+                  </td>
 
-          <td className="px-4 py-3 text-gray-200">{course.enrolledStudents.length}</td>
+                  <td className="px-6 py-4 text-green-400 font-medium">
+                    {currency}{" "}
+                    {Math.floor(
+                      course.enrolledStudents.length *
+                      (course.coursePrice - (course.discount * course.coursePrice) / 100)
+                    )}
+                  </td>
 
-          <td className="px-4 py-3 text-gray-300">
-            {new Date(course.createdAt).toLocaleDateString()}
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</div> */}
-<div className="hidden md:flex flex-col items-center max-w-6xl w-full overflow-x-auto rounded-lg bg-gray-900 border border-gray-200/20">
-  <table className="w-full table-auto text-base">
-    <thead className="text-gray-100 border-b border-gray-200/20 text-base text-left">
-      <tr>
-        <th className="px-6 py-4 font-semibold">All Courses</th>
-        <th className="px-6 py-4 font-semibold">Earnings</th>
-        <th className="px-6 py-4 font-semibold">Students</th>
-        <th className="px-6 py-4 font-semibold">Published On</th>
-      </tr>
-    </thead>
-    <tbody className="text-[16px] text-gray-400">
-      {courses.map((course) => (
-        <tr key={course._id} className="border-b border-gray-200/20">
-          <td className="px-6 py-4">
-            <div className="flex items-start space-x-5">
-              <img
-                src={course.courseThumbnail}
-                alt="Course"
-                className="w-20 h-20 object-cover rounded-md border border-gray-700"
-              />
-              <div>
-                <p className="text-white font-semibold text-lg">{course.courseTitle}</p>
-                <p className="text-sm text-gray-300 mt-2">
-                  Course ID: <span className="text-xs break-all">{course._id}</span>
-                </p>
-              </div>
-            </div>
-          </td>
+                  <td className="px-6 py-4 text-gray-200 font-medium">{course.enrolledStudents.length}</td>
 
-          <td className="px-6 py-4 text-green-400 font-medium">
-            {currency}{" "}
-            {Math.floor(
-              course.enrolledStudents.length *
-              (course.coursePrice - (course.discount * course.coursePrice) / 100)
-            )}
-          </td>
-
-          <td className="px-6 py-4 text-gray-200 font-medium">{course.enrolledStudents.length}</td>
-
-          <td className="px-6 py-4 text-gray-300 font-medium">
-            {new Date(course.createdAt).toLocaleDateString()}
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</div>
+                  <td className="px-6 py-4 text-gray-300 font-medium">
+                    {new Date(course.createdAt).toLocaleDateString()}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
 
         {/* mobile view */}

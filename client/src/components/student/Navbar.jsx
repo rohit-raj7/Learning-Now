@@ -90,7 +90,7 @@ const Navbar = () => {
         alt="Logo"
       />
       <Link to='/' className='hidden sm:block'>
-        <p className='text-[17px] text-gray-100 hover:text-blue-300'>Home</p>
+        <p className='bg-green-500 text-white text-sm md:text-base rounded rounded-xl hover:text-black md:px-6 px-4 md:py-2 py-1 mx-1'>Home</p>
       </Link>
 
       {isUser ? (
@@ -102,7 +102,7 @@ const Navbar = () => {
             </button>
           ) : (
             <div className="flex items-center gap-3">
-              <p className="text-white">
+              <p className="text-white hover:text-green-500">
                 <Link to="/user/my-enrollments">My Enrollment</Link>
               </p>
               <span className="text-white">|</span>

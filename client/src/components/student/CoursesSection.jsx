@@ -3,8 +3,8 @@
 import React, { useContext, useRef } from 'react';
 import { AppContext } from '../../context/AppContext';
 import CourseCard from './CourseCard';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-
+import { ChevronLeft, ChevronRight } from 'lucide-react'; 
+import Loading from '../educator/Login-Signup/Loading'
 const CoursesSection = () => {
   const { allCourses } = useContext(AppContext);
   const scrollRef = useRef(null);
@@ -61,7 +61,9 @@ const CoursesSection = () => {
               </div>
             ))
           ) : (
-            <p className="text-gray-400">No courses available.</p>
+           <div className='flex flex-row ml-[15.5rem] gap-4 mt-6'>  <span>Loading...</span>
+            <p className="text-gray-400 " ><Loading/> </p>
+            </div>
           )}
         </div>
 
@@ -81,7 +83,10 @@ const CoursesSection = () => {
               <CourseCard key={index} course={course} />
             ))
           ) : (
-            <p className="text-gray-400">No courses available.</p>
+           <div className='flex flex-row ml-[5rem] gap-4 '>  <span>Loading...</span>
+            <p className="text-gray-400 " ><Loading/> </p>
+            </div>
+          
           )}
         </div>
       </div>
