@@ -31,7 +31,7 @@ const CoursesSection = () => {
       `}</style>
 
       <div className="text-center">
-        <h2 className="text-2xl md:text-3xl font-semibold mb-2">Learn from the Best</h2>
+        <h2 className="text-2xl md:text-3xl font-semibold mb-2 text-green-500">Learn from the Best</h2>
         <p className="text-sm md:text-base text-gray-400 max-w-2xl mb-6 mx-auto">
           Discover our top-rated courses across various categories. From coding to business, each course is crafted by experienced educators.
         </p>
