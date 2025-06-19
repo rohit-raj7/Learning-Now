@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL,
+  baseURL: import.meta.env.API_URL,
   withCredentials: true,
 });
 
@@ -38,7 +38,7 @@ API.interceptors.response.use(
 
       try {
         const response = await axios.post(
-          `${import.meta.env.VITE_BACKEND_URL}/api/token/refresh`,
+          `${import.meta.env.API_URL}/api/token/refresh`,
           { refreshToken: educatorData.refreshToken },
           { withCredentials: true }
         );
