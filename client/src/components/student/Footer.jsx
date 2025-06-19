@@ -32,7 +32,7 @@ function Footer() {
             <li><a href="#Header" className='hover:text-green-400'>Home</a></li>
             <li><a href="#About" className='hover:text-green-400'>About us</a></li>
             <li><a href="#Experience" className='hover:text-green-400'>Works</a></li>
-            <li><a href="#Contact" className='hover:text-green-400'>Contact us</a></li>
+            <li><a href="/educator/educator-profile" className='hover:text-green-400'>Contact us</a></li>
             <li><Link to='/Privacy_Policy' className='hover:text-green-400'>Privacy Policy</Link></li>
             <li><a href="https://rohit-raj.netlify.app/" target="_blank" rel="noopener noreferrer" className='hover:text-green-400'>Portfolio</a></li>
           </ul>

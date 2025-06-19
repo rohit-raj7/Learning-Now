@@ -92,7 +92,9 @@ const Navbar = () => {
       <Link to='/' className='hidden sm:block'>
         <p className='bg-green-500 text-white text-sm md:text-base rounded rounded-xl hover:text-black md:px-6 px-4 md:py-2 py-1 mx-1'>Home</p>
       </Link>
-
+       {/* <Link to='/educator/educator-profile' className='hidden sm:block'>
+        <p className='bg-green-500 text-white text-sm md:text-base rounded rounded-xl hover:text-black md:px-6 px-4 md:py-2 py-1 mx-1'>Find Best Educator</p>
+      </Link> */}
       {isUser ? (
         <div className="flex items-center gap-6 text-gray-500 relative">
           {/* Conditional Link Rendering */}
