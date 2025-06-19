@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stylish UI with Tailwind</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg">
+    <div class="container mx-auto px-4 py-12">
+        <!-- Header Section -->
+        <header class="mb-12 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Modern UI Design</h1>
+            <p class="text-xl text-white opacity-90 max-w-2xl mx-auto">
+                A responsive layout built with Tailwind CSS showcasing beautiful design elements
+            </p>
+        </header>
+
+        <!-- Main Card -->
+        <div class="max-w-5xl mx-auto bg-white rounded-2xl overflow-hidden shadow-xl transition-all duration-300 card-hover">
+            <!-- Image Section -->
+            <div class="relative h-64 md:h-96 overflow-hidden">
+                <img 
+                    src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/345cd282-e9d9-4af3-bc7b-ac5fefa70a04.png" 
+                    alt="Modern UI design showcasing clean layout with purple gradient background"
+                    class="w-full h-full object-cover"
+                >
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-6">
+                    <span class="inline-block px-3 py-1 bg-purple-600 text-white text-sm font-medium rounded-full mb-2">
+                        Featured
+                    </span>
+                    <h2 class="text-2xl md:text-3xl font-bold text-white">Explore the Future of Web Design</h2>
+                </div>
+            </div>
+
+            <!-- Content Section -->
+            <div class="p-6 md:p-8 lg:p-10">
+                <div class="flex flex-wrap -mx-4">
+                    <!-- Left Column -->
+                    <div class="w-full lg:w-1/2 px-4 mb-6 lg:mb-0">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Key Features</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-purple-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">Fully responsive design across all devices</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-purple-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">Smooth hover effects and transitions</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-purple-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">Beautiful gradient background</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="w-full lg:w-1/2 px-4">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Get Started</h3>
+                        <p class="text-gray-600 mb-6">
+                            Join thousands of designers and developers building the next generation of web applications with these modern UI components.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button class="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition-colors duration-300 shadow-md">
+                                Explore Components
+                            </button>
+                            <button class="px-6 py-3 border border-purple-600 text-purple-600 hover:bg-purple-50 font-medium rounded-lg transition-colors duration-300">
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="max-w-5xl mx-auto mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20">
+                <div class="text-3xl font-bold text-white mb-2">1M+</div>
+                <div class="text-white/80">Components</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20">
+                <div class="text-3xl font-bold text-white mb-2">500K+</div>
+                <div class="text-white/80">Developers</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20">
+                <div class="text-3xl font-bold text-white mb-2">100+</div>
+                <div class="text-white/80">Templates</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20">
+                <div class="text-3xl font-bold text-white mb-2">24/7</div>
+                <div class="text-white/80">Support</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
