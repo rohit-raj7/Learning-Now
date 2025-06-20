@@ -27,6 +27,7 @@ function Signup() {
 
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const validatePassword = (password) => /^(?=.*\d).{6,}$/.test(password);
+  const API_URL='https://onlinelearning-rohit.vercel.app'
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,7 +48,7 @@ function Signup() {
     }
 
     try {
-      const result = await axios.post(`${import.meta.env.API_URL}/api/user/signup`, {
+      const result = await axios.post(`${API_URL}/api/user/signup`, {
         name,
         email,
         password,
@@ -76,7 +77,7 @@ function Signup() {
     setIsVerifyingOtp(true);
 
     try {
-      const result = await axios.post(`${import.meta.env.API_URL}/api/user/verify-email`, {
+      const result = await axios.post(`${API_URL}/api/user/verify-email`, {
         code: otp,
       });
 
@@ -101,7 +102,7 @@ function Signup() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await axios.post(`${import.meta.env.API_URL}/api/user/verify-email`, { email });
+      const res = await axios.post(`${API_URL}/api/user/verify-email`, { email });
       if (res.data.success) {
         setStep('otp');
         toast.success(res.data.message || 'OTP sent to your email.');

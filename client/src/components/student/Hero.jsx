@@ -28,7 +28,7 @@ function Hero() {
   }, []);
 
   return (
-    <div className='bg-white'>
+    <div className='bg-white Hero'>
       <main>
         <section className="left-panel" aria-label="Promotional information">
          <div className=' '>
