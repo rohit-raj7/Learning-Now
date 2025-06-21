@@ -12,7 +12,7 @@ function Footer() {
         {/* Left Section - Logo and Description */}
         <div className='w-full md:w-1/3 mb-8 md:mb-0'>
           <div className='flex items-center gap-2'>
-            <img src={assets.logo} alt="Logo" className="h-8 w-8" />
+            <img src={assets.logo} alt="Logo" className="h-12" />
             <span className='text-3xl font-medium text-green-500'>Rohit Raj</span>
           </div>
           <h2 className='font-medium text-gray-300 mt-4'>Thank You for Visiting My Learning Web!</h2>

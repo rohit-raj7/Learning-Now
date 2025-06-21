@@ -86,7 +86,8 @@ const Navbar = () => {
       <img
         src={assets.logo}
         onClick={() => navigate('/')}
-        className="w-16 cursor-pointer"
+        // className="w-16 cursor-pointer"
+         className="w-16 sm:w-16 md:w-20 lg:w-24 cursor-pointer object-contain ml-5"
         alt="Logo"
       />
       <Link to='/' className='hidden sm:block'>
