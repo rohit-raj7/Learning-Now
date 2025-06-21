@@ -3,7 +3,7 @@
 import React, { useContext, useRef } from 'react';
 import { AppContext } from '../../context/AppContext';
 import CourseCard from './CourseCard';
-import { ChevronLeft, ChevronRight } from 'lucide-react'; 
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Loading from '../educator/Login-Signup/Loading'
 const CoursesSection = () => {
   const { allCourses } = useContext(AppContext);
@@ -31,11 +31,12 @@ const CoursesSection = () => {
       `}</style>
 
       <div className="text-center">
-        <h2 className="text-2xl md:text-3xl font-semibold mb-2 text-green-500">Learn from the Best</h2>
+        <h2 className="text-2xl md:text-3xl font-semibold mb-2 text-green-500">Learn from Real-World Pros</h2>
         <p className="text-sm md:text-base text-gray-400 max-w-2xl mb-6 mx-auto">
-          Discover our top-rated courses across various categories. From coding to business, each course is crafted by experienced educators.
+          Our instructors aren’t just teachers—they’re industry leaders. Start learning skills that matter in today’s job market.
         </p>
       </div>
+
 
 
       {/* ---------- Big Screen Display (Scrollable section) ---------- */}
@@ -61,8 +62,8 @@ const CoursesSection = () => {
               </div>
             ))
           ) : (
-           <div className='flex flex-row ml-[15.5rem] gap-4 mt-6'>  <span>Loading...</span>
-            <p className="text-gray-400 " ><Loading/> </p>
+            <div className='flex flex-row ml-[15.5rem] gap-4 mt-6'>  <span>Loading...</span>
+              <p className="text-gray-400 " ><Loading /> </p>
             </div>
           )}
         </div>
@@ -83,10 +84,10 @@ const CoursesSection = () => {
               <CourseCard key={index} course={course} />
             ))
           ) : (
-           <div className='flex flex-row ml-[5rem] gap-4 '>  <span>Loading...</span>
-            <p className="text-gray-400 " ><Loading/> </p>
+            <div className='flex flex-row ml-[5rem] gap-4 '>  <span>Loading...</span>
+              <p className="text-gray-400 " ><Loading /> </p>
             </div>
-          
+
           )}
         </div>
       </div>

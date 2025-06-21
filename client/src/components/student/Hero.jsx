@@ -5,7 +5,7 @@ import './Hero.css';
 
 function Hero() {
   const navigate = useNavigate();
-  const words = ['Streaming Data', 'Real-time Insights', 'Live Events'];
+  const words = ['Real-time learning', 'Simplicity', 'Beginner-Friendly', 'Live Classes', 'End-to-End Understanding'];
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -93,7 +93,7 @@ function Hero() {
               loading="lazy"
             />
             <div className="text-block">
-              <p className="title">Got Placed</p>
+              <p className="title">Success Story</p>
               <p className="subtitle">Sourabh Raj <br /><small>Microsoft</small></p>
             </div>
             <div className="badge-lpa">20 LPA</div>
