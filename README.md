@@ -28,6 +28,7 @@ It supports:
 
 ---
 
+## Live Project : https://online-learning-yet.vercel.app/
 ## 🧩 Key Features
 
 ### 👨‍🏫 Educators:
@@ -69,12 +70,12 @@ It supports:
 
 ### 1️⃣ Clone the repository
 
-# In root directory - Start backend
+# In root directory - Start server
 npm run dev
 
-# In client directory - Start frontend
+# In client directory - Start client
 cd client
-npm start
+npm run dev
 
 
  
