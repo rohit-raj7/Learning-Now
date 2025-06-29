@@ -69,6 +69,12 @@ It supports:
 
 ### 1️⃣ Clone the repository
 
+# In root directory - Start backend
+npm run dev
+
+# In client directory - Start frontend
+cd client
+npm start
 
 
  
