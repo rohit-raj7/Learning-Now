@@ -16,8 +16,8 @@ import LoginUser from './components/student/Login-Signup/Login.jsx';
 import ForgotPasswordUser from './components/student/Login-Signup/ForgotPassword.jsx';
 
 // Educator Auth
-import SignupEducator from './components/educator/Login-Signup/Signup.jsx';
-import LoginEducator from './components/educator/Login-Signup/Login.jsx';
+// import SignupEducator from './components/educator/Login-Signup/Signup.jsx';
+// import LoginEducator from './components/educator/Login-Signup/Login.jsx';
 import ForgotPasswordEducator from './components/educator/Login-Signup/ForgotPassword.jsx';
 
 import Dashboard from './pages/educator/Dashboard'
@@ -57,8 +57,8 @@ const App = () => {
         <Route path="/user/forgot-password" element={<ForgotPasswordUser />} />
 
         {/* Educator Auth Routes */}
-        <Route path="/educator/signup" element={<SignupEducator />} />
-        <Route path="/educator/login" element={<LoginEducator />} />
+        {/* <Route path="/educator/signup" element={<SignupEducator />} />
+        <Route path="/educator/login" element={<LoginEducator />} /> */}
         <Route path="/educator/forgot-password" element={<ForgotPasswordEducator />} />
 
        <Route path='/user' element={<Student/>}/>

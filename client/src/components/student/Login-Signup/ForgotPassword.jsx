@@ -13,6 +13,7 @@ function ForgotPassword() {
   const [newPassword, setNewPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const API_URL="https://onlinelearning-rohit.vercel.app"
 
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
@@ -25,7 +26,7 @@ function ForgotPassword() {
 
     setLoading(true);
     try {
-      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user/reset-password`, { email });
+      const res = await axios.post(`${API_URL}/api/user/reset-password`, { email });
       if (res.data.success) {
         toast.success(res.data.message || 'OTP sent to your email.');
         setStep('otp');
@@ -50,7 +51,7 @@ function ForgotPassword() {
 
     setLoading(true);
     try {
-      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user/verify-reset-otp`, {
+      const res = await axios.post(`${API_URL}/api/user/verify-reset-otp`, {
         email,
         resetCode: otp,
         newPassword,

@@ -1,19 +1,17 @@
- 
 
-
-
- import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { assets } from './assets/assets.js';
-import clientId from './GoogleOAuthProvider.js';
-import Loading from './Loading.jsx';
+import { assets } from './assets/assets';
+import clientId from './GoogleOAuthProvider';
+import Loading from './Loading';
 
 function Signup() {
+  const [role, setRole] = useState('student'); // 'student' or 'educator'
   const [step, setStep] = useState('register');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -25,9 +23,15 @@ function Signup() {
   const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
   const navigate = useNavigate();
 
+  const API_URL = 'https://onlinelearning-rohit.vercel.app';
+
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const validatePassword = (password) => /^(?=.*\d).{6,}$/.test(password);
-  const API_URL='https://onlinelearning-rohit.vercel.app'
+
+  const handleRoleToggle = (selected) => {
+    setRole(selected);
+    setStep('register');
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,11 +51,11 @@ function Signup() {
       return;
     }
 
+    const endpoint = role === 'student' ? 'user' : 'educator';
+
     try {
-      const result = await axios.post(`${API_URL}/api/user/signup`, {
-        name,
-        email,
-        password,
+      const result = await axios.post(`${API_URL}/api/${endpoint}/signup`, {
+        name, email, password,
       });
 
       if (result.data.success) {
@@ -62,8 +66,8 @@ function Signup() {
       if (err.response?.data?.message?.includes('already exists')) {
         toast.error('Email already exists. Please Login.');
         setTimeout(() => {
-        navigate('/user/login');
-      }, 3000);
+          navigate(`/user/login`);
+        }, 3000);
       } else {
         toast.error('Registration failed. Please try again.');
       }
@@ -76,160 +80,157 @@ function Signup() {
     e.preventDefault();
     setIsVerifyingOtp(true);
 
+    const endpoint = role === 'student' ? 'user' : 'educator';
+
     try {
-      const result = await axios.post(`${API_URL}/api/user/verify-email`, {
+      const result = await axios.post(`${API_URL}/api/${endpoint}/verify-email`, {
         code: otp,
       });
 
-      const { success, message } = result.data;
-
-      if (success) {
-        toast.success('Account verified successfully!'); 
+      if (result.data.success) {
+        toast.success('Account verified successfully!');
         setTimeout(() => {
-        navigate('/user/login');
-      }, 2000);
+          navigate(`/user/login`);
+        }, 2000);
       } else {
-        toast.error(message || 'OTP verification failed. Please try again.');
+        toast.error(result.data.message || 'OTP verification failed.');
       }
     } catch (err) {
-      toast.error(err.response?.data?.message || 'An error occurred. Please try again.');
+      toast.error(err.response?.data?.message || 'An error occurred. Try again.');
     } finally {
       setIsVerifyingOtp(false);
     }
-  };
-
-  const sendOtp = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    try {
-      const res = await axios.post(`${API_URL}/api/user/verify-email`, { email });
-      if (res.data.success) {
-        setStep('otp');
-        toast.success(res.data.message || 'OTP sent to your email.');
-      } else {
-        toast.error(res.data.message || 'Failed to send OTP. Try again.');
-      }
-    } catch (err) {
-      console.error(err);
-      toast.error('Failed to send OTP. Try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleGoogleSuccess = (credentialResponse) => {
-    console.log('Google Sign In Success', credentialResponse);
-    toast.success('Google Sign-In successful!');
-    navigate('/user/login');
-  };
-
-  const handleGoogleError = () => {
-    toast.error('Google Sign-In failed. Try again.');
   };
 
   return (
     <GoogleOAuthProvider clientId={clientId}>
       <div
         className="min-h-screen flex items-center justify-center bg-cover bg-center relative px-4"
-        style={{ backgroundImage: `url(${assets.bg_img})` }}
+        style={{ backgroundImage: `url(${role === 'student' ? assets.bg_img : assets.bg_educator})` }}
       >
-        <div className="absolute inset-0 bg-black opacity-60 z-0"></div>
-        <div className="absolute w-72 h-72 bg-purple-600 rounded-full blur-3xl opacity-30 top-10 left-10 animate-pulse z-0"></div>
-        <div className="absolute w-72 h-72 bg-blue-500 rounded-full blur-3xl opacity-30 bottom-10 right-10 animate-pulse z-0"></div>
+        <div className="absolute inset-0 bg-black opacity-60 z-0" />
+        <div className="absolute w-72 h-72 bg-purple-600 rounded-full blur-3xl opacity-30 top-10 left-10 animate-pulse z-0" />
+        <div className="absolute w-72 h-72 bg-blue-500 rounded-full blur-3xl opacity-30 bottom-10 right-10 animate-pulse z-0" />
+        <div className='flex flex-col'>
+          {/* Role Toggle - only during registration */}
+          {step === 'register' && (
+            <div className="flex justify-center mb-6 z-10">
+              <div className="relative flex w-64 sm:w-72 bg-gray-800 border border-cyan-600 rounded-full p-1 shadow-inner transition-all">
+                {/* Sliding indicator */}
+                <div
+                  className={`absolute top-1 bottom-1 w-1/2 rounded-full bg-cyan-600 transition-all duration-300 ease-in-out ${role === 'student' ? 'left-1' : 'left-1/2'
+                    }`}
+                ></div>
 
-        <div className="z-10 w-full max-w-md bg-white/10 backdrop-blur-lg border border-cyan-500/30 rounded-2xl shadow-2xl overflow-hidden p-6 sm:p-8">
-          <h2 className="text-3xl sm:text-4xl font-extrabold mb-6 text-cyan-300 text-center tracking-wide">
-            {step === 'register' ? 'Sign Up' : 'Verify OTP'}
-          </h2>
-
-          {step === 'register' ? (
-            <form onSubmit={handleSubmit}>
-              <input
-                onChange={(e) => setName(e.target.value)}
-                type="text"
-                placeholder="Enter Name"
-                className="w-full mb-4 px-4 py-2 rounded-lg bg-white/10 border border-gray-500 text-white placeholder-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                value={name}
-                required
-              />
-              <input
-                onChange={(e) => setEmail(e.target.value)}
-                type="email"
-                placeholder="Enter Email"
-                className="w-full mb-1 px-4 py-2 rounded-lg bg-white/10 border border-gray-500 text-white placeholder-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                value={email}
-                required
-              />
-              {emailError && <p className="text-red-400 text-sm mb-2">{emailError}</p>}
-
-              <input
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                placeholder="Enter Password"
-                className="w-full mb-4 mt-3 px-4 py-2 rounded-lg bg-white/10 border border-gray-500 text-white placeholder-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                value={password}
-                required
-              />
-              {passwordError && <p className="text-red-400 text-sm mb-4">{passwordError}</p>}
-
-              <button
-                type="submit"
-                className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 rounded-lg transition duration-300 flex justify-center items-center gap-2"
-                disabled={isLoading}
-              >
-                {isLoading ? <Loading /> : 'Signup'}
-              </button>
-
-              <p className="text-md text-center text-gray-200 mt-4">
-                Already have an account?{' '}
-                <Link to="/user/login" className="text-cyan-300 hover:underline">
-                  Login
-                </Link>
-              </p>
-            </form>
-          ) : (
-            <form onSubmit={handleOtpVerification}>
-              <input
-                onChange={(e) => setOtp(e.target.value)}
-                type="text"
-                placeholder="Enter OTP"
-                className="w-full mb-4 px-4 py-2 rounded-lg bg-white/10 border border-gray-500 text-white placeholder-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                value={otp}
-                required
-              />
-              <button
-                type="submit"
-                className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 rounded-lg transition duration-300 flex justify-center items-center gap-2"
-                disabled={isVerifyingOtp}
-              >
-                {isVerifyingOtp ? 'Verifying OTP...' : 'Verify OTP'}
-              </button>
-              <p className="text-md text-center text-gray-200 mt-4">
-                Didn't receive code?{' '}
+                {/* Student Button */}
                 <button
                   type="button"
-                  onClick={sendOtp}
-                  className="text-cyan-300 hover:underline"
+                  onClick={() => handleRoleToggle('student')}
+                  className={`w-1/2 z-10 py-2 text-sm sm:text-base font-semibold rounded-full transition-all duration-200 ${role === 'student'
+                      ? 'text-white'
+                      : 'text-gray-300 hover:text-white'
+                    }`}
                 >
-                  Resend
+                  Student
                 </button>
-              </p>
-            </form>
-          )}
 
-          {step === 'register' && (
-            <div className="mt-6">
-              <p className="text-center text-gray-100 mb-4">Or sign up with</p>
-              <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-                <GoogleLogin onSuccess={handleGoogleSuccess} onError={handleGoogleError} />
+                {/* Educator Button */}
+                <button
+                  type="button"
+                  onClick={() => handleRoleToggle('educator')}
+                  className={`w-1/2 z-10 py-2 text-sm sm:text-base font-semibold rounded-full transition-all duration-200 ${role === 'educator'
+                      ? 'text-white'
+                      : 'text-gray-300 hover:text-white'
+                    }`}
+                >
+                  Educator
+                </button>
               </div>
             </div>
           )}
+
+          <div className="z-10 w-full max-w-md bg-white/10 backdrop-blur-lg border border-cyan-500/30 rounded-2xl shadow-2xl overflow-hidden p-6 sm:p-8">
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-6 text-cyan-300 text-center">
+              {step === 'register'
+                ? (role === 'student' ? 'Sign Up' : 'Sign Up')
+                : 'Verify OTP'}
+            </h2>
+
+
+
+
+            {step === 'register' ? (
+              <form onSubmit={handleSubmit}>
+                <input
+                  onChange={(e) => setName(e.target.value)}
+                  type="text"
+                  placeholder="Enter Name"
+                  value={name}
+                  required
+                  className="w-full mb-4 px-4 py-2 rounded-lg bg-white/10 border border-gray-500 text-white placeholder-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                />
+                <input
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="email"
+                  placeholder="Enter Email"
+                  value={email}
+                  required
+                  className="w-full mb-1 px-4 py-2 rounded-lg bg-white/10 border border-gray-500 text-white placeholder-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                />
+                {emailError && <p className="text-red-400 text-sm mb-2">{emailError}</p>}
+
+                <input
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="password"
+                  placeholder="Enter Password"
+                  value={password}
+                  required
+                  className="w-full mb-4 mt-3 px-4 py-2 rounded-lg bg-white/10 border border-gray-500 text-white placeholder-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                />
+                {passwordError && <p className="text-red-400 text-sm mb-4">{passwordError}</p>}
+
+                <button
+                  type="submit"
+                  className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 rounded-lg transition duration-300 flex justify-center items-center gap-2"
+                  disabled={isLoading}
+                >
+                  {isLoading ? <Loading /> : 'Signup'}
+                </button>
+
+                <p className="text-md text-center text-gray-200 mt-4">
+                  Already have an account?{' '}
+                  <Link
+                    to={`/${role === 'student' ? 'user' : 'user'}/login`}
+                    className="text-cyan-300 hover:underline"
+                  >
+                    Login
+                  </Link>
+                </p>
+              </form>
+            ) : (
+              <form onSubmit={handleOtpVerification}>
+                <input
+                  onChange={(e) => setOtp(e.target.value)}
+                  type="text"
+                  placeholder="Enter OTP"
+                  value={otp}
+                  required
+                  className="w-full mb-4 px-4 py-2 rounded-lg bg-white/10 border border-gray-500 text-white placeholder-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                />
+                <button
+                  type="submit"
+                  disabled={isVerifyingOtp}
+                  className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 rounded-lg transition duration-300"
+                >
+                  {isVerifyingOtp ? 'Verifying...' : 'Verify OTP'}
+                </button>
+              </form>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* Toast container for notifications */}
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+      <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} />
     </GoogleOAuthProvider>
   );
 }
