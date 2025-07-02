@@ -126,7 +126,7 @@ useEffect(() => {
       } else {
         toast.error(data.message);
       }
-      console.log(data)
+      // console.log(data)
     } catch (error) {
       toast.error(error.message);
     }
