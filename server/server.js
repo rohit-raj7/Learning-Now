@@ -6,7 +6,8 @@ import 'dotenv/config'
 import cookieParser from 'cookie-parser'
 import connectDB from './configs/mongodb.js'
 import connectCloudinary from './configs/cloudinary.js'
-import userRouter from './routes/cloudinaryRoutes.js'
+
+import userRouter from './routes/userRoutes.js'
 import educatorRouter from './routes/educatorRoutes.js'
 import courseRouter from './routes/courseRoute.js'
 import authRoutes from './routes/authRoutes.js'
@@ -58,6 +59,7 @@ app.use('/api/educator', educatorRouter)
 app.use('/api/course', courseRouter)
 app.use('/api/user', userRouter)
 app.use('/api/auth', authRoutes)
+
 // Start server
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {

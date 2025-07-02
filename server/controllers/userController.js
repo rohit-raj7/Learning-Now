@@ -1,3 +1,5 @@
+
+
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import Course from "../models/Course.js"
@@ -306,7 +308,7 @@ export const updateProfileImage = async (req, res) => {
     });
   }
 };
-
+ 
 
 // Get User Data 
 
@@ -353,7 +355,7 @@ export const purchaseCourse = async (req, res) => {
     const courseData = await Course.findById(courseId);
     const userData = await User.findById(userId);
 
-
+     
     if (!courseData || !userData) {
       return res.status(404).json({ success: false, message: 'User or Course not found' });
     }
@@ -362,7 +364,7 @@ export const purchaseCourse = async (req, res) => {
       return res.status(409).json({ success: false, message: "User already enrolled in this course" });
     }
     // Calculate discounted amount
-
+    
     const discountedPrice = courseData.coursePrice - (courseData.discount * courseData.coursePrice / 100);
     const amount = parseFloat(discountedPrice.toFixed(2));
     // Create new purchase
@@ -414,7 +416,7 @@ export const purchaseCourse = async (req, res) => {
   }
 };
 
-
+ 
 
 export const userEnrolledCourses = async (req, res) => {
   try {
@@ -501,27 +503,18 @@ export const updateUserCourseProgress = async (req, res) => {
       }
 
       // Mark complete if all lectures are done
-      const allLecturesCompleted = progressData.completed = progressData.lectureCompleted.length >= totalLectures;
-      if (allLecturesCompleted) {
-        progressData.completed = true;
+      progressData.completed = progressData.lectureCompleted.length >= totalLectures;
 
-        // ✅ Always set if not already present
-        if (!progressData.completedAt) {
-          progressData.completedAt = new Date();
-        }
-      }
       await progressData.save();
-      
     } else {
-      const isCompleted = totalLectures === 1;
-      progressData = new CourseProgress({
+      // First lecture being marked
+      const newProgress = new CourseProgress({
         userId,
         courseId,
         lectureCompleted: [lectureId],
-        completed: isCompleted,
-        completedAt: isCompleted ? new Date() : null
+        completed: totalLectures === 1,
       });
-      await progressData.save();
+      await newProgress.save();
     }
 
     return res.status(200).json({ success: true, message: 'Progress Updated' });
@@ -553,8 +546,8 @@ export const getUserCourseProgress = async (req, res) => {
 
 // Add User Ratings to Course
 export const addUserRating = async (req, res) => {
-
-  const userId = req.user?._id || req.auth?.userId;
+  
+ const userId = req.user?._id || req.auth?.userId;
 
   const { courseId, rating } = req.body;
 
@@ -595,3 +588,28 @@ export const addUserRating = async (req, res) => {
     return res.json({ success: false, message: error.message });
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
