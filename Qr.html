@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QR Code Generator</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f3f4f6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #1f2937;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      width: 300px;
+      padding: 10px;
+      border: 2px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    button:hover {
+      background-color: #1d4ed8;
+    }
+
+    #qrCode {
+      margin-top: 20px;
+    }
+
+    .error {
+      color: red;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>QR Code Generator (25 Characters)</h1>
+
+  <input type="text" id="inputText" placeholder="Enter exactly 25 characters" maxlength="25"/>
+  <div class="error" id="errorMsg"></div>
+  <button onclick="generateQRCode()">Generate QR Code</button>
+
+  <canvas id="qrCode"></canvas>
+
+  <script>
+    function generateQRCode() {
+      const input = document.getElementById('inputText').value;
+      const errorDiv = document.getElementById('errorMsg');
+      const canvas = document.getElementById('qrCode');
+
+      errorDiv.textContent = '';
+      canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+
+      if (input.length !== 25) {
+        errorDiv.textContent = 'Input must be exactly 25 characters!';
+        return;
+      }
+
+      QRCode.toCanvas(canvas, input, { width: 256 }, function (error) {
+        if (error) {
+          errorDiv.textContent = 'QR generation failed!';
+          console.error(error);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

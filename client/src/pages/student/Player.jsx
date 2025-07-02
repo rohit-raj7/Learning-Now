@@ -1,4 +1,4 @@
- 
+
 
 
 import React, { useContext, useEffect, useState } from 'react';
@@ -206,6 +206,28 @@ const Player = () => {
             ))}
           </div>
 
+          {/* ✅ Course Completion Message */}
+          {/* {progressData?.completed && (
+            <div className="bg-green-100 text-green-800 font-medium p-4 rounded-md mt-6 shadow-md">
+              🎉 You’ve completed this course on <strong>{new Date(progressData.completedAt || new Data()).toLocaleDateString()}</strong>!
+            </div>
+          )} */}
+
+          {progressData?.completed && (
+            <div className="bg-green-100 text-green-800 font-medium p-4 rounded-md mt-6 shadow-md">
+              🎉 You’ve completed this course on{' '}
+              <strong>
+                {new Date(
+                  progressData.completedAt || new Date()
+                ).toLocaleDateString()}
+              </strong>
+              !
+            </div>
+          )}
+
+
+
+
           {/* Rating and Comment Section */}
           <div className="mt-10">
             <div className="flex items-center gap-3 mb-4">
@@ -249,10 +271,21 @@ const Player = () => {
                   onClick={() => markLectureAsCompleted(playerData.lectureId)}
                   className="text-blue-500 hover:text-blue-400"
                 >
-                  {progressData?.lectureCompleted.includes(playerData.lectureId)
-                    ? 'Completed'
-                    : 'Mark Complete'}
+                  {progressData?.lectureCompleted.includes(playerData.lectureId) ? (
+                    <>
+                      🎉 Completed on{' '}
+                      <strong>
+                {new Date(
+                  progressData.completedAt || new Date()
+                ).toLocaleDateString()}
+              </strong>
+                    </>
+                  ) : (
+                    'Mark Complete'
+                  )}
                 </button>
+
+
               </div>
             </>
           ) : (

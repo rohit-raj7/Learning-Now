@@ -30,21 +30,7 @@ export const AppContextProvider = (props) => {
     // console.log("isLoggedIn:", isLoggedIn);
   }, [userData, educatorData]);
 
-
-  // useEffect(() => {
-
-  //   const token = {
-  //     headers: {
-  //       'Authorization': localStorage.getItem('token')
-  //     }
-  //   }
-  //   const educatorType = localStorage.getItem("educator");
-  //   if (token && educatorType) {
-  //     setEducator(educatorType);
-  //     setIsEducator(true);
-  //   }
-  // }, []);
-
+ 
 useEffect(() => {
   const token = localStorage.getItem("token");
   
@@ -140,6 +126,7 @@ useEffect(() => {
       } else {
         toast.error(data.message);
       }
+      console.log(data)
     } catch (error) {
       toast.error(error.message);
     }

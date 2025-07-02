@@ -1,5 +1,4 @@
  
-
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import axios from 'axios';
@@ -62,16 +61,16 @@ const MyEnrollments = () => {
 
   return (
     <>
-      <div className="md:px-36 px-8 pt-10 bg-gray-800 text-gray-200 min-h-screen">
-        <h1 className="text-2xl font-semibold text-gray-200">My Enrollments</h1>
+      <div className="md:px-36 px-4 pt-10 bg-gray-800 text-gray-200 min-h-screen">
+        <h1 className="text-2xl font-semibold">My Enrollments</h1>
 
-        <table className="md:table-auto table-fixed w-full overflow-hidden border border-gray-200 mt-10">
+        <table className="w-full table-auto border border-gray-200 mt-10">
           <thead className="text-gray-200 border-b border-gray-200 text-sm text-left max-sm:hidden">
             <tr>
-              <th className="px-4 py-3 font-semibold truncate">Course</th>
-              <th className="px-4 py-3 font-semibold truncate max-sm:hidden">Duration</th>
-              <th className="px-4 py-3 font-semibold truncate max-sm:hidden">Completed</th>
-              <th className="px-4 py-3 font-semibold truncate">Status</th>
+              <th className="px-4 py-3 font-semibold">Course</th>
+              <th className="px-4 py-3 font-semibold max-sm:hidden">Duration</th>
+              <th className="px-4 py-3 font-semibold max-sm:hidden">Completed</th>
+              <th className="px-4 py-3 font-semibold">Status</th>
             </tr>
           </thead>
           <tbody className="text-gray-200">
@@ -92,14 +91,14 @@ const MyEnrollments = () => {
 
               return (
                 <tr key={index} className="border-b border-gray-200">
-                  <td className="md:px-4 pl-2 md:pl-4 py-3 flex items-center space-x-3">
+                  <td className="px-4 py-3 flex items-center space-x-3">
                     <img
                       src={course.courseThumbnail}
                       alt={course.courseTitle}
-                      className="w-14 sm:w-24 md:w-28"
+                      className="w-14 sm:w-24 md:w-28 rounded"
                     />
                     <div className="flex-1">
-                      <p className="mb-1 max-sm:text-sm">{course.courseTitle}</p>
+                      <p className="mb-1 max-sm:text-sm font-medium">{course.courseTitle}</p>
                       <Line
                         className="bg-gray-700 rounded-full"
                         strokeColor="#38bdf8"
@@ -109,22 +108,39 @@ const MyEnrollments = () => {
                       />
                     </div>
                   </td>
+
                   <td className="px-4 py-3 max-sm:hidden">
                     {calculateCourseDuration(course)}
                   </td>
+
                   <td className="px-4 py-3 max-sm:hidden">
                     {`${progress.lectureCompleted} / ${progress.totalLectures}`}
                     <span className="text-xs ml-2">Lectures</span>
                   </td>
-                  <td className="px-4 py-3 max-sm:text-right">
-                    <button
-                      onClick={() => navigate(`/player/${course._id}`)}
-                      className={`px-3 sm:px-5 py-1.5 sm:py-2 ${
-                        isCompleted ? 'bg-green-600' : 'bg-blue-600'
-                      } max-sm:text-xs text-white`}
-                    >
-                      {isCompleted ? 'Completed' : 'On Going'}
-                    </button>
+
+                  {/* Buttons */}
+                  <td className="px-4 py-3">
+                    <div className="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
+                      <button
+                        onClick={() => navigate(`/player/${course._id}`)}
+                        className={`flex-1 px-3 py-2 text-sm rounded text-white transition ${
+                          isCompleted
+                            ? 'bg-green-600 hover:bg-green-700'
+                            : 'bg-blue-600 hover:bg-blue-700'
+                        }`}
+                      >
+                        {isCompleted ? 'Completed' : 'On Going'}
+                      </button>
+
+                      {isCompleted && (
+                        <button
+                          onClick={() => navigate(`/certificate/${course._id}`)}
+                          className="flex-1 px-3 py-2 text-sm rounded bg-purple-600 hover:bg-purple-700 text-white transition"
+                        >
+                          Download Certificate
+                        </button>
+                      )}
+                    </div>
                   </td>
                 </tr>
               );

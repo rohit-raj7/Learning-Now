@@ -45,12 +45,12 @@ import lesson_icon from './lesson_icon.svg'
 import x_icon from './x.png'
 import default_user from './default-user.png'
 import search_icon_green from './search_icon_green.png'
-
+import CEO_Sign from './CEO_Sign.jpg'
 export const assets = {
     logo,search_icon_green,
     x_icon,
     default_user,
-    search_icon,
+    search_icon,CEO_Sign,
     sketch,
     microsoft_logo,
     walmart_logo,

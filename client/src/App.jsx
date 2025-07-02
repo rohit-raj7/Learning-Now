@@ -35,6 +35,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Student from './pages/student/Student.jsx';
 import EducatorProfile from './components/educator/EducatorProfile.jsx';
+import CertificateGenerator from './pages/student/Ceritficate.jsx'
 
 const App = () => {
   const isEducatorRoute = useMatch('/educator/*'); 
@@ -67,6 +68,8 @@ const App = () => {
         <Route path="/course-list/:input" element={<CoursesList />} />
         <Route path="/user/my-enrollments" element={<MyEnrollments />} />
         <Route path="/player/:courseId" element={<Player />} />
+        <Route path="/certificate/:courseId" element={<CertificateGenerator />} />
+
        
        
          <Route path='/educator' element={<Educator />}>
