@@ -98,12 +98,12 @@ const CertificateGenerator = () => {
         };
 
         try {
-            const response = await fetch(`${API_URL}/api/certificates/${certId}`);
+            const response = await fetch(`${API_URL}/api/certificate/${certId}`);
             if (response.ok) {
                 const data = await response.json();
                 setFormData(prev => ({ ...prev, ...data }));
             } else {
-                const createRes = await fetch(`${API_URL}/api/certificates`, {
+                const createRes = await fetch(`${API_URL}/api/certificate`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
