@@ -15,9 +15,9 @@ const Dashboard = () => {
 
   const fetchDashboardData = async () => {
     try {
-      API = `${API_URL}/api/educator/dashboard`;
+    const  API = `${API_URL}/api/educator/dashboard`;
 
-      const token = localStorage.getItem('token'); // ✅ define it first
+      const token = localStorage.getItem('token'); 
       if (!token) {
         toast.error("Token not found. Please login again.");
         return;

@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Line } from 'rc-progress';
 import Footer from '../../components/student/Footer';
 import { toast } from 'react-toastify';
+import {useParams } from 'react-router-dom';
 
 const MyEnrollments = () => {
   const {
@@ -18,6 +19,7 @@ const MyEnrollments = () => {
     calculateNoOfLectures,
   } = useContext(AppContext);
 
+  
   const [progressArray, setProgressData] = useState([]);
 
   const getCourseProgress = async () => {

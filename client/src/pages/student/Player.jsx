@@ -3,7 +3,6 @@
 
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
-import YouTube from 'react-youtube';
 import { assets } from '../../assets/assets';
 import { useParams } from 'react-router-dom';
 import humanizeDuration from 'humanize-duration';
@@ -13,11 +12,17 @@ import Rating from '../../components/student/Rating';
 import Footer from '../../components/student/Footer';
 import Loading from '../../components/student/Loading';
 
-const Player = () => { 
-  
+const Player = () => {
   const token = localStorage.getItem('token');
 
-  const { enrolledCourses, calculateChapterTime, API_URL,userData, fetchUserEnrolledCourses } = useContext(AppContext);
+  const {
+    enrolledCourses,
+    calculateChapterTime,
+    API_URL,
+    userData,
+    fetchUserEnrolledCourses
+  } = useContext(AppContext);
+
   const { courseId } = useParams();
 
   const [courseData, setCourseData] = useState(null);
@@ -110,9 +115,6 @@ const Player = () => {
     }
 
     try {
-      // Optional: Submit comment to your backend here
-      // await axios.post(`${API_URL}/api/user/comment`, { courseId, comment }, { headers: { Authorization: `Bearer ${token}` } });
-
       toast.success("Comment submitted!");
       setComment('');
     } catch (error) {
@@ -206,27 +208,13 @@ const Player = () => {
             ))}
           </div>
 
-          {/* ✅ Course Completion Message */}
-          {/* {progressData?.completed && (
-            <div className="bg-green-100 text-green-800 font-medium p-4 rounded-md mt-6 shadow-md">
-              🎉 You’ve completed this course on <strong>{new Date(progressData.completedAt || new Data()).toLocaleDateString()}</strong>!
-            </div>
-          )} */}
-
+          {/* Course Completion */}
           {progressData?.completed && (
             <div className="bg-green-100 text-green-800 font-medium p-4 rounded-md mt-6 shadow-md">
               🎉 You’ve completed this course on{' '}
-              <strong>
-                {new Date(
-                  progressData.completedAt || new Date()
-                ).toLocaleDateString()}
-              </strong>
-              !
+              <strong>{new Date(progressData.completedAt || new Date()).toLocaleDateString()}</strong>!
             </div>
           )}
-
-
-
 
           {/* Rating and Comment Section */}
           <div className="mt-10">
@@ -259,9 +247,11 @@ const Player = () => {
         <div className="md:mt-10">
           {playerData ? (
             <>
-              <YouTube
-                videoId={playerData.lectureUrl.split('/').pop()}
-                iframeClassName="w-full aspect-video"
+              <video
+                src={playerData.lectureUrl}
+                className="w-full aspect-video rounded-lg"
+                controls
+                autoPlay
               />
               <div className="flex justify-between items-center mt-2">
                 <p className="text-lg font-medium">
@@ -274,18 +264,12 @@ const Player = () => {
                   {progressData?.lectureCompleted.includes(playerData.lectureId) ? (
                     <>
                       🎉 Completed on{' '}
-                      <strong>
-                {new Date(
-                  progressData.completedAt || new Date()
-                ).toLocaleDateString()}
-              </strong>
+                      <strong>{new Date(progressData.completedAt || new Date()).toLocaleDateString()}</strong>
                     </>
                   ) : (
                     'Mark Complete'
                   )}
                 </button>
-
-
               </div>
             </>
           ) : (
@@ -303,3 +287,8 @@ const Player = () => {
 };
 
 export default Player;
+
+
+
+
+ 

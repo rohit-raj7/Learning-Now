@@ -1,12 +1,14 @@
 
+
 import React, { useContext, useRef, useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { assets } from '../../assets/assets';
 import { AppContext } from '../../context/AppContext';
 import { updateProfileImageAPI } from '../../api/Api';
 import EducatorNavbar from '../educator/Navbar';
 
 const Navbar = () => {
+  const { userId } = useParams();
   const {
     educator,
     educatorData,
@@ -18,7 +20,7 @@ const Navbar = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const isUserInfoPage = location.pathname === "/user/my-enrollments";
+  const isUserInfoPage = location.pathname.includes("/my-enrollments");
   const hideSignup = ['/user/signup', '/user/login'].includes(location.pathname);
 
   const dropdownRef = useRef(null);
@@ -91,37 +93,35 @@ const Navbar = () => {
         className="w-16 sm:w-16 md:w-20 lg:w-24 cursor-pointer object-contain ml-5"
         alt="Logo"
       />
-      <Link to='/' className='hidden sm:block '>
-        <p className='bg-green-500 text-white text-sm md:text-base rounded rounded-xl hover:text-black md:px-6 px-4 md:py-2 py-1 mx-1'>Home</p>
 
+      <Link to='/' className='hidden sm:block'>
+        <p className='bg-green-500 text-white text-sm md:text-base rounded-xl hover:text-black md:px-6 px-4 md:py-2 py-1 mx-1'>Home</p>
       </Link>
 
-      {
-        location.pathname !== '/verify-certificate' && (
-          <Link to='/verify-certificate' className='hidden sm:block'>
-            <button
-              className="bg-purple-600 hover:bg-purple-700 text-white text-sm md:text-base rounded-xl md:px-6 px-4 md:py-2 py-1 mx-1"
-            >
-              Verify Certificate
-            </button>
-          </Link>
-        )
-      }
+      {location.pathname !== '/verify-certificate' && (
+        <Link to='/verify-certificate' className='hidden sm:block'>
+          <button className="bg-purple-600 hover:bg-purple-700 text-white text-sm md:text-base rounded-xl md:px-6 px-4 md:py-2 py-1 mx-1">
+            Verify Certificate
+          </button>
+        </Link>
+      )}
 
-      {isUser ? (
+      {isUser && userData?._id ? (
         <div className="flex items-center gap-6 text-gray-500 relative">
-          {isUserInfoPage ? (
-            <button className="bg-green-600 text-white text-sm sm:text-base px-4 py-2 rounded-full w-fit sm:w-auto">
-              <Link to="/user" className="text-white">User Details</Link>
-            </button>
-          ) : (
-            <div className="flex items-center gap-3">
-              <p className="text-white hover:text-green-500">
-                <Link to="/user/my-enrollments">My Enrollment</Link>
-              </p>
-              <span className="text-white">|</span>
-            </div>
-          )}
+          <div className="flex items-center gap-3">
+            <p className="text-white hover:text-green-500">
+              <Link
+                to={
+                  isUserInfoPage
+                    ? `/user/${userData._id}`
+                    : `/user/${userData._id}/my-enrollments`
+                }
+              >
+                {isUserInfoPage ? 'User Details' : 'My Enrollment'}
+              </Link>
+            </p>
+            <span className="text-white">|</span>
+          </div>
 
           <p className="text-white hidden sm:block">Hi! {profileName}</p>
 

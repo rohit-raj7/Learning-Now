@@ -1,8 +1,7 @@
- 
 import React from 'react';
 import { assets } from '../../assets/assets';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'
+import 'react-toastify/dist/ReactToastify.css';
 
 const CertificatePreview = ({
     formData,
@@ -85,11 +84,10 @@ const CertificatePreview = ({
 
                     {/* Certificate Preview */}
                     {certificateReady && (
-                        <div className="flex justify-center items-start">
+                        <div className="flex justify-center items-start overflow-x-auto w-full">
                             <div
                                 ref={certificateRef}
-                                className="relative shadow-lg border-[10px] border-yellow-600 rounded-xl overflow-hidden"
-                                style={{ width: '800px', height: '600px' }}
+                                className="relative shadow-lg border-[10px] border-yellow-600 rounded-xl overflow-hidden min-w-[800px] h-[600px]"
                             >
                                 <img
                                     src={assets.certificateBg}
@@ -141,6 +139,7 @@ const CertificatePreview = ({
                     )}
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };
