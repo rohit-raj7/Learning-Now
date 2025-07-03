@@ -6,15 +6,16 @@ import { toast } from 'react-toastify';
 import Loading from '../../components/student/Loading';
 
 
+
 const Dashboard = () => {
 
-  const { isEducator, currency } = useContext(AppContext)
+  const { isEducator, currency ,API_URL} = useContext(AppContext)
 
   const [dashboardData, setDashboardData] = useState(null)
 
   const fetchDashboardData = async () => {
     try {
-      const API_URL = 'https://onlinelearning-rohit.vercel.app/api/educator/dashboard';
+      API = `${API_URL}/api/educator/dashboard`;
 
       const token = localStorage.getItem('token'); // ✅ define it first
       if (!token) {
@@ -28,7 +29,7 @@ const Dashboard = () => {
         }
       };
 
-      const response = await axios.get(API_URL, headers);  
+      const response = await axios.get(API, headers);  
       const data = response.data;
 
       if (data.success) {

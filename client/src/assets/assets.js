@@ -46,8 +46,11 @@ import x_icon from './x.png'
 import default_user from './default-user.png'
 import search_icon_green from './search_icon_green.png'
 import CEO_Sign from './CEO_Sign.jpg'
+import certificateBg from './certificateBg.png'
 export const assets = {
-    logo,search_icon_green,
+    logo,
+    search_icon_green,
+    certificateBg,
     x_icon,
     default_user,
     search_icon,CEO_Sign,

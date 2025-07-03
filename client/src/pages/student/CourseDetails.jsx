@@ -11,7 +11,6 @@ import Loading from '../../components/student/Loading';
 
 const CourseDetails = () => {
   const { id } = useParams();
-  const API_URL = 'https://onlinelearning-rohit.vercel.app';
 
   const [courseData, setCourseData] = useState(null);
   const [playerData, setPlayerData] = useState(null);
@@ -24,7 +23,7 @@ const CourseDetails = () => {
     calculateChapterTime,
     calculateCourseDuration,
     calculateRating,
-    calculateNoOfLectures,
+    calculateNoOfLectures,API_URL,
   } = useContext(AppContext);
 
   useEffect(() => {

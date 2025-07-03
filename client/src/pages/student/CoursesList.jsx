@@ -1,20 +1,22 @@
  
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext,useEffect, useState } from 'react';
 import Footer from '../../components/student/Footer';
 import { assets } from '../../assets/assets';
 import CourseCard from '../../components/student/CourseCard';
 import { useParams, useNavigate } from 'react-router-dom';
 import SearchBar from '../../components/student/SearchBar';
+import { AppContext } from '../../context/AppContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const API_URL = 'https://onlinelearning-rohit.vercel.app';  
+
 
 const CoursesList = () => {
   const { input } = useParams();
   const navigate = useNavigate();
 
+  const {API_URL } = useContext(AppContext);
   const [allCourses, setAllCourses] = useState([]); // ✅ Manage state locally
   const [filteredCourse, setFilteredCourse] = useState([]);
 

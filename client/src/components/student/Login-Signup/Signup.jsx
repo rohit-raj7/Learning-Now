@@ -1,11 +1,11 @@
 
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { AppContext } from '../../../context/AppContext.jsx'; 
 import { assets } from './assets/assets';
 import clientId from './GoogleOAuthProvider';
 import Loading from './Loading';
@@ -23,7 +23,8 @@ function Signup() {
   const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
   const navigate = useNavigate();
 
-  const API_URL = 'https://onlinelearning-rohit.vercel.app';
+
+  const {API_URL } = useContext(AppContext);
 
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const validatePassword = (password) => /^(?=.*\d).{6,}$/.test(password);

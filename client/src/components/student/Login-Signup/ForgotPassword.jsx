@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { assets } from './assets/assets';
 import Loading from './Loading';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import { AppContext } from '../../../context/AppContext.jsx'; 
 
 function ForgotPassword() {
   const [step, setStep] = useState('email');
@@ -13,7 +15,8 @@ function ForgotPassword() {
   const [newPassword, setNewPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const API_URL="https://onlinelearning-rohit.vercel.app"
+  
+  const {API_URL } = useContext(AppContext);
 
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 

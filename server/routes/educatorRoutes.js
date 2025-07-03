@@ -17,7 +17,6 @@ import {
   resetPassword,
   verifyResetOtp,
 } from '../controllers/educatorController.js';
-// import router from './cloudinaryRoutes.js';
 
 const educatorRouter = express.Router();
 
@@ -58,7 +57,6 @@ educatorRouter.post('/token/refresh', async (req, res) => {
 // ==== Educator Protected Routes ====
 educatorRouter.get('/data', verifyToken, getEducatorData); 
 educatorRouter.get('/update-role', verifyToken, updateRoleToEducator);
-// educatorRouter.post('/upload-video', router);
 educatorRouter.post('/add-course', verifyToken, upload.single('image'), addCourse);
 educatorRouter.get('/courses', verifyToken, getEducatorCourses);
 educatorRouter.get('/dashboard', verifyToken, educatorDashboardData);

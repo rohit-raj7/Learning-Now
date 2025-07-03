@@ -13,11 +13,11 @@ import Rating from '../../components/student/Rating';
 import Footer from '../../components/student/Footer';
 import Loading from '../../components/student/Loading';
 
-const Player = () => {
-  const API_URL = "https://onlinelearning-rohit.vercel.app";
+const Player = () => { 
+  
   const token = localStorage.getItem('token');
 
-  const { enrolledCourses, calculateChapterTime, userData, fetchUserEnrolledCourses } = useContext(AppContext);
+  const { enrolledCourses, calculateChapterTime, API_URL,userData, fetchUserEnrolledCourses } = useContext(AppContext);
   const { courseId } = useParams();
 
   const [courseData, setCourseData] = useState(null);

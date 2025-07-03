@@ -1,6 +1,6 @@
 
 
-import React, { useState } from 'react';
+import React, { useState ,useContext} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { toast, ToastContainer } from 'react-toastify';
@@ -8,12 +8,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import { assets } from './assets/assets';
 import clientId from './GoogleOAuthProvider';
 import Loading from './Loading';
+import { AppContext } from '../../../context/AppContext.jsx'; 
 
 function Login() {
   const [loginInfo, setLoginInfo] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [role, setRole] = useState('student'); // 'student' or 'educator'
   const navigate = useNavigate();
+  
+  
+  const {API_URL } = useContext(AppContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,8 +41,8 @@ function Login() {
 
     const url =
       role === 'student'
-        ? 'https://onlinelearning-rohit.vercel.app/api/user/login'
-        : 'https://onlinelearning-rohit.vercel.app/api/educator/login';
+        ? `${API_URL}/api/user/login`
+        : `${API_URL}/api/educator/login`;
 
     try {
       const response = await fetch(url, {

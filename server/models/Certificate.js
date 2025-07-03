@@ -1,13 +1,14 @@
-// models/Certificate.js
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const certificateSchema = new mongoose.Schema({
-  certificateId: { type: String, unique: true, required: true },
-  studentName: String,
-  courseId: String,
-  courseTitle: String,
-  instructorName: String,
-  completionDate: String
-});
+  certificateId: { type: String, required: true, unique: true },
+  studentName: { type: String, required: true },
+  courseId: { type: String, required: true },
+  courseTitle: { type: String, required: true },
+  instructorName: { type: String, required: true },
+  completionDate: { type: String, required: true }
+}, { timestamps: true });
 
-module.exports = mongoose.model('Certificate', certificateSchema);
+const Certificate = mongoose.model('Certificate', certificateSchema);
+
+export default Certificate;

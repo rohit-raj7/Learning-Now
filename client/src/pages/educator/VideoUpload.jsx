@@ -1,8 +1,12 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+import { AppContext } from '../../context/AppContext'; 
+
 const VideoUpload = ({ setLectureDetails, setUploadProgress, setUploadTimeLeft }) => {
+  const { API_URL } = useContext(AppContext);
+
   const handleUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -24,7 +28,7 @@ const VideoUpload = ({ setLectureDetails, setUploadProgress, setUploadTimeLeft }
         },
       };
 
-      const { data } = await axios.post('http://localhost:5000/api/cloudinary/upload-video', formData, config);
+      const { data } = await axios.post(`${API_URL}/api/cloudinary/upload-video`, formData, config);
 
       if (data.secure_url) {
         setLectureDetails((prev) => ({ ...prev, lectureUrl: data.secure_url }));
