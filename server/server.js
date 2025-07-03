@@ -13,7 +13,6 @@ import authRoutes from './routes/authRoutes.js'
 import certificate from './routes/certificates.js'
 
 import { stripeWebhooks, handleUserEvents } from './controllers/webhooks.js'
-import Certificate from './routes/certificates.js'
 
 const app = express()
 
@@ -60,12 +59,9 @@ app.use('/api/educator', educatorRouter)
 app.use('/api/course', courseRouter)
 app.use('/api/user', userRouter)
 app.use('/api/auth', authRoutes)
-<<<<<<< HEAD
 app.use('/api/certificate', certificate)
-=======
-app.use('/api/certificate' ,Certificate)
->>>>>>> 87889511278d38acc82fee05bd67bc3f2a761439
-// Start server
+
+
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`)

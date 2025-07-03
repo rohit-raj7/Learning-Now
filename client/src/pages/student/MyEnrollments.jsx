@@ -11,7 +11,7 @@ const MyEnrollments = () => {
     userData,
     enrolledCourses,
     fetchUserEnrolledCourses,
-    navigate,
+   navigate ,
     API_URL,
     getToken,
     calculateCourseDuration,

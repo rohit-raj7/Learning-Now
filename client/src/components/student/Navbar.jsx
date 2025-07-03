@@ -1,4 +1,4 @@
- 
+
 import React, { useContext, useRef, useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { assets } from '../../assets/assets';
@@ -91,9 +91,22 @@ const Navbar = () => {
         className="w-16 sm:w-16 md:w-20 lg:w-24 cursor-pointer object-contain ml-5"
         alt="Logo"
       />
-      <Link to='/' className='hidden sm:block'>
+      <Link to='/' className='hidden sm:block '>
         <p className='bg-green-500 text-white text-sm md:text-base rounded rounded-xl hover:text-black md:px-6 px-4 md:py-2 py-1 mx-1'>Home</p>
+
       </Link>
+
+      {
+        location.pathname !== '/verify-certificate' && (
+          <Link to='/verify-certificate' className='hidden sm:block'>
+            <button
+              className="bg-purple-600 hover:bg-purple-700 text-white text-sm md:text-base rounded-xl md:px-6 px-4 md:py-2 py-1 mx-1"
+            >
+              Verify Certificate
+            </button>
+          </Link>
+        )
+      }
 
       {isUser ? (
         <div className="flex items-center gap-6 text-gray-500 relative">

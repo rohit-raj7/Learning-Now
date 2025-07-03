@@ -1,4 +1,4 @@
- 
+
 import { useEffect, useRef, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import QRCode from 'qrcode';
@@ -85,17 +85,34 @@ const CertificateGenerator = () => {
     };
 
 
+
     const generateCertificate = async () => {
         const certId = certificateId.trim();
 
         const payload = {
             certificateId: certId,
-            studentName: formData.studentName,
+            studentName: formData.studentName?.trim(),
             courseId: courseObj?._id,
             courseTitle: courseName,
-            instructorName: formData.instructorName,
+            instructorName: formData.instructorName?.trim(),
             completionDate: formData.completionDate
         };
+
+        console.log("Payload before POST:", payload);
+
+        if (
+            !payload.certificateId?.trim() ||
+            // !payload.studentName?.trim() ||
+            !payload.courseId?.trim() ||
+            !payload.courseTitle?.trim() ||
+            // !payload.instructorName?.trim() ||
+            !payload.completionDate?.trim()
+        ) {
+            toast.error("Missing required fields. Please check and try again.");
+            return;
+        }
+
+
 
         try {
             const response = await fetch(`${API_URL}/api/certificate/${certId}`);
@@ -113,22 +130,18 @@ const CertificateGenerator = () => {
                 setFormData(prev => ({ ...prev, ...createdCert }));
             }
 
-            // ✅ Step 1: Show the certificate first
             setCertificateReady(true);
 
-            // ✅ Step 2: Wait for the certificate UI (especially canvas) to render
             setTimeout(() => {
                 if (canvasRef.current && certId) {
                     QRCode.toCanvas(canvasRef.current, certId, { width: 90 })
-                        .then(() => {
-                            toast.success("Certificate generated successfully!");
-                        })
+                        .then(() => toast.success("Certificate generated successfully!"))
                         .catch(err => {
                             console.error("QR generation failed:", err);
                             toast.error("Failed to generate QR code.");
                         });
                 }
-            }, 100); // Give time for canvas to mount
+            }, 100);
 
         } catch (err) {
             console.error('Certificate generation failed:', err);

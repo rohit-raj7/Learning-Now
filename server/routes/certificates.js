@@ -18,30 +18,26 @@ router.get('/:certificateId', async (req, res) => {
   }
 });
 
-// POST create certificate
+
+
 router.post('/', async (req, res) => {
   const { certificateId, studentName, courseId, courseTitle, instructorName, completionDate } = req.body;
 
+  if (!certificateId || !studentName || !courseId || !courseTitle || !instructorName || !completionDate) {
+    return res.status(400).json({ message: 'Missing required fields' });
+  }
+
   try {
     const existing = await Certificate.findOne({ certificateId });
-    if (existing) {
-      return res.status(200).json(existing); // Already exists, return it
-    }
+    if (existing) return res.status(200).json(existing);
 
-    const newCert = new Certificate({
-      certificateId,
-      studentName,
-      courseId,
-      courseTitle,
-      instructorName,
-      completionDate
-    });
-
+    const newCert = new Certificate({ certificateId, studentName, courseId, courseTitle, instructorName, completionDate });
     await newCert.save();
     return res.status(201).json(newCert);
   } catch (err) {
     return res.status(500).json({ message: 'Failed to create certificate', error: err.message });
   }
 });
+
 
 export default router;
