@@ -10,7 +10,7 @@ import userRouter from './routes/userRoutes.js'
 import educatorRouter from './routes/educatorRoutes.js'
 import courseRouter from './routes/courseRoute.js'
 import authRoutes from './routes/authRoutes.js'
-// import certificate from './routes/certificates.js'
+import certificate from './routes/certificates.js'
 // import cloudinaryRoutes from './routes/cloudinaryRoutes.js';
 import { stripeWebhooks, handleUserEvents } from './controllers/webhooks.js'
 
@@ -60,7 +60,7 @@ app.use('/api/educator', educatorRouter)
 app.use('/api/course', courseRouter)
 app.use('/api/user', userRouter)
 app.use('/api/auth', authRoutes)
-// app.use('/api/certificate', certificate)
+app.use('/api/certificate', certificate)
 
 
 
