@@ -11,7 +11,7 @@ import educatorRouter from './routes/educatorRoutes.js'
 import courseRouter from './routes/courseRoute.js'
 import authRoutes from './routes/authRoutes.js'
 // import certificate from './routes/certificates.js'
-import cloudinaryRoutes from './routes/cloudinaryRoutes.js';
+// import cloudinaryRoutes from './routes/cloudinaryRoutes.js';
 import { stripeWebhooks, handleUserEvents } from './controllers/webhooks.js'
 
 const app = express()
@@ -54,7 +54,7 @@ app.use(express.json())
 app.get('/', (req, res) => res.send('API Working'))
 app.post('/user-events', handleUserEvents)
 app.post('/stripe', express.raw({ type: 'application/json' }), stripeWebhooks)
-app.use('/api/cloudinary', cloudinaryRoutes)
+// app.use('/api/cloudinary', cloudinaryRoutes)
 
 app.use('/api/educator', educatorRouter)
 app.use('/api/course', courseRouter)
