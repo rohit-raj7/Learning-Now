@@ -1,5 +1,5 @@
-import logo from './logo_dark.png'
-import logo_dark from './logo_dark.png'
+import logo from './logo_dark1.png'
+import logo_dark from './logo_dark1.png'
 import search_icon from './search_icon.svg'
 import cross_icon from './cross_icon.svg'
 import upload_area from './upload_area.svg'

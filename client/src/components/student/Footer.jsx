@@ -6,7 +6,7 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 function Footer() {
 
-  
+
   const location = useLocation();
   const navigate = useNavigate();
   return (
@@ -21,7 +21,7 @@ function Footer() {
           </div>
           <h2 className='font-medium text-gray-300 mt-4'>Thank You for Visiting My Learning Web!</h2>
           <p className='text-gray-400 mt-2'>
-            I appreciate your time. As a Web developer, I create responsive, user-friendly websites. 
+            I appreciate your time. As a Web developer, I create responsive, user-friendly websites.
             Feel free to reach out with questions or collaboration ideas!
           </p>
           <div className='mt-4'>
@@ -33,9 +33,10 @@ function Footer() {
         <div className='w-full md:w-1/5 mb-8 md:mb-0'>
           <h3 className='text-green-600 text-lg font-bold mb-4'>Company</h3>
           <ul className='flex flex-col gap-2 text-gray-400'>
-            <li><a onClick={() => navigate('/')} className='hover:text-green-400'>Home</a></li>
-            <li><a onClick={() => navigate('/')} className='hover:text-green-400'>About us</a></li>
-            <li><a onClick={() => navigate('/')} className='hover:text-green-400'>Works</a></li>
+            <li><a onClick={() => navigate('/')} className='hover:text-green-400 cursor-pointer'>Home</a></li>
+            <li><a onClick={() => navigate('/')} className='hover:text-green-400 cursor-pointer'>About us</a></li>
+            <li><a onClick={() => navigate('/all-courses')} className='hover:text-green-400 cursor-pointer'>View All Courses</a></li>
+            <li><a onClick={() => navigate('/verify-certificate')} className='hover:text-green-400 cursor-pointer'>Verify Certificate</a></li>
             <li><a href="/educator/educator-profile" className='hover:text-green-400'>Contact us</a></li>
             <li><Link to='/Privacy_Policy' className='hover:text-green-400'>Privacy Policy</Link></li>
             <li><a href="https://rohit-raj.netlify.app/" target="_blank" rel="noopener noreferrer" className='hover:text-green-400'>Portfolio</a></li>

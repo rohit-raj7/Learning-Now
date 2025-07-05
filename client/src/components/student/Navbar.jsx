@@ -90,9 +90,10 @@ const Navbar = () => {
       <img
         src={assets.logo}
         onClick={() => navigate('/')}
-        className="w-16 sm:w-16 md:w-20 lg:w-24 cursor-pointer object-contain ml-5"
+        className="w-10 sm:w-12 md:w-14 lg:w-16 cursor-pointer object-contain ml-5"
         alt="Logo"
       />
+
 
       <Link to='/' className='hidden sm:block'>
         <p className='bg-green-500 text-white text-sm md:text-base rounded-xl hover:text-black md:px-6 px-4 md:py-2 py-1 mx-1'>Home</p>
