@@ -76,3 +76,4 @@ const StudentsEnrolled = () => {
 };
 
 export default StudentsEnrolled;
+ 
