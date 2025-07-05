@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { AppContext } from '../../context/AppContext';
 import { toast } from 'react-toastify';
-import Loading from '../../components/student/Loading';
+import CourseList from '../SkeletonLoadingUi/MyEnrollments';
 
 const StudentsEnrolled = () => {
 
@@ -72,7 +72,7 @@ const StudentsEnrolled = () => {
         </table>
       </div>
     </div>
-  ) : <Loading />
+  ) : <CourseList />
 };
 
 export default StudentsEnrolled;

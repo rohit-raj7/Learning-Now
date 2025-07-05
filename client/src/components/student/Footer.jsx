@@ -2,9 +2,13 @@ import React from 'react';
 import { assets } from '../../assets/assets';
 import Social from './Social';
 import Subscribe from './Subscribe';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 function Footer() {
+
+  
+  const location = useLocation();
+  const navigate = useNavigate();
   return (
     <div className='pt-10 px-4 md:px-20 lg:px-32 bg-gray-900 w-full overflow-hidden text-left' id='Footer'>
       <div className='container mx-auto flex flex-col md:flex-row justify-between items-start'>
@@ -29,9 +33,9 @@ function Footer() {
         <div className='w-full md:w-1/5 mb-8 md:mb-0'>
           <h3 className='text-green-600 text-lg font-bold mb-4'>Company</h3>
           <ul className='flex flex-col gap-2 text-gray-400'>
-            <li><a href="#Header" className='hover:text-green-400'>Home</a></li>
-            <li><a href="#About" className='hover:text-green-400'>About us</a></li>
-            <li><a href="#Experience" className='hover:text-green-400'>Works</a></li>
+            <li><a onClick={() => navigate('/')} className='hover:text-green-400'>Home</a></li>
+            <li><a onClick={() => navigate('/')} className='hover:text-green-400'>About us</a></li>
+            <li><a onClick={() => navigate('/')} className='hover:text-green-400'>Works</a></li>
             <li><a href="/educator/educator-profile" className='hover:text-green-400'>Contact us</a></li>
             <li><Link to='/Privacy_Policy' className='hover:text-green-400'>Privacy Policy</Link></li>
             <li><a href="https://rohit-raj.netlify.app/" target="_blank" rel="noopener noreferrer" className='hover:text-green-400'>Portfolio</a></li>

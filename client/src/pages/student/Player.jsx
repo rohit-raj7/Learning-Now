@@ -10,7 +10,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Rating from '../../components/student/Rating';
 import Footer from '../../components/student/Footer';
-import Loading from '../../components/student/Loading';
+import VideoPlayer from '../../pages/SkeletonLoadingUi/VideoPlayer'; 
 
 const Player = () => {
   const token = localStorage.getItem('token');
@@ -132,7 +132,7 @@ const Player = () => {
     getCourseProgress();
   }, []);
 
-  if (!courseData) return <Loading />;
+  if (!courseData) return <VideoPlayer />;
 
   return (
     <>

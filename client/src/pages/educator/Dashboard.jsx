@@ -3,9 +3,7 @@ import { assets } from '../../assets/assets'
 import { AppContext } from '../../context/AppContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import Loading from '../../components/student/Loading';
-
-
+import LatestEnrollmentsSkeleton from '../SkeletonLoadingUi/LatestEnrollmentsSkeleton '
 
 const Dashboard = () => {
 
@@ -118,7 +116,7 @@ const Dashboard = () => {
 
       </div>
     </div>
-  ) : <Loading />
+  ) : <LatestEnrollmentsSkeleton  />
 }
 
 export default Dashboard

@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import Loading from '../../components/student/Loading';
+import CourseList from '../SkeletonLoadingUi/MyEnrollments'
 
 const MyCourses = () => {
   const { API_URL, isEducator, currency } = useContext(AppContext);
@@ -149,7 +149,7 @@ const MyCourses = () => {
       </div>
     </div>
   ) : (
-    <Loading />
+    <CourseList />
   );
 };
 

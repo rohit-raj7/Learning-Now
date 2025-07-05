@@ -3,6 +3,7 @@ import { AppContext } from '../../context/AppContext';
 import CourseCard from './CourseCard';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Loading from '../educator/Login-Signup/Loading';
+import AllCourses from '../../pages/SkeletonLoadingUi/AllCourses';
 import { useNavigate } from 'react-router-dom';
 
 const CoursesSection = () => {
@@ -51,8 +52,8 @@ const CoursesSection = () => {
             ))
           ) : (
             <div className="flex items-center justify-center w-full py-6 gap-4">
-              <span>Loading...</span>
-              <Loading />
+              {/* <span>Loading...</span> */}
+              <AllCourses />
             </div>
           )}
         </div>
@@ -82,8 +83,9 @@ const CoursesSection = () => {
                 ))
               ) : (
                 <div className="flex items-center justify-center w-full py-6 gap-4">
-                  <span>Loading...</span>
-                  <Loading />
+              
+                  {/* <span>Loading...</span> */}
+                  <AllCourses />
                 </div>
               )}
             </div>
@@ -105,8 +107,8 @@ const CoursesSection = () => {
                 ))
               ) : (
                 <div className="flex items-center justify-center w-full py-6 gap-4">
-                  <span>Loading...</span>
-                  <Loading />
+                  {/* <span>Loading...</span> */}
+                  <AllCourses />
                 </div>
               )}
             </div>
