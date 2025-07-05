@@ -6,7 +6,7 @@ import { verifyToken } from '../middlewares/auth.js';
 import { generateAccessToken } from '../utils/generateTokens.js';
 
 import {
-  addCourse,getEducatorData,
+  addCourse, getEducatorData,
   educatorDashboardData,
   getEducatorCourses,
   getEnrolledStudentsData,
@@ -15,7 +15,7 @@ import {
   loginEducator,
   verifyEmail,
   resetPassword,
-  verifyResetOtp,
+  verifyResetOtp,addVideo,
 } from '../controllers/educatorController.js';
 
 const educatorRouter = express.Router();
@@ -55,11 +55,14 @@ educatorRouter.post('/token/refresh', async (req, res) => {
 });
 
 // ==== Educator Protected Routes ====
-educatorRouter.get('/data', verifyToken, getEducatorData); 
+educatorRouter.get('/data', verifyToken, getEducatorData);
 educatorRouter.get('/update-role', verifyToken, updateRoleToEducator);
+educatorRouter.post('/upload-video',upload.single('file'), addVideo);
+// educatorRouter.post('/upload-video', addVideo);  // No multer middleware
 educatorRouter.post('/add-course', verifyToken, upload.single('image'), addCourse);
 educatorRouter.get('/courses', verifyToken, getEducatorCourses);
 educatorRouter.get('/dashboard', verifyToken, educatorDashboardData);
 educatorRouter.get('/enrolled-students', verifyToken, getEnrolledStudentsData);
 
 export default educatorRouter;
+ 

@@ -1,20 +1,22 @@
- 
+
 
 import Course from '../models/Course.js';
 import { Purchase } from '../models/Purchase.js';
 import EducatorUser from '../models/EducatorUser.js';   // educatorUser
- import User from '../models/User.js'  // student user
- import bcrypt from "bcrypt"; 
-import { v4 as uuidv4 } from 'uuid'; 
-import { SendVerificationCode,WelcomeEmail,SendResetCode } from '../middlewares/Email.js'
+import User from '../models/User.js'  // student user
+import bcrypt from "bcrypt";
+import { v4 as uuidv4 } from 'uuid';
+import { SendVerificationCode, WelcomeEmail, SendResetCode } from '../middlewares/Email.js'
 import jwt from "jsonwebtoken";
-import { v2 as cloudinary } from 'cloudinary'; 
-import streamifier from 'streamifier'; 
+import { v2 as cloudinary } from 'cloudinary';
+import streamifier from 'streamifier';
 
 
- // Signup and send OTP for Educator  signupEducator
- 
- export const signupEducator = async (req, res) => {
+
+
+// Signup and send OTP for Educator  signupEducator
+
+export const signupEducator = async (req, res) => {
   try {
     const { email, password, name } = req.body;
     const file = req.file;
@@ -84,7 +86,7 @@ import streamifier from 'streamifier';
       message: "Internal Server Error",
     });
   }
-};  
+};
 
 
 // Verify email with OTP
@@ -110,7 +112,7 @@ export const verifyEmail = async (req, res) => {
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
- 
+
 // Request OTP for password reset
 
 export const resetPassword = async (req, res) => {
@@ -198,7 +200,7 @@ export const loginEducator = async (req, res) => {
       { expiresIn: '24h' }
     );
 
-   
+
     // Return success response
     return res.status(200).json({
       success: true,
@@ -218,14 +220,9 @@ export const loginEducator = async (req, res) => {
 
 // Update role to educator
 export const updateRoleToEducator = async (req, res) => {
-  try { 
-     const educatorId = req.educator?._id || req.auth?.educatorId;
+  try {
+    const educatorId = req.educator?._id || req.auth?.educatorId;
 
-
-    // Assuming you want to update EducatorUser document role (or User model if separate)
-    // If EducatorUser is a separate collection, maybe you want to create or update the educator user
-    // But here you update role in EducatorUser (or User model?)
-    // Since you imported EducatorUser, update it here:
     await EducatorUser.findByIdAndUpdate(educatorId, { role: 'educator' });
 
     res.json({ success: true, message: 'You can publish a course now' });
@@ -234,17 +231,52 @@ export const updateRoleToEducator = async (req, res) => {
   }
 };
 
-// Add New Course
+
+
+export const addVideo = async (req, res) => {
+  try {
+    if (!req.file || !req.file.buffer) {
+      return res.status(400).json({ success: false, message: 'No video file provided' });
+    }
+
+    const streamUpload = () => {
+      return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          {
+            resource_type: 'video',
+            folder: 'course_videos',
+          },
+          (error, result) => {
+            if (result) resolve(result);
+            else reject(error);
+          }
+        );
+
+        streamifier.createReadStream(req.file.buffer).pipe(stream);
+      });
+    };
+
+    const result = await streamUpload();
+
+    return res.status(200).json({ success: true, secure_url: result.secure_url });
+
+  } catch (err) {
+    console.error('Cloudinary upload error:', err);
+    return res.status(500).json({ success: false, message: 'Upload failed', error: err.message });
+  }
+};
+
+
+// add course 
 
 
 export const addCourse = async (req, res) => {
   try {
     const { courseData } = req.body;
-    const imageFile = req.file;
-     const educatorId = req.educator?._id || req.auth?.educatorId;
+    const file = req.file;
+    const educatorId = req.educator?._id || req.auth?.educatorId;
 
-
-    if (!imageFile) {
+    if (!file || !file.buffer) {
       return res.status(400).json({ success: false, message: 'Thumbnail not attached' });
     }
 
@@ -252,30 +284,45 @@ export const addCourse = async (req, res) => {
     try {
       parsedCourseData = JSON.parse(courseData);
     } catch (err) {
-        console.error("Failed to parse courseData:", courseData); // Log actual string received
-
       return res.status(400).json({ success: false, message: 'Invalid JSON format in courseData' });
     }
 
-    // Upload image before creating course
-    const imageUpload = await cloudinary.uploader.upload(imageFile.path);
-    parsedCourseData.courseThumbnail = imageUpload.secure_url;
+    // Upload image to Cloudinary from memory
+    const streamUpload = () => {
+      return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          {
+            resource_type: 'image',
+            folder: 'course_thumbnails',
+          },
+          (error, result) => {
+            if (result) resolve(result);
+            else reject(error);
+          }
+        );
+        streamifier.createReadStream(file.buffer).pipe(stream);
+      });
+    };
+
+    const result = await streamUpload();
+
+    parsedCourseData.courseThumbnail = result.secure_url;
     parsedCourseData.educator = educatorId;
 
     const newCourse = await Course.create(parsedCourseData);
 
-    res.status(201).json({ success: true, message: 'Course added successfully', courseId: newCourse._id });
+    return res.status(201).json({ success: true, message: 'Course added successfully', courseId: newCourse._id });
+
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: 'Server error: ' + error.message });
+    console.error("Add Course Error:", error);
+    return res.status(500).json({ success: false, message: 'Server error: ' + error.message });
   }
 };
- 
 
 
 export const getEducatorCourses = async (req, res) => {
   try {
-     const educatorId = req.educator?._id || req.auth?.educatorId;
+    const educatorId = req.educator?._id || req.auth?.educatorId;
 
 
     const courses = await Course.find({ educator: educatorId });
@@ -287,7 +334,7 @@ export const getEducatorCourses = async (req, res) => {
 };
 
 
- // getEducatorData 
+// getEducatorData 
 export const getEducatorData = async (req, res) => {
   try {
     const educatorId = req.educator?._id || req.auth?.educatorId;
@@ -309,7 +356,7 @@ export const getEducatorData = async (req, res) => {
     res.status(500).json({ success: false, message: 'Server error: ' + error.message });
   }
 };
-  
+
 
 
 
@@ -332,7 +379,7 @@ export const educatorDashboardData = async (req, res) => {
     });
 
     const totalEarnings = purchases.reduce((sum, purchase) => sum + purchase.amount, 0);
- 
+
     const enrolledStudentsData = [];
 
     for (const course of courses) {

@@ -11,7 +11,7 @@ connectCloudinary();
 
 const upload = multer({ dest: 'temp/' });
 
-router.post('/upload-video', upload.single('file'), async (req, res) => {
+addVideo.post('/upload-video', upload.single('file'), async (req, res) => {
   try {
     const result = await cloudinary.uploader.upload(req.file.path, {
       resource_type: 'video',
@@ -26,4 +26,4 @@ router.post('/upload-video', upload.single('file'), async (req, res) => {
   }
 });
 
-export default router;
+export default addVideo;
