@@ -1,8 +1,10 @@
- 
+
+
 
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchBar from '../../components/student/SearchBar';
+import SkeletonHero from '../../pages/SkeletonLoadingUi/SkeletonHero'
 
 function Hero() {
   const navigate = useNavigate();
@@ -14,6 +16,10 @@ function Hero() {
     'End-to-End Understanding'
   ];
   const [index, setIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [loadedImages, setLoadedImages] = useState(0);
+
+  const totalImages = 7;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -22,12 +28,33 @@ function Hero() {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const timeout = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  const handleImageLoad = () => {
+    setLoadedImages((prev) => {
+      const next = prev + 1;
+      if (next >= totalImages) setLoading(false);
+      return next;
+    });
+  };
+
   const currentWord = words[index];
   let textSizeClass = 'text-[clamp(1.25rem,4vw,3rem)]';
   if (currentWord.length > 25) {
     textSizeClass = 'text-[clamp(1rem,2.5vw,1.8rem)]';
   } else if (currentWord.length > 18) {
     textSizeClass = 'text-[clamp(1.1rem,3vw,2.2rem)]';
+  }
+
+  if (loading) {
+    return (
+      <div>
+        <SkeletonHero />
+      </div>
+    );
   }
 
   return (
@@ -47,14 +74,12 @@ function Hero() {
             </div>
           </div>
 
-           <button
+          <button
             onClick={() => navigate('/user/signup')}
             className="bg-[#23c16e] hover:bg-[#1db358] text-white text-lg font-bold px-6 py-3 rounded-full shadow transition w-full mx-auto lg:mx-0"
           >
             Sign Up for Free
-          </button> 
-    
-
+          </button>
 
           <div className="w-full">
             <SearchBar />
@@ -82,6 +107,7 @@ function Hero() {
                 ][i - 1]}.png`}
                 alt={`Learner ${i}`}
                 className="w-9 h-9 rounded-full border-2 border-white shadow"
+                onLoad={handleImageLoad}
               />
             ))}
             <div className="font-bold text-sm">
@@ -92,7 +118,16 @@ function Hero() {
 
         {/* RIGHT PANEL */}
         <section className="relative flex justify-center items-center">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,_#c7e4d1_1px,_transparent_1px),linear-gradient(to_bottom,_#c7e4d1_1px,_transparent_1px)] bg-[length:40px_40px] opacity-25 rounded-3xl"></div>
+          <div className="absolute inset-0 rounded-3xl overflow-hidden">
+            {/* Glow blur layer */}
+            <div className="absolute inset-0 bg-gradient-radial from-[#d3f1e2] via-transparent to-transparent blur-2xl opacity-30 z-0"></div>
+
+            {/* Animated grid */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,_#bce6d3_1px,_transparent_1px),linear-gradient(to_bottom,_#bce6d3_1px,_transparent_1px)] bg-[length:36px_36px] opacity-40 animate-[moveGrid_10s_linear_infinite] z-10"></div>
+          </div>
+
+
+
           <div className="relative w-[300px] sm:w-[340px] md:w-[360px] lg:w-[400px] h-[420px] sm:h-[440px] md:h-[460px] rounded-3xl bg-gradient-to-br from-[#23c16e] to-[#1eb85c] shadow-2xl flex justify-center items-center z-10">
             <div className="absolute -top-9 -left-9 w-18 h-18 bg-white rounded-3xl"></div>
             <div className="absolute -bottom-9 -right-9 w-18 h-18 bg-white rounded-3xl"></div>
@@ -100,9 +135,10 @@ function Hero() {
           <img
             src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/76874a8e-3f7f-4034-84f4-53896a36c8f2.png"
             alt="Student"
-            className="absolute w-[240px] sm:w-[260px] md:w-[280px] lg:w-[300px] h-[360px] object-cover rounded-[20px] shadow-xl z-20"
+            className="absolute w-[240px] sm:w-[260px] md:w-[280px] lg:w-[330px] h-[390px] object-cover rounded-[20px] shadow-xl z-20"
             draggable="false"
             loading="lazy"
+            onLoad={handleImageLoad}
           />
 
           {/* Top left info */}
@@ -112,6 +148,7 @@ function Hero() {
               alt="Mayur Jain"
               className="w-9 h-9 rounded-full object-cover shadow"
               loading="lazy"
+              onLoad={handleImageLoad}
             />
             <div className="flex-1">
               <p className="font-semibold text-gray-900 m-0">Success Story</p>
@@ -131,12 +168,11 @@ function Hero() {
                 {[5, 4, 3, 2, 1].map((star, i) => (
                   <div key={i} className="flex items-center gap-1">
                     <span className="text-xs text-gray-400 w-4 text-center">{star}</span>
-                    <div className={`h-[6px] rounded-full bg-[#23c16e] ${
-                      star === 5 ? 'w-[90%]' :
+                    <div className={`h-[6px] rounded-full bg-[#23c16e] ${star === 5 ? 'w-[90%]' :
                       star === 4 ? 'w-[70%]' :
-                      star === 3 ? 'w-[45%]' :
-                      star === 2 ? 'w-[30%]' : 'w-[10%]'
-                    }`}></div>
+                        star === 3 ? 'w-[45%]' :
+                          star === 2 ? 'w-[30%]' : 'w-[10%]'
+                      }`}></div>
                   </div>
                 ))}
               </div>
