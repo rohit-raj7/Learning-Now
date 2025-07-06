@@ -1,11 +1,18 @@
+ 
+
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchBar from '../../components/student/SearchBar';
-import './Hero.css';
 
 function Hero() {
   const navigate = useNavigate();
-  const words = ['Real-time learning', 'Simplicity', 'Beginner-Friendly', 'Live Classes', 'End-to-End Understanding'];
+  const words = [
+    'Real-time learning',
+    'Simplicity',
+    'Beginner-Friendly',
+    'Live Classes',
+    'End-to-End Understanding'
+  ];
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -15,102 +22,123 @@ function Hero() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    const fontLink = document.createElement('link');
-    fontLink.href = "https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap";
-    fontLink.rel = "stylesheet";
-    document.head.appendChild(fontLink);
-
-    const iconLink = document.createElement('link');
-    iconLink.href = "https://fonts.googleapis.com/icon?family=Material+Icons";
-    iconLink.rel = "stylesheet";
-    document.head.appendChild(iconLink);
-  }, []);
+  const currentWord = words[index];
+  let textSizeClass = 'text-[clamp(1.25rem,4vw,3rem)]';
+  if (currentWord.length > 25) {
+    textSizeClass = 'text-[clamp(1rem,2.5vw,1.8rem)]';
+  } else if (currentWord.length > 18) {
+    textSizeClass = 'text-[clamp(1.1rem,3vw,2.2rem)]';
+  }
 
   return (
-    <div className='bg-white Hero'>
-      <main>
-        <section className="left-panel" aria-label="Promotional information">
-         <div className=' '>
-          <h1 className=" text-gray-100 text-2xl sm:text-2xl md:text-4xl lg:text-4xl font-medium">
-            <span  className='Empower'>Empower</span> your future with the !!
+    <div className="bg-white w-full min-h-screen flex items-center justify-center font-['Inter']">
+      <main className="w-full max-w-[1440px] grid grid-cols-1 lg:grid-cols-2 px-4 md:px-12 lg:px-24 py-12 items-center gap-10">
+        {/* LEFT PANEL */}
+        <section className="flex flex-col justify-center gap-6 text-center lg:text-left">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900">
+            <span className="text-[#29c35f]">Empower</span> your future with the !!
           </h1>
-          <h1 className=" text-gray-100 mt-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium max-w-full break-words">
-            courses Built for{' '}
-            <span className="inline-block px-3 mt-4 py-1 border border-[#15d693] rounded-[12px] text-[#10b27c] font-[Courier_New] transition-opacity duration-500 ease-in-out whitespace-nowrap">
-              {words[index]}
-            </span>
-          </h1>
+          <div className="flex flex-col items-center lg:items-start gap-6">
+            <span className="text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-700">courses Built for</span>
+            <div className="overflow-x-auto no-scrollbar">
+              <span className={`inline-block px-3 py-2 sm:px-4 sm:py-3 md:px-6 md:py-4 lg:px-6 lg:py-5 border border-[#15d693] rounded-[16px] text-[#10b27c] font-mono whitespace-nowrap transition-all duration-500 ease-in-out ${textSizeClass}`}>
+                {currentWord}
+              </span>
+            </div>
           </div>
 
-          <button 
-      onClick={() => navigate('/user/signup')} 
-      className="btn-signup" 
-      type="button"
-    >
-      Sign Up for Free
-    </button>
-
-    <div className="px-4 mb-6 sm:px-8 md:px-16 lg:px-32">
-          <SearchBar/>
-        </div>
+           <button
+            onClick={() => navigate('/user/signup')}
+            className="bg-[#23c16e] hover:bg-[#1db358] text-white text-lg font-bold px-6 py-3 rounded-full shadow transition w-full mx-auto lg:mx-0"
+          >
+            Sign Up for Free
+          </button> 
+    
 
 
-          <div className="skill-tags" aria-label="Focus areas">
-            <div className="skill-tag"><span className="skill-icon"></span> AI</div>
-            <div className="skill-tag"><span className="skill-icon"></span> Coding</div>
-            <div className="skill-tag"><span className="skill-icon"></span> Interview Prep</div>
-            <div className="skill-tag"><span className="skill-icon"></span> New Age Skills</div>
+          <div className="w-full">
+            <SearchBar />
           </div>
 
-          <div className="avatar-line" aria-label="Learners">
-            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e518d664-7f16-4b0a-8d2f-1294947eba21.png" alt="Learner 1" />
-            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9e41deec-cf5b-4a9a-aeef-8d4483fd779b.png" alt="Learner 2" />
-            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7a0fea01-5e46-4f66-b2e6-02e3ec3aa5b9.png" alt="Learner 3" />
-            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bb794525-918d-4f06-a7ab-9132ab93093c.png" alt="Learner 4" />
-            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a9cd1bed-c479-4bb6-af39-4b5f23650530.png" alt="Learner 5" />
-            <div className="avatar-count">1 Million+ <span className='avatar-label'>Monthly Active Learners</span></div>
-            {/* <div className="avatar-label">Monthly Active Learners</div> */}
+          <div className="flex flex-wrap justify-center lg:justify-start gap-4 text-[#23c16e] text-sm">
+            {['AI', 'Coding', 'Interview Prep', 'New Age Skills'].map((tag, idx) => (
+              <div key={idx} className="flex items-center gap-1">
+                <span className="h-4 w-4 border-2 border-[#23c16e] rounded-sm"></span>
+                {tag}
+              </div>
+            ))}
+          </div>
+
+          <div className="flex items-center justify-center lg:justify-start gap-2 flex-wrap">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <img
+                key={i}
+                src={`https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/${[
+                  'e518d664-7f16-4b0a-8d2f-1294947eba21',
+                  '9e41deec-cf5b-4a9a-aeef-8d4483fd779b',
+                  '7a0fea01-5e46-4f66-b2e6-02e3ec3aa5b9',
+                  'bb794525-918d-4f06-a7ab-9132ab93093c',
+                  'a9cd1bed-c479-4bb6-af39-4b5f23650530'
+                ][i - 1]}.png`}
+                alt={`Learner ${i}`}
+                className="w-9 h-9 rounded-full border-2 border-white shadow"
+              />
+            ))}
+            <div className="font-bold text-sm">
+              1 Million+ <span className="text-gray-500 text-xs">Monthly Active Learners</span>
+            </div>
           </div>
         </section>
 
-        <section className="right-panel" aria-label="Student featured image with info boxes">
-          <div className="background-grid" aria-hidden="true"></div>
-          <div className="background-green-shape" aria-hidden="true"></div>
+        {/* RIGHT PANEL */}
+        <section className="relative flex justify-center items-center">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,_#c7e4d1_1px,_transparent_1px),linear-gradient(to_bottom,_#c7e4d1_1px,_transparent_1px)] bg-[length:40px_40px] opacity-25 rounded-3xl"></div>
+          <div className="relative w-[300px] sm:w-[340px] md:w-[360px] lg:w-[400px] h-[420px] sm:h-[440px] md:h-[460px] rounded-3xl bg-gradient-to-br from-[#23c16e] to-[#1eb85c] shadow-2xl flex justify-center items-center z-10">
+            <div className="absolute -top-9 -left-9 w-18 h-18 bg-white rounded-3xl"></div>
+            <div className="absolute -bottom-9 -right-9 w-18 h-18 bg-white rounded-3xl"></div>
+          </div>
           <img
             src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/76874a8e-3f7f-4034-84f4-53896a36c8f2.png"
-            alt="Smiling young woman student"
-            className="student-photo"
-            loading="lazy"
+            alt="Student"
+            className="absolute w-[240px] sm:w-[260px] md:w-[280px] lg:w-[300px] h-[360px] object-cover rounded-[20px] shadow-xl z-20"
             draggable="false"
+            loading="lazy"
           />
 
-          <aside className="info-box info-top-left" aria-label="Student placement info">
+          {/* Top left info */}
+          <aside className="absolute top-4 left-4 bg-white rounded-xl shadow-md p-3 text-sm flex items-center gap-3 z-30 min-w-[200px] sm:min-w-[230px]">
             <img
               src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/cb9453a9-ee26-400e-ae1a-8d44b7031060.png"
               alt="Mayur Jain"
-              className="avatar-small"
+              className="w-9 h-9 rounded-full object-cover shadow"
               loading="lazy"
             />
-            <div className="text-block">
-              <p className="title">Success Story</p>
-              <p className="subtitle">Sourabh Raj <br /><small>Microsoft</small></p>
+            <div className="flex-1">
+              <p className="font-semibold text-gray-900 m-0">Success Story</p>
+              <p className="text-gray-500 text-xs">Sourabh Raj<br /><small>Microsoft</small></p>
             </div>
-            <div className="badge-lpa">20 LPA</div>
+            <div className="bg-[#063a1e] text-[#76c893] rounded-full px-3 py-1 text-xs font-bold">20 LPA</div>
           </aside>
 
-          <aside className="info-box info-bottom-right" aria-label="Learner Reviews rating">
-            <div className="rating-score" aria-label="Rating 4.5 stars out of 5">
-              4.5 <span className="material-icons" aria-hidden="true">star</span>
+          {/* Bottom right info */}
+          <aside className="absolute bottom-4 right-4 bg-white rounded-xl shadow-md p-3 text-sm flex items-center justify-between gap-3 z-30 min-w-[200px] sm:min-w-[230px]">
+            <div className="text-[#23c16e] font-bold text-xl flex items-center gap-1">
+              4.5 <span className="material-icons text-[#23c16e] text-xl">star</span>
             </div>
             <div>
-              <div className="rating-label">Learner Reviews</div>
-              <div className="rating-bars" aria-hidden="true">
-                <div className="rating-bar-row"><span>5</span><div className="rating-bar star-5"></div></div>
-                <div className="rating-bar-row"><span>4</span><div className="rating-bar star-4"></div></div>
-                <div className="rating-bar-row"><span>3</span><div className="rating-bar star-3"></div></div>
-                <div className="rating-bar-row"><span>2</span><div className="rating-bar star-2"></div></div>
-                <div className="rating-bar-row"><span>1</span><div className="rating-bar star-1"></div></div>
+              <div className="text-xs text-gray-500">Learner Reviews</div>
+              <div className="flex flex-col gap-[3px] mt-1">
+                {[5, 4, 3, 2, 1].map((star, i) => (
+                  <div key={i} className="flex items-center gap-1">
+                    <span className="text-xs text-gray-400 w-4 text-center">{star}</span>
+                    <div className={`h-[6px] rounded-full bg-[#23c16e] ${
+                      star === 5 ? 'w-[90%]' :
+                      star === 4 ? 'w-[70%]' :
+                      star === 3 ? 'w-[45%]' :
+                      star === 2 ? 'w-[30%]' : 'w-[10%]'
+                    }`}></div>
+                  </div>
+                ))}
               </div>
             </div>
           </aside>
@@ -121,108 +149,3 @@ function Hero() {
 }
 
 export default Hero;
-
- 
-
-
-
-
-
-
-
-
-
-
-// import React, { useEffect } from 'react';
-// import './Hero.css';
-
-// function Hero() {
-//   useEffect(() => {
-//     const fontLink = document.createElement('link');
-//     fontLink.href = "https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap";
-//     fontLink.rel = "stylesheet";
-//     document.head.appendChild(fontLink);
-
-//     const iconLink = document.createElement('link');
-//     iconLink.href = "https://fonts.googleapis.com/icon?family=Material+Icons";
-//     iconLink.rel = "stylesheet";
-//     document.head.appendChild(iconLink);
-//   }, []);
-//   return (
-//     <div className='bg-white'>
-      
-//   <main>
-//     <section className="left-panel" aria-label="Promotional information">
-//       <h1>
-//         <span className="highlight">PrepInsta</span>, Engineering Simplified!!!
-//       </h1>
-//       <button className="btn-signup" type="button">Sign Up for Free</button>
-
-//       <div className="skill-tags" aria-label="Focus areas">
-//         <div className="skill-tag"><span className="skill-icon"></span> Aptitude</div>
-//         <div className="skill-tag"><span className="skill-icon"></span> Coding</div>
-//         <div className="skill-tag"><span className="skill-icon"></span> Interview Prep</div>
-//         <div className="skill-tag"><span className="skill-icon"></span> New Age Skills</div>
-//       </div>
-
-//       <div className="avatar-line" aria-label="Learners">
-//         <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e518d664-7f16-4b0a-8d2f-1294947eba21.png" alt="Avatar of active learner 1" />
-//         <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9e41deec-cf5b-4a9a-aeef-8d4483fd779b.png" alt="Avatar of active learner 2" />
-//         <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7a0fea01-5e46-4f66-b2e6-02e3ec3aa5b9.png" alt="Avatar of active learner 3" />
-//         <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bb794525-918d-4f06-a7ab-9132ab93093c.png" alt="Avatar of active learner 4" />
-//         <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a9cd1bed-c479-4bb6-af39-4b5f23650530.png" alt="Avatar of active learner 5" />
-//         <div className="avatar-count">10 Million+</div>
-//         <div className="avatar-label">Monthly Active Learners</div>
-//       </div>
-//     </section>
-
-//     <section className="right-panel" aria-label="Student featured image with info boxes">
-//       <div className="background-grid" aria-hidden="true"></div>
-//       <div className="background-green-shape" aria-hidden="true"></div>
-//       <img
-//         src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/76874a8e-3f7f-4034-84f4-53896a36c8f2.png"
-//         alt="Smiling young woman student with glasses holding books"
-//         className="student-photo"
-//         loading="lazy"
-//         draggable="false"
-//       />
-
-//       <aside className="info-box info-top-left" aria-label="Student placement info">
-//         <img
-//           src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/cb9453a9-ee26-400e-ae1a-8d44b7031060.png"
-//           alt="Avatar of Mayur Jain"
-//           className="avatar-small"
-//           aria-hidden="false"
-//           loading="lazy"
-//         />
-//         <div classNameName="text-block">
-//           <p className="title">Got Placed</p>
-//           <p className="subtitle">Mayur Jain <br /><small>Cognizant</small></p>
-//         </div>
-//         <div className="badge-lpa">10 LPA</div>
-//       </aside>
-
-//       <aside className="info-box info-bottom-right" aria-label="Google Reviews rating">
-//         <div className="rating-score" aria-label="Rating 4.5 stars out of 5">
-//           4.5 <span className="material-icons" aria-hidden="true">star</span>
-//         </div>
-//         <div>
-//           <div className="rating-label">Google Reviews</div>
-//           <div className="rating-bars" aria-hidden="true">
-//             <div className="rating-bar-row"><span>5</span><div className="rating-bar star-5"></div></div>
-//             <div className="rating-bar-row"><span>4</span><div className="rating-bar star-4"></div></div>
-//             <div className="rating-bar-row"><span>3</span><div className="rating-bar star-3"></div></div>
-//             <div className="rating-bar-row"><span>2</span><div className="rating-bar star-2"></div></div>
-//             <div className="rating-bar-row"><span>1</span><div className="rating-bar star-1"></div></div>
-//           </div>
-//         </div>
-//       </aside>
-//     </section>
-//   </main> 
-//     </div>
-//   )
-// }
-
-// export default Hero
-
- 
