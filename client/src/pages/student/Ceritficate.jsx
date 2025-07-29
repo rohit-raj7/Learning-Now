@@ -1,3 +1,4 @@
+ 
 
 import { useEffect, useRef, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
@@ -14,7 +15,7 @@ const CertificateGenerator = () => {
     const {
         user,
         userData,
-        educator,
+        educator,domainURL,
         educatorData,
         enrolledCourses,
         API_URL,
@@ -28,7 +29,9 @@ const CertificateGenerator = () => {
     const courseObj = enrolledCourses?.find(course => course._id === courseId);
     const courseName = courseObj?.courseTitle || 'Course Name';
     const studentId = user?.id || userData?._id || '';
-    const certificateId = `${courseObj?._id || ''}-${studentId}`;
+    
+    // const certificateId = `${courseObj?._id || ''}-${studentId}`; 
+    const certificateId = `${studentId}-${courseObj?._id || ''}`;
 
     const [formData, setFormData] = useState({
         studentName: '',
@@ -71,20 +74,16 @@ const CertificateGenerator = () => {
         setFormData(prev => ({
             ...prev,
             studentName: userData?.name || localUser?.name || '',
-            instructorName: educatorData?.name || localEducator?.name || '',
+            instructorName: educatorData?.name || localEducator?.name || 'Instructor',
             completionDate: today,
             courseId: latestCourseId || '',
             certificateId
         }));
     }, [userData, educatorData, enrolledCourses]);
 
-
-
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-
-
 
     const generateCertificate = async () => {
         const certId = certificateId.trim();
@@ -94,25 +93,23 @@ const CertificateGenerator = () => {
             studentName: formData.studentName?.trim(),
             courseId: courseObj?._id,
             courseTitle: courseName,
-            instructorName: formData.instructorName?.trim(),
+            instructorName: formData.instructorName?.trim() || 'Online Learing',
             completionDate: formData.completionDate
         };
 
         console.log("Payload before POST:", payload);
 
         if (
-            !payload.certificateId?.trim() ||
-            // !payload.studentName?.trim() ||
-            !payload.courseId?.trim() ||
-            !payload.courseTitle?.trim() ||
-            // !payload.instructorName?.trim() ||
-            !payload.completionDate?.trim()
+            !payload.certificateId ||
+            !payload.studentName ||
+            !payload.courseId ||
+            !payload.courseTitle ||
+            !payload.instructorName ||
+            !payload.completionDate
         ) {
             toast.error("Missing required fields. Please check and try again.");
             return;
         }
-
-
 
         try {
             const response = await fetch(`${API_URL}/api/certificate/${certId}`);
@@ -127,14 +124,20 @@ const CertificateGenerator = () => {
                 });
 
                 const createdCert = await createRes.json();
-                setFormData(prev => ({ ...prev, ...createdCert }));
+
+                if (createRes.ok) {
+                    setFormData(prev => ({ ...prev, ...createdCert }));
+                } else {
+                    throw new Error(createdCert.message || 'Failed to create certificate');
+                }
             }
 
             setCertificateReady(true);
 
             setTimeout(() => {
                 if (canvasRef.current && certId) {
-                    QRCode.toCanvas(canvasRef.current, certId, { width: 90 })
+                     const qrURL = `${domainURL}/qr/${certId}`;
+                    QRCode.toCanvas(canvasRef.current, qrURL, { width: 90 })
                         .then(() => toast.success("Certificate generated successfully!"))
                         .catch(err => {
                             console.error("QR generation failed:", err);
@@ -148,7 +151,6 @@ const CertificateGenerator = () => {
             toast.error('Failed to generate or fetch certificate. Try again.');
         }
     };
-
 
     const downloadCertificate = async () => {
         const element = certificateRef.current;

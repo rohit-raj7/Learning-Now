@@ -1,3 +1,49 @@
+// import express from 'express';
+// import Certificate from '../models/CertificatesModels.js';
+
+// const router = express.Router();
+
+// // GET certificate by ID
+// router.get('/:certificateId', async (req, res) => {
+//   const { certificateId } = req.params;
+//   try {
+//     const cert = await Certificate.findOne({ certificateId });
+//     if (cert) {
+//       return res.status(200).json(cert);
+//     } else {
+//       return res.status(404).json({ message: 'Certificate not found' });
+//     }
+//   } catch (err) {
+//     return res.status(500).json({ message: 'Server error', error: err.message });
+//   }
+// });
+
+
+
+// router.post('/', async (req, res) => {
+//   const { certificateId, studentName, courseId, courseTitle, completionDate } = req.body;
+
+//   if (!certificateId || !studentName || !courseId || !courseTitle || !completionDate) {
+//     return res.status(400).json({ message: 'Missing required fields' });
+//   }
+
+//   try {
+//     const existing = await Certificate.findOne({ certificateId });
+//     if (existing) return res.status(200).json(existing);
+
+//     const newCert = new Certificate({ certificateId, studentName, courseId, courseTitle, completionDate });
+//     await newCert.save();
+//     return res.status(201).json(newCert);
+//   } catch (err) {
+//     return res.status(500).json({ message: 'Failed to create certificate', error: err.message });
+//   }
+// });
+
+
+// export default router;
+
+
+
 import express from 'express';
 import Certificate from '../models/CertificatesModels.js';
 
@@ -18,8 +64,7 @@ router.get('/:certificateId', async (req, res) => {
   }
 });
 
-
-
+// POST certificate
 router.post('/', async (req, res) => {
   const { certificateId, studentName, courseId, courseTitle, instructorName, completionDate } = req.body;
 
@@ -33,11 +78,11 @@ router.post('/', async (req, res) => {
 
     const newCert = new Certificate({ certificateId, studentName, courseId, courseTitle, instructorName, completionDate });
     await newCert.save();
+     console.log('✅ Certificate saved to DB:', newCert);
     return res.status(201).json(newCert);
   } catch (err) {
     return res.status(500).json({ message: 'Failed to create certificate', error: err.message });
   }
 });
-
 
 export default router;

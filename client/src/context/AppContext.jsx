@@ -11,6 +11,7 @@ export const AppContextProvider = (props) => {
   const API_URL='https://onlinelearning-rohit.vercel.app'
   // const API_URL = 'http://localhost:3001';
 
+  const domainURL='https://online-learning-yet.vercel.app'
   const currency = "$";
   const navigate = useNavigate();
 
@@ -246,6 +247,7 @@ useEffect(() => {
     calculateCourseDuration,
     calculateRating,
     calculateNoOfLectures,
+    domainURL
   };
 
   return (

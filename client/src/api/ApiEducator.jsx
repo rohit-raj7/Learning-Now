@@ -106,8 +106,4 @@ export const logEducatorToken = () => {
 };
 
 export default API;
-
-
-
-
  

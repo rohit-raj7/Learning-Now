@@ -30,6 +30,7 @@ import Student from './pages/student/Student.jsx';
 import EducatorProfile from './components/educator/EducatorProfile.jsx';
 import CertificateGenerator from './pages/student/Ceritficate.jsx';
 import VerifyCertificate from './pages/student/VerifyCertificate.jsx';
+import QrVerifyCertificate from './pages/student/QrVerify.jsx';
 
 import 'quill/dist/quill.snow.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -68,18 +69,10 @@ const App = () => {
         <Route path="/user/:userId/my-enrollments" element={<MyEnrollments />} />
         <Route path="/player/:courseId" element={<Player />} />
         <Route path="/certificate/:courseId" element={<CertificateGenerator />} />
+         <Route path="/qr/:certificateId" element={<QrVerifyCertificate />} />
         <Route path="/verify-certificate" element={<VerifyCertificate />} />
         <Route path="/all-courses" element={<AllCoursesPage />} /> {/* ✅ NEW */}
-
-        {/* Educator App Pages */}
-        {/* <Route path="/educator/:educatorId" element={<Educator />}>
-          <Route path="/educator/:educatorId" element={<Dashboard />} />
-          <Route path="add-course" element={<AddCourse />} />
-          <Route path="my-courses" element={<MyCourses />} />
-          <Route path="student-enrolled" element={<StudentsEnrolled />} />
-          <Route path="educator-profile" element={<EducatorProfile />} />
-        </Route> */}
-
+ 
         <Route path="/educator/:educatorId" element={<Educator />}>
           <Route path="/educator/:educatorId" element={<Dashboard />} />
           <Route path="/educator/:educatorId/add-course" element={<AddCourse />} />
