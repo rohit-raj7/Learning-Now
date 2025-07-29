@@ -71,7 +71,7 @@ const QrVerifyCertificate = () => {
   };
 
   if (loading) {
-    return <p className="text-center mt-10 text-xl">🔍 Verifying certificate...</p>;
+    return <p className="text-center mt-10 text-xl text-white">🔍 Verifying certificate...</p>;
   }
 
   if (!certificateData) {
