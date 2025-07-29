@@ -1,9 +1,10 @@
- 
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
 import CertificatePreview from './CertificatePreview';
 import QRCode from 'qrcode';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -50,7 +51,24 @@ const QrVerifyCertificate = () => {
         if (err) console.error('QR generation error:', err);
       });
     }
-  }, [certificateData, canvasRef.current]);
+  }, [certificateData, domainURL, certificateId]);
+
+  // 3. Handle PDF download
+  const handleDownloadPDF = async () => {
+    if (!certificateRef.current) return;
+
+    const canvas = await html2canvas(certificateRef.current);
+    const imgData = canvas.toDataURL('image/png');
+
+    const pdf = new jsPDF({
+      orientation: 'landscape',
+      unit: 'px',
+      format: [canvas.width, canvas.height],
+    });
+
+    pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+    pdf.save(`Certificate-${certificateId}.pdf`);
+  };
 
   if (loading) {
     return <p className="text-center mt-10 text-xl">🔍 Verifying certificate...</p>;
@@ -74,7 +92,7 @@ const QrVerifyCertificate = () => {
           certificateRef={certificateRef}
           canvasRef={canvasRef}
           onGenerate={() => {}}
-          onDownload={() => {}}
+          onDownload={handleDownloadPDF}
           onPrint={() => window.print()}
           handleChange={() => {}}
           certificateReady={true}
