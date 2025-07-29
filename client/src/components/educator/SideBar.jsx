@@ -15,7 +15,7 @@ const SideBar = () => {
     { name: 'Add Course', path: `${basePath}/add-course`, icon: assets.add_icon },
     { name: 'My Courses', path: `${basePath}/my-courses`, icon: assets.my_course_icon },
     { name: 'Student Enrolled', path: `${basePath}/student-enrolled`, icon: assets.person_tick_icon },
-    { name: 'Delete Course', path: `${basePath}/delete-course`, icon: assets.person_tick_icon },
+    { name: 'Delete Course', path: `${basePath}/delete-course`, icon: assets.Delete },
   ];
 
   return isEducator && (

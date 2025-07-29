@@ -27,6 +27,7 @@ import home_icon from './housemake.svg'
 import add_icon from './Add_course.svg'
 import my_course_icon from './courser.svg'
 import person_tick_icon from './my_endroll.svg'
+import Delete from './delete_24dp_EA3323_FILL0_wght400_GRAD0_opsz24.svg';
 import facebook_icon from './facebook_icon.svg'
 import instagram_icon from './instagram_icon.svg'
 import twitter_icon from './twitter_icon.svg'
@@ -58,6 +59,7 @@ export const assets = {
     microsoft_logo,
     walmart_logo,
     accenture_logo,
+    Delete,
     adobe_logo,
     paypal_logo,
     course_1_thumbnail,
