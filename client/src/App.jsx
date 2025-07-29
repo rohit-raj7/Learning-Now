@@ -28,6 +28,7 @@ import AllCoursesPage from './components/student/AllCoursesPage.jsx'; // ✅ NEW
 
 import Student from './pages/student/Student.jsx';
 import EducatorProfile from './components/educator/EducatorProfile.jsx';
+import DeleteCourse from './components/educator/DeleteCourse.jsx';
 import CertificateGenerator from './pages/student/Ceritficate.jsx';
 import VerifyCertificate from './pages/student/VerifyCertificate.jsx';
 import QrVerifyCertificate from './pages/student/QrVerify.jsx';
@@ -79,6 +80,7 @@ const App = () => {
           <Route path="/educator/:educatorId/my-courses" element={<MyCourses />} />
           <Route path="/educator/:educatorId/student-enrolled" element={<StudentsEnrolled />} />
           <Route path="/educator/:educatorId/educator-profile" element={<EducatorProfile />} />
+           <Route path="/educator/:educatorId/delete-course" element={<DeleteCourse />} />
         </Route>
         
       </Routes>

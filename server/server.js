@@ -11,6 +11,7 @@ import educatorRouter from './routes/educatorRoutes.js'
 import courseRouter from './routes/courseRoute.js'
 import authRoutes from './routes/authRoutes.js'
 import certificate from './routes/certificates.js'
+import deleteCourse from './routes/deleteCourse.js'
 import { stripeWebhooks, handleUserEvents } from './controllers/webhooks.js'
 
 const app = express()
@@ -59,6 +60,7 @@ app.use('/api/course', courseRouter)
 app.use('/api/user', userRouter)
 app.use('/api/auth', authRoutes)
 app.use('/api/certificate', certificate)
+app.use('/api/delete', deleteCourse);
 
 
 
