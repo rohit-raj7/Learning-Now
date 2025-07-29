@@ -1,8 +1,8 @@
- 
+
 
 import { useEffect, useRef, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import QRCode from 'qrcode';
+import { generateQRCode } from './qr.js';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { AppContext } from '../../context/AppContext';
@@ -15,7 +15,7 @@ const CertificateGenerator = () => {
     const {
         user,
         userData,
-        educator,domainURL,
+        educator, domainURL,
         educatorData,
         enrolledCourses,
         API_URL,
@@ -29,7 +29,7 @@ const CertificateGenerator = () => {
     const courseObj = enrolledCourses?.find(course => course._id === courseId);
     const courseName = courseObj?.courseTitle || 'Course Name';
     const studentId = user?.id || userData?._id || '';
-    
+
     // const certificateId = `${courseObj?._id || ''}-${studentId}`; 
     const certificateId = `${studentId}-${courseObj?._id || ''}`;
 
@@ -134,16 +134,25 @@ const CertificateGenerator = () => {
 
             setCertificateReady(true);
 
+            // setTimeout(() => {
+            //     if (canvasRef.current && certId) {
+            //          const qrURL = `${domainURL}/qr/${certId}`;
+            //         QRCode.toCanvas(canvasRef.current, qrURL, { width: 90 })
+            //             .then(() => toast.success("Certificate generated successfully!"))
+            //             .catch(err => {
+            //                 console.error("QR generation failed:", err);
+            //                 toast.error("Failed to generate QR code.");
+            //             });
+            //     }
+            // }, 100);
+
             setTimeout(() => {
-                if (canvasRef.current && certId) {
-                     const qrURL = `${domainURL}/qr/${certId}`;
-                    QRCode.toCanvas(canvasRef.current, qrURL, { width: 90 })
-                        .then(() => toast.success("Certificate generated successfully!"))
-                        .catch(err => {
-                            console.error("QR generation failed:", err);
-                            toast.error("Failed to generate QR code.");
-                        });
-                }
+                generateQRCode(canvasRef, domainURL, certId)
+                    .then(() => toast.success("Certificate generated successfully!"))
+                    .catch(err => {
+                        console.error("QR generation failed:", err);
+                        toast.error("Failed to generate QR code.");
+                    });
             }, 100);
 
         } catch (err) {
