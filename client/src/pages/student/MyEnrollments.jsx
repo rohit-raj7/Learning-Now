@@ -89,7 +89,7 @@ const MyEnrollments = () => {
         <h1 className="text-2xl font-semibold">My Enrollments</h1>
 
         {enrolledCourses.length === 0 ? (
-          <p className="mt-10 text-center text-lg">Loading...</p>
+          <p className="mt-10 text-center text-lg">No courses enrolled. Start learning today!</p>
         ) : (
           <table className="w-full table-auto border border-gray-200 mt-10">
             <thead className="text-gray-200 border-b border-gray-200 text-sm text-left max-sm:hidden">
