@@ -70,7 +70,7 @@ const CertificatePreview = ({
 
                             <div className="flex gap-3 flex-wrap pt-2">
                                 <button onClick={onGenerate} className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md shadow-sm text-sm font-medium">
-                                    Generate Certificate 
+                                    Generate Certificate
                                 </button>
                                 <button onClick={onPrint} className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md shadow-sm text-sm font-medium">
                                     Print
@@ -114,7 +114,8 @@ const CertificatePreview = ({
 
                                     {/* Instructor Bottom Left */}
                                     <div className="absolute bottom-[6rem] left-[5rem] text-sm text-gray-700 italic text-left">
-                                        <p className="text-gray-600">{instructorName || 'Online Learning'}</p>
+                                        <p className="text-gray-600">{instructorName || 'Instructor Name'}</p>
+
                                         <div className="border-b border-gray-300 my-2 w-32"></div>
                                         <p className="font-semibold">Instructor</p>
                                     </div>

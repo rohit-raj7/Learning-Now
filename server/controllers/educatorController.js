@@ -287,7 +287,7 @@ export const addCourse = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Invalid JSON format in courseData' });
     }
 
-    // Upload image to Cloudinary from memory
+    // Upload thumbnail to Cloudinary
     const streamUpload = () => {
       return new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
@@ -305,19 +305,89 @@ export const addCourse = async (req, res) => {
     };
 
     const result = await streamUpload();
-
     parsedCourseData.courseThumbnail = result.secure_url;
-    parsedCourseData.educator = educatorId;
+
+    // Fetch educator data
+    const educator = await EducatorUser.findById(educatorId);
+    if (!educator) {
+      return res.status(404).json({ success: false, message: 'Educator not found' });
+    }
+
+    // Add educator info to course
+    parsedCourseData.educator = {
+      _id: educator._id,
+      name: educator.name,
+      email: educator.email,
+      createdAt: educator.createdAt
+    };
 
     const newCourse = await Course.create(parsedCourseData);
 
-    return res.status(201).json({ success: true, message: 'Course added successfully', courseId: newCourse._id });
+    return res.status(201).json({
+      success: true,
+      message: 'Course added successfully',
+      courseId: newCourse._id
+    });
 
   } catch (error) {
     console.error("Add Course Error:", error);
-    return res.status(500).json({ success: false, message: 'Server error: ' + error.message });
+    return res.status(500).json({
+      success: false,
+      message: 'Server error: ' + error.message
+    });
   }
 };
+
+
+// export const addCourse = async (req, res) => {
+//   try {
+//     const { courseData } = req.body;
+//     const file = req.file;
+//     const educatorId = req.educator?._id || req.auth?.educatorId;
+
+//     if (!file || !file.buffer) {
+//       return res.status(400).json({ success: false, message: 'Thumbnail not attached' });
+//     }
+
+//     let parsedCourseData;
+//     try {
+//       parsedCourseData = JSON.parse(courseData);
+//     } catch (err) {
+//       return res.status(400).json({ success: false, message: 'Invalid JSON format in courseData' });
+//     }
+
+//     // Upload image to Cloudinary from memory
+//     const streamUpload = () => {
+//       return new Promise((resolve, reject) => {
+//         const stream = cloudinary.uploader.upload_stream(
+//           {
+//             resource_type: 'image',
+//             folder: 'course_thumbnails',
+//           },
+//           (error, result) => {
+//             if (result) resolve(result);
+//             else reject(error);
+//           }
+//         );
+//         streamifier.createReadStream(file.buffer).pipe(stream);
+//       });
+//     };
+
+//     const result = await streamUpload();
+
+//     parsedCourseData.courseThumbnail = result.secure_url;
+//     parsedCourseData.educator = educatorId;
+
+//     const newCourse = await Course.create(parsedCourseData);
+
+//     return res.status(201).json({ success: true, message: 'Course added successfully', courseId: newCourse._id });
+
+//   } catch (error) {
+//     console.error("Add Course Error:", error);
+//     return res.status(500).json({ success: false, message: 'Server error: ' + error.message });
+//   }
+// };
+
 
 
 export const getEducatorCourses = async (req, res) => {

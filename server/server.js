@@ -10,7 +10,7 @@ import userRouter from './routes/userRoutes.js'
 import educatorRouter from './routes/educatorRoutes.js'
 import courseRouter from './routes/courseRoute.js'
 import authRoutes from './routes/authRoutes.js'
-import certificate from './routes/certificates.js'
+import certificate from './routes/certificates.js' 
 import deleteCourse from './routes/deleteCourse.js'
 import { stripeWebhooks, handleUserEvents } from './controllers/webhooks.js'
 
@@ -60,7 +60,7 @@ app.use('/api/course', courseRouter)
 app.use('/api/user', userRouter)
 app.use('/api/auth', authRoutes)
 app.use('/api/certificate', certificate)
-app.use('/api/delete', deleteCourse);
+app.use('/api/delete', deleteCourse); 
 
 
 
@@ -68,5 +68,4 @@ const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`)
 })
-
 

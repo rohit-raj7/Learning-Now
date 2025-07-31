@@ -24,11 +24,13 @@ const courseSchema = new mongoose.Schema({
     isPublished: { type: Boolean, default: true },
     discount: { type: Number, required: true, min: 0, max: 100 },
     courseContent: [chapterSchema], // Use the chapter schema here
-    educator: {
-        type: String,
-        ref: 'User',
-        required: true
-    },
+   educator: {
+    _id: { type: String, required: true },
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    createdAt: { type: Date, required: true }
+},
+
     courseRatings: [
         {
             userId: { type: String },

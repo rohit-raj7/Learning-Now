@@ -8,8 +8,8 @@ export const AppContext = createContext();
 
 export const AppContextProvider = (props) => {
   
-  const API_URL='https://onlinelearning-rohit.vercel.app'
-  // const API_URL = 'http://localhost:3001';
+  // const API_URL='https://onlinelearning-rohit.vercel.app'
+  const API_URL = 'http://localhost:3001';
 
   const domainURL='https://online-learning-yet.vercel.app'
   const currency = "$";
@@ -89,21 +89,31 @@ useEffect(() => {
     }
   };
 
-  const fetchEducatorData = async () => {
-    try {
-      const response = await fetch(`${API_URL}/api/educator/data`, {
-        headers: { Authorization: localStorage.getItem("token") },
+ const fetchEducatorData = async () => {
+  try {
+    const response = await fetch(`${API_URL}/api/educator/data`, {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+    const result = await response.json();
+
+    if (result.success) {
+      const { _id, name, email, createdAt } = result.educator;
+
+      // ✅ Save only relevant fields explicitly
+      setEducatorData({
+        _id,
+        name,
+        email,
+        createdAt
       });
-      const result = await response.json();
-      if (result.success) {
-        setEducatorData(result.educator);
-      } else {
-        toast.error(result.message);
-      }
-    } catch (error) {
-      toast.error(error.message);
+    } else {
+      toast.error(result.message);
     }
-  };
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
 
   const fetchAllCourses = async () => {
     try {

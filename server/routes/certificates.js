@@ -1,8 +1,9 @@
- 
+
 
 
 import express from 'express';
 import Certificate from '../models/CertificatesModels.js';
+ 
 
 const router = express.Router();
 
@@ -35,11 +36,16 @@ router.post('/', async (req, res) => {
 
     const newCert = new Certificate({ certificateId, studentName, courseId, courseTitle, instructorName, completionDate });
     await newCert.save();
-     console.log('✅ Certificate saved to DB:', newCert);
+
     return res.status(201).json(newCert);
   } catch (err) {
     return res.status(500).json({ message: 'Failed to create certificate', error: err.message });
   }
 });
+ 
+
+
 
 export default router;
+
+ 

@@ -13,7 +13,7 @@ const AddCourse = () => {
   const editorRef = useRef(null);
   const quillRef = useRef(null);
   const [loading, setLoading] = useState(false);
-  const { API_URL } = useContext(AppContext);
+  const { API_URL, educatorData } = useContext(AppContext);
 
   const [courseTitle, setCourseTitle] = useState('');
   const [coursePrice, setCoursePrice] = useState(0);
@@ -31,6 +31,7 @@ const AddCourse = () => {
     lectureUrl: '',
     isPreviewFree: false,
   });
+
 
   const handleChapter = (action, chapterId) => {
     if (action === 'add') {
@@ -111,6 +112,12 @@ const AddCourse = () => {
       coursePrice: Number(coursePrice),
       discount: Number(discount),
       courseContent: chapters,
+       educator: {
+        _id: educatorData._id,
+        name: educatorData.name,
+        email: educatorData.email,
+        createdAt: educatorData.createdAt,
+      },
     };
 
     const formData = new FormData();
@@ -318,3 +325,5 @@ const AddCourse = () => {
 };
 
 export default AddCourse;
+
+

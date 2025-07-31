@@ -34,9 +34,15 @@ const CourseCard = ({ course }) => {
         <h3 className="text-base sm:text-lg font-semibold truncate">
           {course.courseTitle}
         </h3>
-        <p className="text-xs sm:text-sm text-gray-400">
-          {course.educator?.name || 'Unknown Educator'}
-        </p>
+        {/* <p className="text-xs sm:text-sm text-gray-400">
+          Educator: {course.educator?.name || 'Unknown Educator'}
+        </p> */}
+        <p className="text-sm sm:text-base font-medium mt-3 text-gray-300">
+  <span className="text-gray-100">Educator :</span>{' '}
+  <span className="text-green-300 tracking-wide">{course.educator?.name || 'Unknown Educator'}</span>
+</p>
+
+
 
         {/* Ratings */}
         <div className="flex items-center space-x-2">

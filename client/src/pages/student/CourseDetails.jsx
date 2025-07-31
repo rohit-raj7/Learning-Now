@@ -1,4 +1,4 @@
- 
+
 
 import React, { useContext, useEffect, useState } from 'react';
 import Footer from '../../components/student/Footer';
@@ -109,7 +109,14 @@ const CourseDetails = () => {
             <p>{courseData.enrolledStudents.length} {courseData.enrolledStudents.length > 1 ? 'students' : 'student'}</p>
           </div>
 
-          <p className='text-sm'>Course by <span className='text-blue-600 underline'>{courseData.educator?.name}</span></p>
+          {/* <p className='text-sm'>Course by <span className='text-blue-400 underline'>{courseData.educator?.name}</span></p> */}
+
+          <p className="text-sm sm:text-base text-gray-300 font-medium mt-2">
+            Course by{' '}
+            <span className="text-green-400 hover:text-blue-300 underline underline-offset-4 decoration-1 transition-colors duration-200">
+              {courseData.educator?.name || 'Unknown'}
+            </span>
+          </p>
 
           <div className="pt-12">
             <h2 className="text-2xl font-bold text-white border-b border-gray-700 pb-2 mb-6">Course Structure</h2>
@@ -222,11 +229,10 @@ const CourseDetails = () => {
             <button
               onClick={enrollCourse}
               disabled={isAlreadyEnrolled}
-              className={`w-full py-3 mt-6 rounded font-medium transition ${
-                isAlreadyEnrolled
+              className={`w-full py-3 mt-6 rounded font-medium transition ${isAlreadyEnrolled
                   ? 'bg-gray-500 cursor-not-allowed text-white'
                   : 'bg-blue-600 hover:bg-blue-500 text-white'
-              }`}
+                }`}
             >
               {isAlreadyEnrolled ? "Already Enrolled" : "Enroll Now"}
             </button>
