@@ -8,8 +8,8 @@ export const AppContext = createContext();
 
 export const AppContextProvider = (props) => {
   
-  // const API_URL='https://onlinelearning-rohit.vercel.app'
-  const API_URL = 'http://localhost:3001';
+  const API_URL='https://onlinelearning-rohit.vercel.app'
+  // const API_URL = 'http://localhost:3001';
 
   const domainURL='https://online-learning-yet.vercel.app'
   const currency = "$";
