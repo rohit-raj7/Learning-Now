@@ -1,7 +1,7 @@
 
 
 import React, { useContext, useRef, useState, useEffect } from 'react';
-import { Link,useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
 import { updateEducatorProfileImageAPI } from '../../api/ApiEducator';
 import { assets } from '../../assets/assets.js';
@@ -84,22 +84,41 @@ const Navbar = ({ bgColor = 'bg-[#112d46]' }) => {
       <Link to="/">
         <img src={assets.logo} alt="Logo" className="w-16 cursor-pointer" />
       </Link>
-      <Link to='/'><p className='bg-green-500 text-white hover:text-black text-sm md:text-base rounded md:px-6 px-4 md:py-2 py-1 mx-1'>Home</p></Link>
+      {location.pathname !== '/' && (
+        <Link to='/'>
+          <p className='bg-green-500 text-white hover:text-black text-sm md:text-base rounded md:px-6 px-4 md:py-2 py-1 mx-1'>
+            Home
+          </p>
+        </Link>
+      )}
 
+      {location.pathname !== '/verify-certificate' && (
+        <Link to='/verify-certificate' className='hidden sm:block'>
+          <button className="bg-purple-600 hover:bg-purple-700 text-white text-sm md:text-base rounded-xl md:px-6 px-4 md:py-2 py-1 mx-1">
+            Verify Certificate
+          </button>
+        </Link>
+      )}
       <div className="flex items-center gap-6 text-gray-500 relative">
+
         {/* {isEducator && (
-          <Link to="/educator" className="text-cyan-400 hover:underline hover:text-white hidden sm:inline">
-            Dashboard
-          </Link>
-        )} */}
-        {isEducator && (
           <Link
             to={`/educator/${educatorData?._id || educator?._id}`}
             className="text-cyan-400 hover:underline hover:text-white hidden sm:inline"
           >
             Dashboard
           </Link>
+        )} */}
+        {isEducator && !location.pathname.startsWith('/educator') && (
+          <Link
+            to={`/educator/${educatorData?._id || educator?._id}`}
+            className="bg-[#23c16e] text-white hover:bg-cyan-700 text-sm md:text-base rounded md:px-4 px-3 md:py-2 py-1 mx-1 transition"
+          >
+            Dashboard
+          </Link>
         )}
+
+
 
         <p className="text-white">Hi! {educatorName || userName || name}</p>
 
