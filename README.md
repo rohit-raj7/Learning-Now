@@ -2,32 +2,33 @@
 
 A full-stack online education platform that supports seamless interaction between educators and students.
 
-✨ Features
-Educator Module
+## Features
 
-Sign up / Login
+***Educator Module***
 
-Create and manage video-based courses
+-Sign-up / Login
 
-Upload course content with chapter-wise structuring
+-Create and manage video-based courses
 
-Student Module
+-Upload course content with chapter-wise structuring
 
-Sign up / Login
+***Student Module***
 
-Browse and enroll in courses
+-Sign-up / Login
 
-Make secure payments via integrated gateway
+-Browse and enroll in courses
 
-Track course progress
+-Make secure payments via integrated gateway
 
-Receive certificates upon course completion
+-Track course progress
 
-Authentication
+-Receive certificates upon course completion
 
-JWT-based authentication (access + refresh tokens)
+***Authentication***
 
-Password reset via registered email
+-JWT-based authentication (access + refresh tokens)
+
+-Password reset via registered email
 
 ## 🚀 Project Overview
 
