@@ -1,6 +1,6 @@
 # 🎓 Online Learning Platform
 
-A **full-stack online education platform** that allows educators to sign up or log in to upload video-based courses, while students can **sign-up** or **login** to enroll, make **secure payments**, and learn at their own pace.
+A **full-stack online education platform** that allows educators to **sign-up** or **login** to upload video-based courses, while students can **sign-up** or **login** to enroll, make **secure payments**, and learn at their own pace.
 
 Upon successful completion of a course, students will receive a **certificate**.
 
