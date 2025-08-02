@@ -32,6 +32,20 @@ It supports:
 
 ---
 
+
+
+🔧 Tech Stack
+
+Layer	Technology
+
+Frontend	React.js, Tailwind CSS
+Backend	Node.js, Express.js
+Database	MongoDB
+Media Storage	Cloudinary
+Payments	Stripe
+Auth & Security	JWT (JSON Web Tokens)
+
+
 ## Live Project : https://online-learning-yet.vercel.app/
 ## 🧩 Key Features
 
