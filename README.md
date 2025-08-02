@@ -22,8 +22,8 @@ It supports:
 
 | Layer         | Technology             |
 |---------------|-------------------------|
-| Frontend      | React.js, Tailwind css 
-|
+| Frontend      | React.js, Tailwind css  |
+|               |                         |
 | Backend       | Node.js, Express.js     |
 | Database      | MongoDB                 |
 | Media Storage | Cloudinary              |
