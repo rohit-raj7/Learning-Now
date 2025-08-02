@@ -1,34 +1,11 @@
 # 🎓 Online Learning Platform
 
-A full-stack online education platform that supports seamless interaction between educators and students.
+A **full-stack online education platform** that allows educators to **sign-up** or **login** to upload video-based courses, while students can **sign-up** or **login** to enroll, make **secure payments**, and learn at their own pace.
 
-## Features
+Upon successful completion of a course, students will receive a **certificate**.
 
-***Educator Module***
+If a user forgets their password, they can reset it using their registered email address.
 
--Sign-up / Login
-
--Create and manage video-based courses
-
--Upload course content with chapter-wise structuring
-
-***Student Module***
-
--Sign-up / Login
-
--Browse and enroll in courses
-
--Make secure payments via integrated gateway
-
--Track course progress
-
--Receive certificates upon course completion
-
-***Authentication***
-
--JWT-based authentication (access + refresh tokens)
-
--Password reset via registered email
 
 ## 🚀 Project Overview
 
