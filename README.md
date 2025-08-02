@@ -1,8 +1,11 @@
 # 🎓 Online Learning Platform
 
-A **full-stack online education platform** that allows educators to upload video-based courses and students to enroll, pay securely, and learn at their own pace.
+A **full-stack online education platform** that allows educators to sign up or log in to upload video-based courses, while students can **sign-up** or **login** to enroll, make **secure payments**, and learn at their own pace.
 
----
+Upon successful completion of a course, students will receive a **certificate**.
+
+If a user forgets their password, they can reset it using their registered email address.
+
 
 ## 🚀 Project Overview
 
@@ -19,7 +22,8 @@ It supports:
 
 | Layer         | Technology             |
 |---------------|-------------------------|
-| Frontend      | React.js                |
+| Frontend      | React.js , Tailwind css 
+              |
 | Backend       | Node.js, Express.js     |
 | Database      | MongoDB                 |
 | Media Storage | Cloudinary              |
