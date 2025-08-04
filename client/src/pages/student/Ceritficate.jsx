@@ -74,7 +74,7 @@ const CertificateGenerator = () => {
         setFormData(prev => ({
             ...prev,
             studentName: userData?.name || localUser?.name || '',
-            instructorName: educatorData?.name || localEducator?.name || 'Online Learing',
+            instructorName: educatorData?.name || localEducator?.name || 'Learning Now',
             completionDate: today,
             courseId: latestCourseId || '',
             certificateId
@@ -93,7 +93,7 @@ const CertificateGenerator = () => {
             studentName: formData.studentName?.trim(),
             courseId: courseObj?._id,
             courseTitle: courseName,
-            instructorName: formData.instructorName?.trim() || 'Online Learing',
+            instructorName: formData.instructorName?.trim() || 'Learning Now',
             completionDate: formData.completionDate
         };
 
