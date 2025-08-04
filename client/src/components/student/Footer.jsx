@@ -17,7 +17,7 @@ function Footer() {
         <div className='w-full md:w-1/3 mb-8 md:mb-0'>
           <div className='flex items-center gap-2'>
             <img src={assets.logo} alt="Logo" className="h-12" />
-            <span className='text-3xl font-medium text-green-500'>Online Learning</span>
+            <span className='text-3xl font-medium text-green-500'>Learning Now</span>
           </div>
           <h2 className='font-medium text-gray-300 mt-4'>Thank You for Visiting My Learning Web!</h2>
           <p className='text-gray-400 mt-2'>
@@ -56,9 +56,11 @@ function Footer() {
       </div>
 
       {/* Bottom Section - Copyright */}
+      {/* Bottom Section - Copyright */}
       <div className='border-t border-gray-700 py-4 mt-10 text-left text-gray-500'>
-        © 2025 Rohit Raj. All Rights Reserved.
+        © {new Date().getFullYear()} Learning Now. All Rights Reserved.
       </div>
+
     </div>
   );
 }
