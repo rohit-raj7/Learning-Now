@@ -28,6 +28,7 @@ await connectCloudinary()
 //middle ware
 
 const allowedOrigins = [
+  'https://learningnow.online',
   'http://localhost:5173',
   'https://online-learning-yet.netlify.app',
   'https://online-learning-yet.vercel.app',
