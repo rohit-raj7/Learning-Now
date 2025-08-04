@@ -161,7 +161,7 @@ const CourseDetails = () => {
                                   className="text-red-500 font-bold cursor-pointer"
                                   onClick={() => toast.info("Please enroll in the course")}
                                 >
-                                  Locked
+                                  Locked 
                                 </span>
                               )}
                               <span className="text-gray-400">
@@ -263,3 +263,7 @@ const CourseDetails = () => {
 };
 
 export default CourseDetails;
+
+
+
+ 

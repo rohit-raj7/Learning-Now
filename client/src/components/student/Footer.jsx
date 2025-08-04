@@ -49,16 +49,34 @@ function Footer() {
           <p className='text-gray-400 mb-4 max-w-80'>
             The latest news, articles, and resources, sent to your inbox weekly.
           </p>
-          <div className='flex items-start'>
+          <div className="flex flex-col start">
             <Subscribe />
+            <div className="mt-4 text-gray-200">
+              <p className="text-xl">
+                <strong>Email:</strong>{' '}
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText('info@learningnow.com');
+                    alert('Email copied to clipboard!');
+                  }}
+                  className="text-green-400 hover:underline focus:outline-none"
+                >
+                  info@learningnow.com
+                </button>
+              </p>
+            </div>
+
+
+
           </div>
+
         </div>
       </div>
 
       {/* Bottom Section - Copyright */}
       {/* Bottom Section - Copyright */}
       <div className='border-t border-gray-700 py-4 mt-10 text-left text-gray-500'>
-        © {new Date().getFullYear()} Learning Now. All Rights Reserved.
+        © {new Date().getFullYear()} Learning Now. All Rights Reserved. Email : info@learningnow.com
       </div>
 
     </div>
