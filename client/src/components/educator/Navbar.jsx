@@ -30,8 +30,8 @@ const Navbar = ({ bgColor = 'bg-[#112d46]' }) => {
   };
 
   const userName = user?.fullName || user?.name || user?.email;
-  const educatorName = educatorData?.fullName || educatorData?.name || educatorData?.email || educator?.name || educator?.fullName || educator?.email || "Educator";
-  const name = userName || educatorName || "User";
+  const educatorName = educatorData?.fullName || educatorData?.name || educatorData?.email || educator?.name || educator?.fullName || educator?.email || "";
+  const name = userName || educatorName || "";
 
   const profileImgSrc = assets.default_user;
 
@@ -120,7 +120,7 @@ const Navbar = ({ bgColor = 'bg-[#112d46]' }) => {
 
 
 
-        <p className="text-white">Hi! {educatorName || userName || name}</p>
+        <p className="text-white">{educatorName || userName || name}</p>
 
         <img
           src={profileImgSrc}
