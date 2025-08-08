@@ -124,7 +124,7 @@ const CertificatePreview = ({
                                     <div className="absolute bottom-[5rem] left-1/2 transform -translate-x-1/2 text-center">
                                         <img src={assets.CEO_Sign} alt="CEO Signature" className="mx-auto mb-1 w-20" />
                                         <p className="font-semibold text-gray-800">Rohit Raj</p>
-                                        <p className="text-sm text-gray-600">CEO, Online Learning</p>
+                                        <p className="text-sm text-gray-600">CEO, Learning Now</p>
                                     </div>
 
                                     {/* QR & Certificate ID */}
