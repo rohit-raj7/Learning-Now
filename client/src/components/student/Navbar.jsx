@@ -37,7 +37,7 @@ const Navbar = () => {
     userData?.email ||
     educatorData?.fullName ||
     educatorData?.email ||
-    'User';
+    '';
 
   const profileImage =
     userData?.imageUrl ||
@@ -124,7 +124,7 @@ const Navbar = () => {
             <span className="text-white">|</span>
           </div>
 
-          <p className="text-white hidden sm:block">Hi! {profileName}</p>
+          <p className="text-white hidden sm:block">{profileName}</p>
 
           <img
             src={profileImage}
