@@ -156,11 +156,13 @@ useEffect(() => {
       if (data.success) {
         setEnrolledCourses(data.enrolledCourses.reverse());
       } else {
-        toast.error(data.message);
+        // toast.error(data.message);
+         console.error("Fetch user data failed:", result.message);
       }
       // console.log(data)
     } catch (error) {
-      toast.error(error.message);
+      // toast.error(error.message);
+     console.error("Error fetching user data:", error.message);
     }
   };
 
