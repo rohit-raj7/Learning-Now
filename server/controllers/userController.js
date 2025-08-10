@@ -328,9 +328,14 @@ export const getUserData = async (req, res) => {
 
     res.status(200).json({ success: true, user });
 
-  } catch (error) {
+  } 
+  // catch (error) {
+  //   console.error('Error fetching user data:', error.message);
+  //   res.status(500).json({ success: false, message: 'Server error: ' + error.message });
+  // }
+  catch (error) {
     console.error('Error fetching user data:', error.message);
-    res.status(500).json({ success: false, message: 'Server error: ' + error.message });
+    res.status(500).json({ success: false });
   }
 };
 
@@ -435,8 +440,13 @@ export const userEnrolledCourses = async (req, res) => {
 
     res.json({ success: true, enrolledCourses: userData.enrolledCourses });
 
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+  } 
+  // catch (error) {
+  //   res.status(500).json({ success: false, message: error.message });
+  // }
+  catch (error) {
+    console.error('Error fetching user data:', error.message);
+    res.status(500).json({ success: false });
   }
 };
 
