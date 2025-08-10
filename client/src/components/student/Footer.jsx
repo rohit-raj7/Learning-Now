@@ -61,7 +61,7 @@ function Footer() {
                   }}
                   className="text-green-400 hover:underline focus:outline-none"
                 >
-                  info@learningnow.com
+                  info@learningnow.online
                 </button>
               </p>
             </div>
