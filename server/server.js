@@ -33,7 +33,7 @@ const allowedOrigins = [
   'http://localhost:5173',
   'https://online-learning-yet.netlify.app',
   'https://online-learning-yet.vercel.app',
-  'https://online-learning-rohit.netlify.app',
+  'https://online-learning-rohit.netlify.app','https://learningnow7.vercel.app',
 ]
 
 app.use(cors({
@@ -70,4 +70,3 @@ const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`)
 })
-
